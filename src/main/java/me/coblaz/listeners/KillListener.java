@@ -1,0 +1,71 @@
+package me.coblaz.listeners;
+
+import com.hypixel.hytale.component.CommandBuffer;
+import com.hypixel.hytale.component.Ref;
+import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.component.query.Query;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.modules.entity.AllLegacyLivingEntityTypesQuery;
+import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
+import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
+import com.hypixel.hytale.server.core.modules.entity.damage.DeathSystems;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.util.EventTitleUtil;
+import com.hypixel.hytale.server.npc.entities.NPCEntity;
+
+import javax.annotation.Nonnull;
+
+public class KillListener extends DeathSystems.OnDeathSystem {
+
+    @Nonnull
+    @Override
+    public Query<EntityStore> getQuery() {
+        return AllLegacyLivingEntityTypesQuery.INSTANCE;
+    }
+
+    @Override
+    public void onComponentAdded(
+            @Nonnull Ref<EntityStore> ref,
+            @Nonnull DeathComponent component,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull CommandBuffer<EntityStore> commandBuffer) {
+
+        Damage deathInfo = component.getDeathInfo();
+        if (deathInfo == null) return;
+
+        Damage.Source source = deathInfo.getSource();
+        if (!(source instanceof Damage.EntitySource entitySource)) return;
+
+        Ref<EntityStore> sourceRef = entitySource.getRef();
+        if (!sourceRef.isValid()) return;
+
+        PlayerRef playerRef = (PlayerRef) store.getComponent(sourceRef, PlayerRef.getComponentType());
+        if (playerRef == null) return;
+
+        String entityName = getEntityName(ref, store);
+
+        EventTitleUtil.showEventTitleToPlayer(
+                playerRef,
+                Message.raw("You killed " + entityName),
+                Message.raw(""),
+                true
+        );
+    }
+
+    @Nonnull
+    private String getEntityName(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
+        // 1. If it's an NPC, use its role name (e.g., "goblin_warrior")
+        NPCEntity npc = (NPCEntity) store.getComponent(ref, NPCEntity.getComponentType());
+        if (npc != null) {
+            String role = npc.getRoleName();
+            if (role != null && !role.isEmpty()) {
+                return role;
+            }
+        }
+
+        // 2. Fallback: you can add a check for other entity types here later.
+        //    For now, return a generic name.
+        return "a creature";
+    }
+}
