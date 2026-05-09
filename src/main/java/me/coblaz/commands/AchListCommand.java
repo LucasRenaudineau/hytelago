@@ -22,6 +22,10 @@ import java.util.stream.Collectors;
 
 import me.coblaz.achievements.ItemAchievements;
 
+import java.util.Map;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class AchListCommand extends AbstractPlayerCommand {
 
     public AchListCommand() {
@@ -40,6 +44,7 @@ public class AchListCommand extends AbstractPlayerCommand {
 
         // ── Sync smelting achievements with current inventory ─────────────────
         syncSmeltingCounts(reg, playerRef, ref, store);
+        syncItemCounts(reg, playerRef, ref, store);
 
         // ── Refresh statuses and open page ────────────────────────────────────
         reg.refreshStatuses(playerRef);

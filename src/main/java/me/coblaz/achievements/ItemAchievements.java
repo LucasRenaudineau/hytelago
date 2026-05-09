@@ -28,7 +28,13 @@ public final class ItemAchievements {
             new Entry("Tool_Fishing_Trap",        "collect_fishing_trap",       "Trapper",              1),
             new Entry("Deco_Kweebec_Plush",       "collect_kweebec_plush",      "Plush Collector",      1),
             new Entry("Deco_Tankard",             "collect_tankard",            "Cheers!",              1),
-            new Entry("Survival_Trap_Spike_Wood", "collect_spike_trap_10",      "Spike Layer",          10)
+            new Entry("Survival_Trap_Spike_Wood", "collect_spike_trap_10",      "Spike Layer",          10),
+            new Entry("Plant_Crop_Carrot_Item",  "collect_carrot_20",  "Rabbit Diet",    20),
+            new Entry("Plant_Crop_Potato_Item",  "collect_potato_10",  "French Fries ?", 10),
+            new Entry("Plant_Crop_Corn_Item",    "collect_corn_5",     "Corn Harvest",    5),
+            new Entry("Plant_Crop_Cotton_Item",  "collect_cotton_5",   "Cotton Picker",   5),
+            new Entry("Plant_Cactus_Flower",     "collect_cactus_5",   "Desert Bloom",    5),
+            new Entry("Plant_Crop_Rice_Item",    "collect_rice_5",     "Rice Farmer",     5)
     );
 
     // ── Lookup: itemId (lowercase) → list of achievementIds ──────────────────
