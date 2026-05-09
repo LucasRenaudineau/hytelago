@@ -141,25 +141,24 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
         }
 
         for (int i = 0; i < defs.size(); i++) {
-            AchievementDefinition def  = defs.get(i);
-            PlayerAchievementData data = registry.getData(playerRef, def.getId());
+            AchievementDefinition def      = defs.get(i);
+            PlayerAchievementData data     = registry.getData(playerRef, def.getId());
+            String                selector = "#AchievementList[" + i + "]";
 
-            String selector = "#AchievementList[" + i + "]";
             cmd.append("#AchievementList", "Pages/AchievementEntry.ui");
-            cmd.set(selector + " #AchTitle.Text", def.getTitle());
-            cmd.set(selector + " #AchCount.Text", data.getCount() + "/" + def.getNeededCount());
-            // removed: cmd.set(selector + " .Background", backgroundFor(data.getStatus()));
+            cmd.set(selector + " #AchTitle.Text",              def.getTitle());
+            cmd.set(selector + " #AchCount.Text",              data.getCount() + "/" + def.getNeededCount());
+            cmd.set(selector + " #AchTitle.Style.TextColor",   colorFor(data.getStatus())); // ← new
+            cmd.set(selector + " #AchCount.Style.TextColor",   colorFor(data.getStatus())); // ← new
         }
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
-
     @Nonnull
-    private String backgroundFor(@Nonnull AchievementStatus status) {
+    private String colorFor(@Nonnull AchievementStatus status) {
         return switch (status) {
-            case NOT_DONE  -> "#5a1010(0.9)";
-            case DONE      -> "#5a5a10(0.9)";
-            case COLLECTED -> "#105a10(0.9)";
+            case NOT_DONE  -> "#ff4444";
+            case DONE      -> "#ffdd44";
+            case COLLECTED -> "#44ff88";
         };
     }
 }

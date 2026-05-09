@@ -1,0 +1,58 @@
+package me.coblaz.achievements;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public final class ItemAchievements {
+
+    public record Entry(
+            String itemId,
+            String achievementId,
+            String title,
+            int needed
+    ) {}
+
+    public static final List<Entry> ALL = List.of(
+            new Entry("Tool_Watering_Can",        "collect_watering_can",       "Green Thumb",          1),
+            new Entry("Ingredient_Voidheart",     "collect_voidheart",          "Heart of the Void",    1),
+            new Entry("Ingredient_Fire_Essence",  "collect_fire_essence_5",     "Fire Starter",         5),
+            new Entry("Ingredient_Ice_Essence",   "collect_ice_essence_50",     "Ice Collector",        50),
+            new Entry("Ingredient_Life_Essence",  "collect_life_essence_100",   "Life Gatherer",        100),
+            new Entry("Ingredient_Life_Essence",  "collect_life_essence_500",   "Life Hoarder",         500),
+            new Entry("Ingredient_Void_Essence",  "collect_void_essence_20",    "Void Touched",         20),
+            new Entry("Plant_Crop_Wheat_Item",    "collect_wheat_100",          "Wheat Farmer",         100),
+            new Entry("Container_Bucket",         "collect_bucket",             "Bucketeer",            1),
+            new Entry("Tool_Fishing_Trap",        "collect_fishing_trap",       "Trapper",              1),
+            new Entry("Deco_Kweebec_Plush",       "collect_kweebec_plush",      "Plush Collector",      1),
+            new Entry("Deco_Tankard",             "collect_tankard",            "Cheers!",              1),
+            new Entry("Survival_Trap_Spike_Wood", "collect_spike_trap_10",      "Spike Layer",          10)
+    );
+
+    // ── Lookup: itemId (lowercase) → list of achievementIds ──────────────────
+    // Uses a list because one item can map to multiple achievements
+    // (e.g. Life Essence at 100 AND 500)
+
+    private static final Map<String, List<String>> ITEM_TO_ACH_IDS =
+            ALL.stream().collect(Collectors.groupingBy(
+                    e -> e.itemId().toLowerCase(),
+                    Collectors.mapping(Entry::achievementId, Collectors.toList())
+            ));
+
+    public static void registerAll(@Nonnull AchievementRegistry reg) {
+        for (Entry e : ALL) {
+            reg.registerAchievement(new AchievementDefinition(
+                    e.achievementId(), e.title(), e.needed()
+            ));
+        }
+    }
+
+    @Nonnull
+    public static List<String> achievementIdsForItem(@Nonnull String itemId) {
+        return ITEM_TO_ACH_IDS.getOrDefault(itemId.toLowerCase(), List.of());
+    }
+
+    private ItemAchievements() {}
+}

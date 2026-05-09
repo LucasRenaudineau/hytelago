@@ -1,8 +1,10 @@
 package me.coblaz;
 
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import me.coblaz.achievements.AchievementDefinition;
 import me.coblaz.achievements.AchievementRegistry;
 import me.coblaz.achievements.MobKillAchievements;
@@ -12,6 +14,11 @@ import me.coblaz.commands.HelloTest;
 import me.coblaz.listeners.KillListener;
 
 import javax.annotation.Nonnull;
+
+import me.coblaz.achievements.SmeltingAchievements;
+import me.coblaz.listeners.InventoryListener;
+
+import me.coblaz.achievements.ItemAchievements;
 
 public class Main extends JavaPlugin {
 
@@ -32,6 +39,20 @@ public class Main extends JavaPlugin {
 
         // ── Mob-specific kill achievements ────────────────────────────────────
         MobKillAchievements.registerAll(reg);
+        // ── Smelting achievements ─────────────────────────────────────────────────
+        SmeltingAchievements.registerAll(reg);   // ← ADD
+        ItemAchievements.registerAll(reg);
+
+        // ── Listeners ─────────────────────────────────────────────────────────────
+        reg.addListener((playerRef, def) ->
+                EventTitleUtil.showEventTitleToPlayer(
+                        playerRef,
+                        Message.raw("Achievement collected!"),
+                        Message.raw(def.getId()),
+                        true
+                )
+                // In theory here should be some code to send the check of location with the id to the archipelago server
+        );
 
         // ── Commands ──────────────────────────────────────────────────────────
         this.getCommandRegistry().registerCommand(
@@ -42,5 +63,6 @@ public class Main extends JavaPlugin {
 
         // ── Systems ───────────────────────────────────────────────────────────
         EntityStore.REGISTRY.registerSystem(new KillListener());
+        EntityStore.REGISTRY.registerSystem(new InventoryListener());   // ← ADD
     }
 }

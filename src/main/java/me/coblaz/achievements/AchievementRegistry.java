@@ -191,4 +191,11 @@ public final class AchievementRegistry {
     private String playerKey(@Nonnull PlayerRef playerRef) {
         return playerRef.getUuid().toString();
     }
+    /** Directly sets the count for a player's achievement and saves. */
+    public void setCount(@Nonnull PlayerRef playerRef,
+                         @Nonnull String achievementId,
+                         int count) {
+        getOrCreate(playerRef, achievementId).setCount(count);
+        savePlayer(playerRef);
+    }
 }

@@ -1,7 +1,7 @@
 Group {
   LayoutMode: Left;
   Anchor: (Height: 52);
-  Background: #5a1010(0.9);
+  Background: #1e1e2e(0.9);     // ← was #5a1010(0.9), now neutral
   Padding: (Full: 10);
   Label #AchTitle {
     Text: "Achievement";
