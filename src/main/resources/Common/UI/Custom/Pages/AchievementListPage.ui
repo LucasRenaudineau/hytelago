@@ -1,0 +1,25 @@
+Group {
+    Anchor: (Width: 540, Height: 480);
+    Background: #12121f(0.97);
+    LayoutMode: Top;
+    Padding: (Full: 18);
+    Label #PageTitle {
+        Text: "Achievements";
+        Anchor: (Height: 44);
+        Style: (FontSize: 26, TextColor: #e0e0ff, Alignment: Center, RenderBold: true);
+    }
+    Group {
+        Anchor: (Width: 504, Height: 2);
+        Background: #333355(1.0);
+    }
+    Group #AchievementList {
+        Anchor: (Width: 504, Height: 368);
+        Background: #0a1119(0.5);
+        LayoutMode: TopScrolling;
+        Padding: (Full: 6);
+    }
+    TextButton #CollectButton {
+        Text: "Collect Achievements";
+        Anchor: (Height: 44);
+    }
+}

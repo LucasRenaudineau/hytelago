@@ -1,0 +1,16 @@
+Group {
+  LayoutMode: Left;
+  Anchor: (Height: 52);
+  Background: #5a1010(0.9);
+  Padding: (Full: 10);
+  Label #AchTitle {
+    Text: "Achievement";
+    Anchor: (Width: 360, Height: 32);
+    Style: (FontSize: 16, TextColor: #ffffff, VerticalAlignment: Center);
+  }
+  Label #AchCount {
+    Text: "0/1";
+    Anchor: (Width: 136, Height: 32);
+    Style: (FontSize: 15, TextColor: #aaaacc, VerticalAlignment: Center);
+  }
+}

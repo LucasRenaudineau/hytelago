@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
+import me.coblaz.achievements.AchievementRegistry;
 
 import javax.annotation.Nonnull;
 
@@ -44,6 +45,10 @@ public class KillListener extends DeathSystems.OnDeathSystem {
         if (playerRef == null) return;
 
         String entityName = getEntityName(ref, store);
+
+        if (entityName.equalsIgnoreCase("zombie")) {
+            AchievementRegistry.getInstance().incrementCount(playerRef, "kill_zombie", 1);
+        }
 
         EventTitleUtil.showEventTitleToPlayer(
                 playerRef,

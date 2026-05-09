@@ -19,3 +19,11 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+// ← this block was missing; without it the .ui file never ends up in the JAR
+tasks.jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    archiveBaseName.set("hytelago_achievements")
+    archiveVersion.set("1.0.0")
+    from("src/main/resources")
+}
