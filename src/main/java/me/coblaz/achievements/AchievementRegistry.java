@@ -16,9 +16,10 @@ public final class AchievementRegistry {
     public static AchievementRegistry getInstance() { return INSTANCE; }
 
     // ── Internal state ───────────────────────────────────────────────────────
-    private final List<AchievementDefinition>                    definitions = new ArrayList<>();
-    private final Map<String, Map<String, PlayerAchievementData>> playerData  = new HashMap<>();
-    private final List<AchievementListener>                       listeners   = new ArrayList<>();
+    private final List<AchievementDefinition>                     definitions   = new ArrayList<>();
+    private final Map<String, Map<String, PlayerAchievementData>> playerData    = new HashMap<>();
+    private final List<AchievementListener>                       listeners     = new ArrayList<>();
+    private final Set<String>                                     loadedPlayers = new HashSet<>();
 
     // ── Registration (called at plugin startup) ──────────────────────────────
 
@@ -69,6 +70,7 @@ public final class AchievementRegistry {
                                @Nonnull String achievementId,
                                int amount) {
         getOrCreate(playerRef, achievementId).incrementCount(amount);
+        savePlayer(playerRef);
     }
 
     /**
@@ -79,6 +81,7 @@ public final class AchievementRegistry {
                           @Nonnull String achievementId,
                           @Nonnull AchievementStatus status) {
         getOrCreate(playerRef, achievementId).setStatus(status);
+        savePlayer(playerRef);
     }
 
     /**
@@ -93,6 +96,7 @@ public final class AchievementRegistry {
                 data.setStatus(AchievementStatus.DONE);
             }
         }
+        savePlayer(playerRef);
     }
 
     /**
@@ -112,6 +116,8 @@ public final class AchievementRegistry {
                 fireListeners(playerRef, def);
             }
         }
+
+        if (!justCollected.isEmpty()) savePlayer(playerRef);
         return justCollected;
     }
 
@@ -130,10 +136,11 @@ public final class AchievementRegistry {
         data.setCount(def.getNeededCount());
         data.setStatus(AchievementStatus.COLLECTED);
         fireListeners(playerRef, def);
+        savePlayer(playerRef);
         return true;
     }
 
-    // ── Internals ────────────────────────────────────────────────────────────
+    // ── Internals ─────────────────────────────────────────────────────────────
 
     private void fireListeners(@Nonnull PlayerRef playerRef,
                                @Nonnull AchievementDefinition def) {
@@ -150,9 +157,28 @@ public final class AchievementRegistry {
     @Nonnull
     private PlayerAchievementData getOrCreate(@Nonnull PlayerRef playerRef,
                                               @Nonnull String achievementId) {
+        String key = playerKey(playerRef);
+        loadIfNeeded(key);
         return playerData
-                .computeIfAbsent(playerKey(playerRef), k -> new HashMap<>())
+                .computeIfAbsent(key, k -> new HashMap<>())
                 .computeIfAbsent(achievementId, k -> new PlayerAchievementData());
+    }
+
+    private void loadIfNeeded(@Nonnull String key) {
+        if (loadedPlayers.contains(key)) return;
+        loadedPlayers.add(key);
+        Map<String, PlayerAchievementData> saved = AchievementSaveManager.load(key);
+        if (!saved.isEmpty()) {
+            playerData.put(key, saved);
+        }
+    }
+
+    private void savePlayer(@Nonnull PlayerRef playerRef) {
+        String key = playerKey(playerRef);
+        Map<String, PlayerAchievementData> data = playerData.get(key);
+        if (data != null) {
+            AchievementSaveManager.save(key, data);
+        }
     }
 
     /**
@@ -163,6 +189,6 @@ public final class AchievementRegistry {
      */
     @Nonnull
     private String playerKey(@Nonnull PlayerRef playerRef) {
-        return playerRef.toString();
+        return playerRef.getUuid().toString();
     }
 }
