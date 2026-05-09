@@ -14,6 +14,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import me.coblaz.achievements.AchievementRegistry;
+import me.coblaz.achievements.MobKillAchievements;
 
 import javax.annotation.Nonnull;
 
@@ -27,11 +28,11 @@ public class KillListener extends DeathSystems.OnDeathSystem {
 
     @Override
     public void onComponentAdded(
-            @Nonnull Ref<EntityStore> ref,
-            @Nonnull DeathComponent component,
-            @Nonnull Store<EntityStore> store,
-            @Nonnull CommandBuffer<EntityStore> commandBuffer) {
-
+            @Nonnull Ref<EntityStore>           ref,
+            @Nonnull DeathComponent             component,
+            @Nonnull Store<EntityStore>         store,
+            @Nonnull CommandBuffer<EntityStore> commandBuffer
+    ) {
         Damage deathInfo = component.getDeathInfo();
         if (deathInfo == null) return;
 
@@ -46,8 +47,17 @@ public class KillListener extends DeathSystems.OnDeathSystem {
 
         String entityName = getEntityName(ref, store);
 
-        if (entityName.equalsIgnoreCase("zombie")) {
-            AchievementRegistry.getInstance().incrementCount(playerRef, "kill_zombie", 1);
+        AchievementRegistry reg = AchievementRegistry.getInstance();
+
+        // ── General kill milestones (every kill counts) ───────────────────────
+        reg.incrementCount(playerRef, "first_kill",    1);
+        reg.incrementCount(playerRef, "ten_kills",     1);
+        reg.incrementCount(playerRef, "hundred_kills", 1);
+
+        // ── Mob-specific achievement ──────────────────────────────────────────
+        String achId = MobKillAchievements.achievementIdForRole(entityName);
+        if (achId != null) {
+            reg.incrementCount(playerRef, achId, 1);
         }
 
         EventTitleUtil.showEventTitleToPlayer(
@@ -60,7 +70,6 @@ public class KillListener extends DeathSystems.OnDeathSystem {
 
     @Nonnull
     private String getEntityName(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
-        // 1. If it's an NPC, use its role name (e.g., "goblin_warrior")
         NPCEntity npc = (NPCEntity) store.getComponent(ref, NPCEntity.getComponentType());
         if (npc != null) {
             String role = npc.getRoleName();
@@ -68,9 +77,6 @@ public class KillListener extends DeathSystems.OnDeathSystem {
                 return role;
             }
         }
-
-        // 2. Fallback: you can add a check for other entity types here later.
-        //    For now, return a generic name.
         return "a creature";
     }
 }
