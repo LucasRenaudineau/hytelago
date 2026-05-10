@@ -34,7 +34,10 @@ public final class ItemAchievements {
             new Entry("Plant_Crop_Corn_Item",    "collect_corn_5",     "Corn Harvest",    5),
             new Entry("Plant_Crop_Cotton_Item",  "collect_cotton_5",   "Cotton Picker",   5),
             new Entry("Plant_Cactus_Flower",     "collect_cactus_5",   "Desert Bloom",    5),
-            new Entry("Plant_Crop_Rice_Item",    "collect_rice_5",     "Rice Farmer",     5)
+            new Entry("Plant_Crop_Rice_Item",    "collect_rice_5",     "Rice Farmer",     5),
+            new Entry("Food_Kebab_Vegetable",    "collect_food_kebab_vegetable_20",     "Vegetable Lover",     5),
+            new Entry("Furniture_Crude_Torch", "collect_furniture_crude_torch_10", "Need light !", 10),
+            new Entry("Egg", "collect_egg_1", "Egg or Chicken before ?", 1)
     );
 
     // ── Lookup: itemId (lowercase) → list of achievementIds ──────────────────

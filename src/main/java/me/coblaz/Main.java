@@ -5,20 +5,16 @@ import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
-import me.coblaz.achievements.AchievementDefinition;
-import me.coblaz.achievements.AchievementRegistry;
-import me.coblaz.achievements.MobKillAchievements;
+import me.coblaz.achievements.*;
 import me.coblaz.commands.AchCollectCommand;
 import me.coblaz.commands.AchListCommand;
 import me.coblaz.commands.HelloTest;
+import me.coblaz.listeners.DeathListener;
 import me.coblaz.listeners.KillListener;
 
 import javax.annotation.Nonnull;
 
-import me.coblaz.achievements.SmeltingAchievements;
 import me.coblaz.listeners.InventoryListener;
-
-import me.coblaz.achievements.ItemAchievements;
 
 public class Main extends JavaPlugin {
 
@@ -36,12 +32,14 @@ public class Main extends JavaPlugin {
         reg.registerAchievement(new AchievementDefinition("first_kill",    "First Blood",      1));
         reg.registerAchievement(new AchievementDefinition("ten_kills",     "Serial Killer",    10));
         reg.registerAchievement(new AchievementDefinition("hundred_kills", "Mass Destruction", 100));
+        reg.registerAchievement(new AchievementDefinition("finding_frost_dragon", "Found Dragon", 1));
 
         // ── Mob-specific kill achievements ────────────────────────────────────
         MobKillAchievements.registerAll(reg);
         // ── Smelting achievements ─────────────────────────────────────────────────
         SmeltingAchievements.registerAll(reg);   // ← ADD
         ItemAchievements.registerAll(reg);
+        DeathAchievements.registerAll(reg);
 
         // ── Listeners ─────────────────────────────────────────────────────────────
         reg.addListener((playerRef, def) ->
@@ -64,5 +62,6 @@ public class Main extends JavaPlugin {
         // ── Systems ───────────────────────────────────────────────────────────
         EntityStore.REGISTRY.registerSystem(new KillListener());
         EntityStore.REGISTRY.registerSystem(new InventoryListener());   // ← ADD
+        EntityStore.REGISTRY.registerSystem(new DeathListener());
     }
 }
