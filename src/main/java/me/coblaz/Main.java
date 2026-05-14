@@ -37,7 +37,7 @@ public class Main extends JavaPlugin {
         // ── Mob-specific kill achievements ────────────────────────────────────
         MobKillAchievements.registerAll(reg);
         // ── Smelting achievements ─────────────────────────────────────────────────
-        SmeltingAchievements.registerAll(reg);   // ← ADD
+        // SmeltingAchievements.registerAll(reg);   // ← ADD
         ItemAchievements.registerAll(reg);
         DeathAchievements.registerAll(reg);
 

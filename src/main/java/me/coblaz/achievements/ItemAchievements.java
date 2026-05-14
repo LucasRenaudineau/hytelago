@@ -37,7 +37,13 @@ public final class ItemAchievements {
             new Entry("Plant_Crop_Rice_Item",    "collect_rice_5",     "Rice Farmer",     5),
             new Entry("Food_Kebab_Vegetable",    "collect_food_kebab_vegetable_20",     "Vegetable Lover",     5),
             new Entry("Furniture_Crude_Torch", "collect_furniture_crude_torch_10", "Need light !", 10),
-            new Entry("Egg", "collect_egg_1", "Egg or Chicken before ?", 1)
+            new Entry("Egg", "collect_egg_1", "Egg or Chicken before ?", 1),
+            new Entry("Ingredient_Bar_Iron",    "smelt_iron",    "Iron Smith",    5),
+            new Entry("Ingredient_Bar_Copper",  "smelt_copper",  "Copper Smith",  5),
+            new Entry("Ingredient_Bar_Silver",  "smelt_silver",  "Silver Smith",  5),
+            new Entry("Ingredient_Bar_Gold",    "smelt_gold",    "Gold Smith",    5),
+            new Entry("Ingredient_Bar_Thorium", "smelt_thorium", "Thorium Smith", 5),
+            new Entry("Ingredient_Bar_Cobalt",  "smelt_cobalt",  "Cobalt Smith",  5)
     );
 
     // ── Lookup: itemId (lowercase) → list of achievementIds ──────────────────
