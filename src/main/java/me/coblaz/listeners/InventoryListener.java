@@ -12,7 +12,7 @@ import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import me.coblaz.achievements.AchievementRegistry;
-import me.coblaz.achievements.ItemAchievements;
+import me.coblaz.achievements.LocationsPropertyAchievements;
 import me.coblaz.achievements.Registries;
 
 import javax.annotation.Nonnull;
@@ -42,13 +42,13 @@ public class InventoryListener extends EntityEventSystem<EntityStore, InventoryC
         ItemStack query = tx.getQuery();
         if (query == null) return;
 
-        List<String> achIds = ItemAchievements.achievementIdsForItem(query.getItemId());
+        List<String> achIds = LocationsPropertyAchievements.achievementIdsForItem(query.getItemId());
         if (achIds.isEmpty()) return;
 
         PlayerRef playerRef = archetypeChunk.getComponent(index, PlayerRef.getComponentType());
         if (playerRef == null) return;
 
-        AchievementRegistry reg = Registries.ITEMS;
+        AchievementRegistry reg = Registries.LOCATIONS;
         for (String achId : achIds) {
             reg.incrementCount(playerRef, achId, query.getQuantity());
         }

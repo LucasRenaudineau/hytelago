@@ -17,6 +17,8 @@ import javax.annotation.Nonnull;
 
 import me.coblaz.listeners.InventoryListener;
 
+import me.coblaz.items.ItemsAchievements;
+
 public class Main extends JavaPlugin {
 
     public Main(@Nonnull JavaPluginInit init) {
@@ -40,8 +42,9 @@ public class Main extends JavaPlugin {
         MobKillAchievements.registerAll(locations);
         // ── Smelting achievements ─────────────────────────────────────────────────
         // SmeltingAchievements.registerAll(reg);   // ← ADD
-        ItemAchievements.registerAll(locations);
+        LocationsPropertyAchievements.registerAll(locations);
         DeathAchievements.registerAll(locations);
+        ItemsAchievements.registerAll(Registries.ITEMS);
 
         // ── Listeners ─────────────────────────────────────────────────────────────
         locations.addListener((playerRef, def) ->

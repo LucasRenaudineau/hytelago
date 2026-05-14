@@ -10,9 +10,8 @@ import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import me.coblaz.achievements.AchievementRegistry;
-import me.coblaz.achievements.ItemAchievements;
-import me.coblaz.achievements.Registries;
+import me.coblaz.achievements.*;
+import me.coblaz.items.ItemsAchievements;
 import me.coblaz.ui.AchievementListPage;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
@@ -29,44 +28,15 @@ public class ItemsListCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNullDecl CommandContext     ctx,
+            @NonNullDecl CommandContext ctx,
             @NonNullDecl Store<EntityStore> store,
-            @NonNullDecl Ref<EntityStore>   ref,
-            @NonNullDecl PlayerRef          playerRef,
-            @NonNullDecl World              world
+            @NonNullDecl Ref<EntityStore> ref,
+            @NonNullDecl PlayerRef playerRef,
+            @NonNullDecl World world
     ) {
-        syncItemCounts(Registries.ITEMS, playerRef, ref, store);
         Registries.ITEMS.refreshStatuses(playerRef);
         Player player = store.getComponent(ref, Player.getComponentType());  // ← this was missing
         player.getPageManager().openCustomPage(ref, store,
                 new AchievementListPage(playerRef, Registries.ITEMS));
-    }
-
-    private void syncItemCounts(
-            AchievementRegistry    reg,
-            PlayerRef              playerRef,
-            Ref<EntityStore>       ref,
-            Store<EntityStore>     store
-    ) {
-        InventoryComponent.Hotbar   hotbar   = store.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
-        InventoryComponent.Storage  storage  = store.getComponent(ref, InventoryComponent.Storage.getComponentType());
-        InventoryComponent.Backpack backpack = store.getComponent(ref, InventoryComponent.Backpack.getComponentType());
-
-        Map<String, List<ItemAchievements.Entry>> byItem = ItemAchievements.ALL.stream()
-                .collect(Collectors.groupingBy(e -> e.itemId().toLowerCase()));
-
-        for (Map.Entry<String, List<ItemAchievements.Entry>> group : byItem.entrySet()) {
-            Predicate<ItemStack> match = item ->
-                    group.getKey().equalsIgnoreCase(item.getItemId());
-
-            int count = 0;
-            if (hotbar   != null) count += hotbar.getInventory().countItemStacks(match);
-            if (storage  != null) count += storage.getInventory().countItemStacks(match);
-            if (backpack != null) count += backpack.getInventory().countItemStacks(match);
-
-            for (ItemAchievements.Entry entry : group.getValue()) {
-                reg.setCount(playerRef, entry.achievementId(), count);
-            }
-        }
     }
 }

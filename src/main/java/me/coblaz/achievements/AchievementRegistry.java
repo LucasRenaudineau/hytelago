@@ -122,19 +122,9 @@ public final class AchievementRegistry {
             PlayerAchievementData data   = getOrCreate(playerRef, def.getId());
             AchievementStatus     status = data.getStatus();
 
-            boolean shouldCollect =
-                    status == AchievementStatus.DONE
-                            || (status == AchievementStatus.COLLECTED && def.isMultipleCollects());
+            if (status != AchievementStatus.DONE) continue;
 
-            if (!shouldCollect) continue;
-
-            if (def.isMultipleCollects()) {
-                // Reset so the player can earn it again
-                data.setCount(0);
-                data.setStatus(AchievementStatus.NOT_DONE);
-            } else {
-                data.setStatus(AchievementStatus.COLLECTED);
-            }
+            data.setStatus(AchievementStatus.COLLECTED);
 
             justCollected.add(def);
             fireListeners(playerRef, def);
@@ -159,7 +149,6 @@ public final class AchievementRegistry {
         if (def == null) return false;
 
         PlayerAchievementData data = getOrCreate(playerRef, achievementId);
-        if (data.getStatus() == AchievementStatus.COLLECTED) return false;
 
         data.setCount(def.getNeededCount());
         data.setStatus(AchievementStatus.COLLECTED);

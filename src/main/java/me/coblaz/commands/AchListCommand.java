@@ -20,11 +20,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import me.coblaz.achievements.ItemAchievements;
-
-import java.util.Map;
-import java.util.List;
-import java.util.stream.Collectors;
+import me.coblaz.achievements.LocationsPropertyAchievements;
 
 public class AchListCommand extends AbstractPlayerCommand {
 
@@ -56,10 +52,10 @@ public class AchListCommand extends AbstractPlayerCommand {
         InventoryComponent.Backpack backpack = store.getComponent(ref, InventoryComponent.Backpack.getComponentType());
 
         // Group entries by itemId to avoid scanning inventory multiple times per item
-        Map<String, List<ItemAchievements.Entry>> byItem = ItemAchievements.ALL.stream()
+        Map<String, List<LocationsPropertyAchievements.Entry>> byItem = LocationsPropertyAchievements.ALL.stream()
                 .collect(Collectors.groupingBy(e -> e.itemId().toLowerCase()));
 
-        for (Map.Entry<String, List<ItemAchievements.Entry>> group : byItem.entrySet()) {
+        for (Map.Entry<String, List<LocationsPropertyAchievements.Entry>> group : byItem.entrySet()) {
             Predicate<ItemStack> match = item ->
                     group.getKey().equalsIgnoreCase(item.getItemId());
 
@@ -68,7 +64,7 @@ public class AchListCommand extends AbstractPlayerCommand {
             if (storage  != null) count += storage.getInventory().countItemStacks(match);
             if (backpack != null) count += backpack.getInventory().countItemStacks(match);
 
-            for (ItemAchievements.Entry entry : group.getValue()) {
+            for (LocationsPropertyAchievements.Entry entry : group.getValue()) {
                 reg.setCount(playerRef, entry.achievementId(), count);
             }
         }
