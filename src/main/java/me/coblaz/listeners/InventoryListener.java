@@ -12,10 +12,12 @@ import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import me.coblaz.achievements.AchievementRegistry;
-import me.coblaz.achievements.SmeltingAchievements;
+import me.coblaz.achievements.ItemAchievements;
+import me.coblaz.achievements.Registries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class InventoryListener extends EntityEventSystem<EntityStore, InventoryChangeEvent> {
 
@@ -40,14 +42,16 @@ public class InventoryListener extends EntityEventSystem<EntityStore, InventoryC
         ItemStack query = tx.getQuery();
         if (query == null) return;
 
-        String achId = SmeltingAchievements.achievementIdForItem(query.getItemId());
-        if (achId == null) return;
+        List<String> achIds = ItemAchievements.achievementIdsForItem(query.getItemId());
+        if (achIds.isEmpty()) return;
 
-        // ── Get the player who received it ────────────────────────────────────
         PlayerRef playerRef = archetypeChunk.getComponent(index, PlayerRef.getComponentType());
         if (playerRef == null) return;
 
-        AchievementRegistry.getInstance().incrementCount(playerRef, achId, query.getQuantity());
+        AchievementRegistry reg = Registries.ITEMS;
+        for (String achId : achIds) {
+            reg.incrementCount(playerRef, achId, query.getQuantity());
+        }
     }
 
     @Nullable

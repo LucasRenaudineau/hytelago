@@ -1,6 +1,12 @@
 package me.coblaz.achievements;
 
+import com.hypixel.hytale.component.Ref;
+import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.server.core.inventory.InventoryComponent;
+import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import me.coblaz.items.ItemReward;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -9,11 +15,11 @@ import java.util.*;
 public final class AchievementRegistry {
 
     // ── Singleton ────────────────────────────────────────────────────────────
-    private static final AchievementRegistry INSTANCE = new AchievementRegistry();
-    private AchievementRegistry() {}
+    private final String name;
 
-    @Nonnull
-    public static AchievementRegistry getInstance() { return INSTANCE; }
+    public AchievementRegistry(String name) {
+        this.name = name;
+    }
 
     // ── Internal state ───────────────────────────────────────────────────────
     private final List<AchievementDefinition>                     definitions   = new ArrayList<>();
@@ -105,16 +111,34 @@ public final class AchievementRegistry {
      * can display them to the player).
      */
     @Nonnull
-    public List<AchievementDefinition> collectDoneAchievements(@Nonnull PlayerRef playerRef) {
+    public List<AchievementDefinition> collectDoneAchievements(
+            @Nonnull PlayerRef          playerRef,
+            @Nonnull Ref<EntityStore>   ref,
+            @Nonnull Store<EntityStore> store
+    ) {
         List<AchievementDefinition> justCollected = new ArrayList<>();
 
         for (AchievementDefinition def : definitions) {
-            PlayerAchievementData data = getOrCreate(playerRef, def.getId());
-            if (data.getStatus() == AchievementStatus.DONE) {
+            PlayerAchievementData data   = getOrCreate(playerRef, def.getId());
+            AchievementStatus     status = data.getStatus();
+
+            boolean shouldCollect =
+                    status == AchievementStatus.DONE
+                            || (status == AchievementStatus.COLLECTED && def.isMultipleCollects());
+
+            if (!shouldCollect) continue;
+
+            if (def.isMultipleCollects()) {
+                // Reset so the player can earn it again
+                data.setCount(0);
+                data.setStatus(AchievementStatus.NOT_DONE);
+            } else {
                 data.setStatus(AchievementStatus.COLLECTED);
-                justCollected.add(def);
-                fireListeners(playerRef, def);
             }
+
+            justCollected.add(def);
+            fireListeners(playerRef, def);
+            giveRewardItems(ref, store, def);
         }
 
         if (!justCollected.isEmpty()) savePlayer(playerRef);
@@ -125,8 +149,12 @@ public final class AchievementRegistry {
      * /ach-collect command: sets count = neededCount and immediately collects.
      * Returns false if the id is unknown or already collected.
      */
-    public boolean forceCollect(@Nonnull PlayerRef playerRef,
-                                @Nonnull String achievementId) {
+    public boolean forceCollect(
+            @Nonnull PlayerRef          playerRef,
+            @Nonnull String             achievementId,
+            @Nonnull Ref<EntityStore>   ref,
+            @Nonnull Store<EntityStore> store
+    ) {
         AchievementDefinition def = findDefinition(achievementId);
         if (def == null) return false;
 
@@ -136,6 +164,7 @@ public final class AchievementRegistry {
         data.setCount(def.getNeededCount());
         data.setStatus(AchievementStatus.COLLECTED);
         fireListeners(playerRef, def);
+        giveRewardItems(ref, store, def);
         savePlayer(playerRef);
         return true;
     }
@@ -167,7 +196,7 @@ public final class AchievementRegistry {
     private void loadIfNeeded(@Nonnull String key) {
         if (loadedPlayers.contains(key)) return;
         loadedPlayers.add(key);
-        Map<String, PlayerAchievementData> saved = AchievementSaveManager.load(key);
+        Map<String, PlayerAchievementData> saved = AchievementSaveManager.load(name, key);
         if (!saved.isEmpty()) {
             playerData.put(key, saved);
         }
@@ -177,7 +206,7 @@ public final class AchievementRegistry {
         String key = playerKey(playerRef);
         Map<String, PlayerAchievementData> data = playerData.get(key);
         if (data != null) {
-            AchievementSaveManager.save(key, data);
+            AchievementSaveManager.save(name, key, data);
         }
     }
 
@@ -197,5 +226,39 @@ public final class AchievementRegistry {
                          int count) {
         getOrCreate(playerRef, achievementId).setCount(count);
         savePlayer(playerRef);
+    }
+
+    private void giveRewardItems(
+            @Nonnull Ref<EntityStore>      ref,
+            @Nonnull Store<EntityStore>    store,
+            @Nonnull AchievementDefinition def
+    ) {
+        if (def.getRewardItems().isEmpty()) return;
+
+        InventoryComponent.Hotbar   hotbar   = store.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
+        InventoryComponent.Storage  storage  = store.getComponent(ref, InventoryComponent.Storage.getComponentType());
+        InventoryComponent.Backpack backpack = store.getComponent(ref, InventoryComponent.Backpack.getComponentType());
+
+        for (ItemReward reward : def.getRewardItems()) {
+            ItemStack stack = new ItemStack(reward.itemId(), reward.quantity());
+            boolean given   = false;
+
+            if (hotbar   != null && hotbar.getInventory().canAddItemStack(stack)) {
+                hotbar.getInventory().addItemStack(stack);
+                given = true;
+            } else if (storage  != null && storage.getInventory().canAddItemStack(stack)) {
+                storage.getInventory().addItemStack(stack);
+                given = true;
+            } else if (backpack != null && backpack.getInventory().canAddItemStack(stack)) {
+                backpack.getInventory().addItemStack(stack);
+                given = true;
+            }
+
+            if (!given) {
+                System.err.println("[AchievementMod] No inventory space to give '"
+                        + reward.itemId() + "' x" + reward.quantity()
+                        + " for achievement '" + def.getId() + "'");
+            }
+        }
     }
 }

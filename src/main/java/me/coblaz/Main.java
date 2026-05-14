@@ -9,6 +9,7 @@ import me.coblaz.achievements.*;
 import me.coblaz.commands.AchCollectCommand;
 import me.coblaz.commands.AchListCommand;
 import me.coblaz.commands.HelloTest;
+import me.coblaz.commands.ItemsListCommand;
 import me.coblaz.listeners.DeathListener;
 import me.coblaz.listeners.KillListener;
 
@@ -26,30 +27,40 @@ public class Main extends JavaPlugin {
     protected void setup() {
         super.setup();
 
-        AchievementRegistry reg = AchievementRegistry.getInstance();
+        AchievementRegistry locations = Registries.LOCATIONS;
+        AchievementRegistry items   = Registries.ITEMS;
 
         // ── General kill milestones ───────────────────────────────────────────
-        reg.registerAchievement(new AchievementDefinition("first_kill",    "First Blood",      1));
-        reg.registerAchievement(new AchievementDefinition("ten_kills",     "Serial Killer",    10));
-        reg.registerAchievement(new AchievementDefinition("hundred_kills", "Mass Destruction", 100));
-        reg.registerAchievement(new AchievementDefinition("finding_frost_dragon", "Found Dragon", 1));
+        locations.registerAchievement(new AchievementDefinition("first_kill",    "First Blood",      1));
+        locations.registerAchievement(new AchievementDefinition("ten_kills",     "Serial Killer",    10));
+        locations.registerAchievement(new AchievementDefinition("hundred_kills", "Mass Destruction", 100));
+        locations.registerAchievement(new AchievementDefinition("finding_frost_dragon", "Found Dragon", 1));
 
         // ── Mob-specific kill achievements ────────────────────────────────────
-        MobKillAchievements.registerAll(reg);
+        MobKillAchievements.registerAll(locations);
         // ── Smelting achievements ─────────────────────────────────────────────────
         // SmeltingAchievements.registerAll(reg);   // ← ADD
-        ItemAchievements.registerAll(reg);
-        DeathAchievements.registerAll(reg);
+        ItemAchievements.registerAll(locations);
+        DeathAchievements.registerAll(locations);
 
         // ── Listeners ─────────────────────────────────────────────────────────────
-        reg.addListener((playerRef, def) ->
+        locations.addListener((playerRef, def) ->
                 EventTitleUtil.showEventTitleToPlayer(
                         playerRef,
-                        Message.raw("Achievement collected!"),
+                        Message.raw("Achievement collected !"),
                         Message.raw(def.getId()),
                         true
                 )
                 // In theory here should be some code to send the check of location with the id to the archipelago server
+        );
+        items.addListener((playerRef, def) ->
+                        EventTitleUtil.showEventTitleToPlayer(
+                                playerRef,
+                                Message.raw("Item collected !"),
+                                Message.raw(def.getId()),
+                                true
+                        )
+                // In theory here should be some code to
         );
 
         // ── Commands ──────────────────────────────────────────────────────────
@@ -58,6 +69,7 @@ public class Main extends JavaPlugin {
         );
         this.getCommandRegistry().registerCommand(new AchListCommand());
         this.getCommandRegistry().registerCommand(new AchCollectCommand());
+        this.getCommandRegistry().registerCommand(new ItemsListCommand());
 
         // ── Systems ───────────────────────────────────────────────────────────
         EntityStore.REGISTRY.registerSystem(new KillListener());

@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import me.coblaz.achievements.AchievementDefinition;
 import me.coblaz.achievements.AchievementRegistry;
+import me.coblaz.achievements.Registries;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
 import javax.annotation.Nonnull;
@@ -39,11 +40,12 @@ public class AchCollectCommand extends AbstractPlayerCommand {
     ) {
         String achievementId = idArg.get(ctx); // never null — it's a RequiredArg
 
-        boolean ok = AchievementRegistry.getInstance().forceCollect(playerRef, achievementId);
+        boolean ok = Registries.LOCATIONS.forceCollect(playerRef, achievementId, ref, store);
+        if (!ok) ok = Registries.ITEMS.forceCollect(playerRef, achievementId, ref, store);
 
         if (ok) {
-            AchievementDefinition def =
-                    AchievementRegistry.getInstance().findDefinition(achievementId);
+            AchievementDefinition def = Registries.LOCATIONS.findDefinition(achievementId);
+            if (def == null) def = Registries.ITEMS.findDefinition(achievementId);
             reply(playerRef, "Achievement collected!", def != null ? def.getTitle() : achievementId);
         } else {
             reply(playerRef, "Unknown or already collected:", achievementId);

@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import me.coblaz.achievements.AchievementRegistry;
 import me.coblaz.achievements.DeathAchievements;
+import me.coblaz.achievements.Registries;
 
 import javax.annotation.Nonnull;
 
@@ -39,7 +40,7 @@ public class DeathListener extends DeathSystems.OnDeathSystem {
         PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
         if (playerRef == null) return;
 
-        AchievementRegistry reg = AchievementRegistry.getInstance();
+        AchievementRegistry reg = Registries.LOCATIONS;
 
         // ── Resolve cause ID ──────────────────────────────────────────────────
 

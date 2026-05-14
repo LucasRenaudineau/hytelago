@@ -45,10 +45,13 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
     // ── Constructor ───────────────────────────────────────────────────────────
 
     private final PlayerRef playerRef;
+    private final AchievementRegistry registry;
 
-    public AchievementListPage(@Nonnull PlayerRef playerRef) {
+    public AchievementListPage(@Nonnull PlayerRef playerRef,
+                               @Nonnull AchievementRegistry registry) {
         super(playerRef, CustomPageLifetime.CanDismiss, AchEventData.CODEC);
         this.playerRef = playerRef;
+        this.registry  = registry;
     }
 
     // ── Build ─────────────────────────────────────────────────────────────────
@@ -88,8 +91,7 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
             @Nonnull Ref<EntityStore>   ref,
             @Nonnull Store<EntityStore> store
     ) {
-        AchievementRegistry         registry  = AchievementRegistry.getInstance();
-        List<AchievementDefinition> collected = registry.collectDoneAchievements(playerRef);
+        List<AchievementDefinition> collected = registry.collectDoneAchievements(playerRef, ref, store);
 
         if (collected.isEmpty()) {
             EventTitleUtil.showEventTitleToPlayer(
@@ -125,31 +127,32 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
     // ── List builder (used by both build() and refresh) ───────────────────────
 
     private void buildAchievementList(
-            @Nonnull UICommandBuilder    cmd,
-            @Nonnull UIEventBuilder      events
+            @Nonnull UICommandBuilder cmd,
+            @Nonnull UIEventBuilder   events
     ) {
-        AchievementRegistry         registry = AchievementRegistry.getInstance();
-        List<AchievementDefinition> defs     = registry.getDefinitions();
+        AchievementRegistry         registry = this.registry;
+        List<AchievementDefinition> defs = registry.getDefinitions();
 
         cmd.clear("#AchievementList");
 
         if (defs.isEmpty()) {
             cmd.appendInline("#AchievementList",
                     "Label { Text: \"No achievements defined.\"; Anchor: (Height: 40); " +
-                            "Style: (FontSize: 14, TextColor: #6e7da1, HorizontalAlignment: Center, VerticalAlignment: Center); }");
+                            "Style: (FontSize: 14, TextColor: #6e7da1, " +
+                            "HorizontalAlignment: Center, VerticalAlignment: Center); }");
             return;
         }
 
         for (int i = 0; i < defs.size(); i++) {
             AchievementDefinition def      = defs.get(i);
-            PlayerAchievementData data     = registry.getData(playerRef, def.getId());
+            PlayerAchievementData data = registry.getData(playerRef, def.getId());
             String                selector = "#AchievementList[" + i + "]";
 
             cmd.append("#AchievementList", "Pages/AchievementEntry.ui");
-            cmd.set(selector + " #AchTitle.Text",              def.getTitle());
-            cmd.set(selector + " #AchCount.Text",              data.getCount() + "/" + def.getNeededCount());
-            cmd.set(selector + " #AchTitle.Style.TextColor",   colorFor(data.getStatus())); // ← new
-            cmd.set(selector + " #AchCount.Style.TextColor",   colorFor(data.getStatus())); // ← new
+            cmd.set(selector + " #AchTitle.Text",            def.getTitle());
+            cmd.set(selector + " #AchCount.Text",            data.getCount() + "/" + def.getNeededCount());
+            cmd.set(selector + " #AchTitle.Style.TextColor", colorFor(data.getStatus()));
+            cmd.set(selector + " #AchCount.Style.TextColor", colorFor(data.getStatus()));
         }
     }
 

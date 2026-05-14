@@ -11,6 +11,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import me.coblaz.achievements.AchievementRegistry;
+import me.coblaz.achievements.ItemAchievements;
 import me.coblaz.achievements.Registries;
 import me.coblaz.ui.AchievementListPage;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
@@ -20,16 +21,10 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import me.coblaz.achievements.ItemAchievements;
+public class ItemsListCommand extends AbstractPlayerCommand {
 
-import java.util.Map;
-import java.util.List;
-import java.util.stream.Collectors;
-
-public class AchListCommand extends AbstractPlayerCommand {
-
-    public AchListCommand() {
-        super("ach-list", "Opens your achievements list", false);
+    public ItemsListCommand() {
+        super("items-list", "Opens your item-collection achievements", false);
     }
 
     @Override
@@ -40,22 +35,23 @@ public class AchListCommand extends AbstractPlayerCommand {
             @NonNullDecl PlayerRef          playerRef,
             @NonNullDecl World              world
     ) {
-        Registries.LOCATIONS.refreshStatuses(playerRef);
+        syncItemCounts(Registries.ITEMS, playerRef, ref, store);
+        Registries.ITEMS.refreshStatuses(playerRef);
         Player player = store.getComponent(ref, Player.getComponentType());  // ← this was missing
         player.getPageManager().openCustomPage(ref, store,
-                new AchievementListPage(playerRef, Registries.LOCATIONS));
+                new AchievementListPage(playerRef, Registries.ITEMS));
     }
+
     private void syncItemCounts(
-            AchievementRegistry     reg,
-            PlayerRef               playerRef,
-            Ref<EntityStore>        ref,
-            Store<EntityStore>      store
+            AchievementRegistry    reg,
+            PlayerRef              playerRef,
+            Ref<EntityStore>       ref,
+            Store<EntityStore>     store
     ) {
         InventoryComponent.Hotbar   hotbar   = store.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
         InventoryComponent.Storage  storage  = store.getComponent(ref, InventoryComponent.Storage.getComponentType());
         InventoryComponent.Backpack backpack = store.getComponent(ref, InventoryComponent.Backpack.getComponentType());
 
-        // Group entries by itemId to avoid scanning inventory multiple times per item
         Map<String, List<ItemAchievements.Entry>> byItem = ItemAchievements.ALL.stream()
                 .collect(Collectors.groupingBy(e -> e.itemId().toLowerCase()));
 

@@ -15,6 +15,7 @@ import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import me.coblaz.achievements.AchievementRegistry;
 import me.coblaz.achievements.MobKillAchievements;
+import me.coblaz.achievements.Registries;
 
 import javax.annotation.Nonnull;
 
@@ -47,7 +48,7 @@ public class KillListener extends DeathSystems.OnDeathSystem {
 
         String entityName = getEntityName(ref, store);
 
-        AchievementRegistry reg = AchievementRegistry.getInstance();
+        AchievementRegistry reg = Registries.LOCATIONS;
 
         // ── General kill milestones (every kill counts) ───────────────────────
         reg.incrementCount(playerRef, "first_kill",    1);

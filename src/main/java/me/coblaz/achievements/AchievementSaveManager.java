@@ -16,10 +16,12 @@ public final class AchievementSaveManager {
     private AchievementSaveManager() {}
 
     /** Write every achievement for one player to their JSON file. */
-    public static void save(@Nonnull String playerKey,
+    public static void save(@Nonnull String registryName,
+                            @Nonnull String playerKey,
                             @Nonnull Map<String, PlayerAchievementData> data) {
+        Path dir = SAVE_DIR.resolve(registryName);
         try {
-            Files.createDirectories(SAVE_DIR);
+            Files.createDirectories(dir);
 
             JsonObject root = new JsonObject();
             for (Map.Entry<String, PlayerAchievementData> e : data.entrySet()) {
@@ -30,7 +32,7 @@ public final class AchievementSaveManager {
             }
 
             Files.writeString(
-                    SAVE_DIR.resolve(sanitize(playerKey) + ".json"),
+                    dir.resolve(sanitize(playerKey) + ".json"),
                     GSON.toJson(root),
                     StandardCharsets.UTF_8
             );
@@ -42,8 +44,8 @@ public final class AchievementSaveManager {
 
     /** Read a player's JSON file back into a live map. Returns empty map if no file yet. */
     @Nonnull
-    public static Map<String, PlayerAchievementData> load(@Nonnull String playerKey) {
-        Path file = SAVE_DIR.resolve(sanitize(playerKey) + ".json");
+    public static Map<String, PlayerAchievementData> load(@Nonnull String registryName, @Nonnull String playerKey) {
+        Path file = SAVE_DIR.resolve(registryName).resolve(sanitize(playerKey) + ".json");
         Map<String, PlayerAchievementData> result = new HashMap<>();
         if (!Files.exists(file)) return result;
 
