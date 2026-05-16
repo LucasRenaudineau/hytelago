@@ -6,10 +6,7 @@ import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import me.coblaz.achievements.*;
-import me.coblaz.commands.AchCollectCommand;
-import me.coblaz.commands.AchListCommand;
-import me.coblaz.commands.HelloTest;
-import me.coblaz.commands.ItemsListCommand;
+import me.coblaz.commands.*;
 import me.coblaz.listeners.DeathListener;
 import me.coblaz.listeners.KillListener;
 
@@ -73,6 +70,9 @@ public class Main extends JavaPlugin {
         this.getCommandRegistry().registerCommand(new AchListCommand());
         this.getCommandRegistry().registerCommand(new AchCollectCommand());
         this.getCommandRegistry().registerCommand(new ItemsListCommand());
+        this.getCommandRegistry().registerCommand(new ArchSetCountCommand());
+        this.getCommandRegistry().registerCommand(new ArchSetStateCommand());
+        this.getCommandRegistry().registerCommand(new ArchSpawnCommand());
 
         // ── Systems ───────────────────────────────────────────────────────────
         EntityStore.REGISTRY.registerSystem(new KillListener());
