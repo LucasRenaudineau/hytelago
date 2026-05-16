@@ -31,9 +31,11 @@ public class Main extends JavaPlugin {
 
         // ── General kill milestones ───────────────────────────────────────────
         locations.registerAchievement(new AchievementDefinition("first_kill",    "First Blood",      1));
-        locations.registerAchievement(new AchievementDefinition("ten_kills",     "Serial Killer",    10));
-        locations.registerAchievement(new AchievementDefinition("hundred_kills", "Mass Destruction", 100));
-        locations.registerAchievement(new AchievementDefinition("finding_frost_dragon", "Found Dragon", 1));
+        locations.registerAchievement(new AchievementDefinition("ten_kills",     "Fighter",    10));
+        locations.registerAchievement(new AchievementDefinition("thirty_kills",     "Violent",    30));
+        locations.registerAchievement(new AchievementDefinition("fifty_kills",     "Serial Killer",    50));
+        locations.registerAchievement(new AchievementDefinition("seventy_kills",     "Mass Murderer",    70));
+        locations.registerAchievement(new AchievementDefinition("hundred_kills", "Mob Exterminator", 100));
 
         // ── Mob-specific kill achievements ────────────────────────────────────
         MobKillAchievements.registerAll(locations);

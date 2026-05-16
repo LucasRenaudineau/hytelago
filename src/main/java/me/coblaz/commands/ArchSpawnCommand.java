@@ -77,4 +77,11 @@ public class ArchSpawnCommand extends AbstractPlayerCommand {
                 playerRef, Message.raw(title), Message.raw(subtitle), true
         );
     }
+    public static void spawnMob(String mobId, Ref<EntityStore> ref, Store<EntityStore> store) {
+        TransformComponent t = store.getComponent(ref, TransformComponent.getComponentType());
+        if (t == null) return;
+        Vector3d pos = new Vector3d();
+        pos.assign(t.getPosition());
+        NPCPlugin.get().spawnEntity(store, NPCPlugin.get().getIndex(mobId), pos, null, null, null, null);
+    }
 }

@@ -20,7 +20,6 @@ public final class DeathAchievements {
             new Entry("drowning",     "death_drowning",     "Taking a Deep Breath",    1),
             new Entry("suffocation",  "death_suffocation",  "Suffocating Until Death", 1),
             new Entry("out_of_world", "death_void",         "Into the Void",           1),
-            new Entry("lava",         "death_lava",         "Molten End",              1),  // EnvironmentSource type — verify string in-game
             new Entry("fire",         "death_fire",         "Crispy",                  1),  // EnvironmentSource type — verify string in-game
             new Entry("physical",     "death_physical",     "Punching Bag",            10),
             new Entry("projectile",   "death_projectile",   "Porcupine",               5)
