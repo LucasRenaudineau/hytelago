@@ -36,7 +36,7 @@ Ingredient_Hide_Light10 (2)
 Ingredient_Hide_Medium10 (2)
 Ingredient_Hide_Heavy10 (2)
 Ingredient_Chitin_Sturdy10 (2)
-Ingredient_Poop (5) // Put to 6 to match the totals of locations
+Ingredient_Poop (1) // Put to 6 to match the totals of locations
 Flamethrower_Goblin
 Teleporter3 (5)
 Armor_Adamantite_Legs
