@@ -2,142 +2,142 @@
 
 ## Monster spawn traps
 
-Golem_Crystal_Earth
-Golem_Firesteel
-Skeleton_Frost_Archer2
-Outlander_Berserker
-Eye_Void
-Zombie2
-Scarak_Broodmother_Young
+1000 : Golem_Crystal_Earth
+1001 : Golem_Firesteel
+1002 : Skeleton_Frost_Archer2
+1003 : Outlander_Berserker
+1004 : Eye_Void
+1005 : Zombie2
+1006 : Scarak_Broodmother_Young
 
 ## Tier Upgraders
 
-Progressive_Armorer (2)
-Progressive_Backpack(3)
-Progressive_Blacksmith (2)
-Campfire
-Chef_Stove
-Progressive_Farmer (2)
-Progressive_Furnace (2)
-Salvager
-Progressive_Tanning (2)
-Progressive_Workbench (3)
+2000 : Progressive_Armorer (2)
+2001 : Progressive_Backpack(3)
+2002 : Progressive_Blacksmith (2)
+2003 : Campfire
+2004 : Chef_Stove
+2005 : Progressive_Farmer (2)
+2006 : Progressive_Furnace (2)
+2007 : Salvager
+2008 : Progressive_Tanning (2)
+2009 : Progressive_Workbench (3)
 
 ## Random loot
 
-Ore_Copper10
-Ore_Iron10
-Ore_Cobalt10
-Ore_Gold10
-Ore_Silver10
-Ore_Thorium10
-Ingredient_Hide_Soft10 (2)
-Ingredient_Hide_Light10 (2)
-Ingredient_Hide_Medium10 (2)
-Ingredient_Hide_Heavy10 (2)
-Ingredient_Chitin_Sturdy10 (2)
-Ingredient_Poop (1) // Put to 6 to match the totals of locations
-Flamethrower_Goblin
-Teleporter3 (5)
-Armor_Adamantite_Legs
-Armor_Adamantite_Chest
-Armor_Adamantite_Head
-Armor_Adamantite_Hands
-Weapon_Shield_Adamantite
-Weapon_Axe_Cobalt
-Weapon_Longsword_Copper
-Weapon_Shortbow_Combat
-Weapon_Daggers_Bone
-Weapon_Arrow_Clearshot30 (5)
-Weapon_Deployable_Healing_Totem
-Repair_Kit2 (3)
+3000 : Ore_Copper10
+3001 : Ore_Iron10
+3002 : Ore_Cobalt10
+3003 : Ore_Gold10
+3004 : Ore_Silver10
+3005 : Ore_Thorium10
+3006 : Ingredient_Hide_Soft10 (2)
+3007 : Ingredient_Hide_Light10 (2)
+3008 : Ingredient_Hide_Medium10 (2)
+3009 : Ingredient_Hide_Heavy10 (2)
+3010 : Ingredient_Chitin_Sturdy10 (2)
+3011 : Ingredient_Poop (1) // Put to 6 to match the totals of locations
+3012 : Flamethrower_Goblin
+3013 : Teleporter3 (5)
+3014 : Armor_Adamantite_Legs
+3015 : Armor_Adamantite_Chest
+3016 : Armor_Adamantite_Head
+3017 : Armor_Adamantite_Hands
+3018 : Weapon_Shield_Adamantite
+3019 : Weapon_Axe_Cobalt
+3020 : Weapon_Longsword_Copper
+3021 : Weapon_Shortbow_Combat
+3022 : Weapon_Daggers_Bone
+3023 : Weapon_Arrow_Clearshot30 (5)
+3024 : Weapon_Deployable_Healing_Totem
+3025 : Repair_Kit2 (3)
 
 
 # Locations
 
 ## Monster Kill
 
-kill_zombie
-kill_horse_skeleton_armored
-kill_zombie_burnt
-kill_golem_crystal_flame
-kill_golem_crystal_earth
-kill_golem_firesteel
-kill_golem_crystal_frost
-kill_skeleton_frost_archer
-kill_zombie_frost
-kill_goblin_hermit
-kill_outlander_berserker
-kill_outlander_brute
-kill_outlander_marauder
-kill_outlander_priest
-kill_outlander_stalker
-kill_golem_crystal_sand
-kill_zombie_sand
-kill_eye_void
-kill_scarac_broodmother_young
-kill_toad_rhino_magma
-kill_snake_marsh
-kill_yeti
-kill_frost_dragon
+1000 : kill_zombie
+1001 : kill_horse_skeleton_armored
+1002 : kill_zombie_burnt
+1003 : kill_golem_crystal_flame
+1004 : kill_golem_crystal_earth
+1005 : kill_golem_firesteel
+1006 : kill_golem_crystal_frost
+1007 : kill_skeleton_frost_archer
+1008 : kill_zombie_frost
+1009 : kill_goblin_hermit
+1010 : kill_outlander_berserker
+1011 : kill_outlander_brute
+1012 : kill_outlander_marauder
+1013 : kill_outlander_priest
+1014 : kill_outlander_stalker
+1015 : kill_golem_crystal_sand
+1016 : kill_zombie_sand
+1017 : kill_eye_void
+1018 : kill_scarac_broodmother_young
+1019 : kill_toad_rhino_magma
+1020 : kill_snake_marsh
+1021 : kill_yeti
+1022 : kill_frost_dragon
 
 ## General kills
 
-first_kill
-ten_kills
-thirty_kills
-fifty_kills
-seventy_fills
-hundred_kills
+2000 : first_kill
+2001 : ten_kills
+2002 : thirty_kills
+2003 : fifty_kills
+2004 : seventy_fills
+2005 : hundred_kills
 
 ## Death achievements
 
-death_fall
-death_drowning
-death_suffocation
-death_void
-death_fire
-death_physical
-death_projectile
+3000 : death_fall
+3001 : death_drowning
+3002 : death_suffocation
+3003 : death_void
+3004 : death_fire
+3005 : death_physical
+3006 : death_projectile
 
 ## Item possessed
 
-collect_watering_can
-collect_voidheart
-collect_fire_essence_5
-collect_ice_essence_50
-collect_life_essence_100
-collect_life_essence_500
-collect_void_essence_20
-collect_wheat_100
-collect_bucket
-collect_fishing_trap
-collect_kweebec_plush
-collect_tankard
-collect_spike_trap_10
-collect_carrot_20
-collect_corn_5
-collect_cactus_5
-collect_food_kebab_vegetable_20
-collect_furniture_crude_torch_10
-smelt_iron
-smelt_copper
-smelt_silver
-smelt_gold
-smelt_thorium
-smelt_cobalt
-collect_armor_copper_head
-collect_armor_copper_hands
-collect_armor_copper_chest
-collect_armor_copper_legs
-collect_weapon_mace_copper
-collect_weapon_longsword_copper
-collect_armor_iron_head
-collect_armor_iron_hands
-collect_armor_iron_chest
-collect_armor_iron_legs
-collect_weapon_mace_iron
-collect_weapon_longsword_iron
+4000 : collect_watering_can
+4001 : collect_voidheart
+4002 : collect_fire_essence_5
+4003 : collect_ice_essence_50
+4004 : collect_life_essence_100
+4005 : collect_life_essence_500
+4006 : collect_void_essence_20
+4007 : collect_wheat_100
+4008 : collect_bucket
+4009 : collect_fishing_trap
+4010 : collect_kweebec_plush
+4011 : collect_tankard
+4012 : collect_spike_trap_10
+4013 : collect_carrot_20
+4014 : collect_corn_5
+4015 : collect_cactus_5
+4016 : collect_food_kebab_vegetable_20
+4017 : collect_furniture_crude_torch_10
+4018 : smelt_iron
+4019 : smelt_copper
+4020 : smelt_silver
+4021 : smelt_gold
+4022 : smelt_thorium
+4023 : smelt_cobalt
+4024 : collect_armor_copper_head
+4025 : collect_armor_copper_hands
+4026 : collect_armor_copper_chest
+4027 : collect_armor_copper_legs
+4028 : collect_weapon_mace_copper
+4029 : collect_weapon_longsword_copper
+4030 : collect_armor_iron_head
+4031 : collect_armor_iron_hands
+4032 : collect_armor_iron_chest
+4033 : collect_armor_iron_legs
+4034 : collect_weapon_mace_iron
+4035 : collect_weapon_longsword_iron
 
 # Soft logic
 

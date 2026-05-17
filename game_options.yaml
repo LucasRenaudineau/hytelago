@@ -1,0 +1,13 @@
+name: player_name
+game: Hytale
+description: Non-configurable (yet) yaml option file for Hytelago.
+Hytale:
+  progression_balancing: '50'
+  accessibility: full
+  local_items: []
+  non_local_items: []
+  start_hints: []
+  start_location_hints: []
+  exclude_locations: []
+  priority_locations: []
+  start_inventory: {}
