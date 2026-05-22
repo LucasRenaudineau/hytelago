@@ -7,6 +7,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import me.coblaz.achievements.*;
 import me.coblaz.commands.*;
+import me.coblaz.listeners.ArchipelagoTicker;
 import me.coblaz.listeners.DeathListener;
 import me.coblaz.listeners.KillListener;
 
@@ -81,5 +82,6 @@ public class Main extends JavaPlugin {
         EntityStore.REGISTRY.registerSystem(new KillListener());
         EntityStore.REGISTRY.registerSystem(new InventoryListener());
         EntityStore.REGISTRY.registerSystem(new DeathListener());
+        EntityStore.REGISTRY.registerSystem(new ArchipelagoTicker());
     }
 }

@@ -9,9 +9,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Holds everything needed to handle future AP events for one player.
  */
+// PlayerAPState.java
 public record PlayerAPState(
-        Client               client,
-        AtomicInteger        lastProcessed,
-        Ref<EntityStore>     ref,
-        Store<EntityStore>   store
+        Client              client,
+        AtomicInteger       lastProcessed,
+        Ref<EntityStore>    ref,
+        Store<EntityStore>  store,
+        ArchipelagoManager.ItemEventListener itemListener   // strong ref prevents GC
 ) {}
