@@ -16,6 +16,7 @@
 - Make the tables customizable depending on the .yaml configuration.
 - Randomize kweebec sells.
 - Add discovery of biomes into locations table.
+- Add memories in locations table.
 - Create a map that verifies all items and locations in a line to improve work when hytale changes of version.
 - Add documentation in the UI for locations to do.
 - Do a tuto to set it up (in readme + in a youtube video).
