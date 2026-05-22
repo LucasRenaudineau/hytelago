@@ -20,3 +20,5 @@
 - Create a map that verifies all items and locations in a line to improve work when hytale changes of version.
 - Add documentation in the UI for locations to do.
 - Do a tuto to set it up (in readme + in a youtube video).
+- Implement the end (killing or going near the frost dragon).
+- Let the player choose for the end : killing the frost dragon, having x % of locations unlocked...
