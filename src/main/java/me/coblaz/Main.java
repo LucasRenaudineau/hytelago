@@ -6,6 +6,7 @@ import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import me.coblaz.achievements.*;
+import me.coblaz.archipelago.ArchipelagoManager;
 import me.coblaz.commands.*;
 import me.coblaz.listeners.ArchipelagoTicker;
 import me.coblaz.listeners.DeathListener;
@@ -45,15 +46,21 @@ public class Main extends JavaPlugin {
         ItemsAchievements.registerAll(Registries.ITEMS);
 
         // ── Listeners ─────────────────────────────────────────────────────────
-        locations.addListener((playerRef, def) ->
-                        EventTitleUtil.showEventTitleToPlayer(
-                                playerRef,
-                                Message.raw("Achievement collected!"),
-                                Message.raw(def.getId()),
-                                true
-                        )
-                // TODO: send location check to the Archipelago server here
-        );
+        locations.addListener((playerRef, def) -> {
+            System.out.printf(
+                    "[ArchipelagoMod] Location achievement collected: '%s' (%s) by player %s%n",
+                    def.getId(), def.getTitle(), playerRef.getUuid());
+
+            EventTitleUtil.showEventTitleToPlayer(
+                    playerRef,
+                    Message.raw("Achievement collected!"),
+                    Message.raw(def.getTitle()),
+                    true
+            );
+
+            // Send the location check to the Archipelago server
+            ArchipelagoManager.INSTANCE.sendLocationCheck(playerRef, def.getId());
+        });
         items.addListener((playerRef, def) ->
                         EventTitleUtil.showEventTitleToPlayer(
                                 playerRef,
@@ -61,7 +68,7 @@ public class Main extends JavaPlugin {
                                 Message.raw(def.getId()),
                                 true
                         )
-                // TODO: send item check to the Archipelago server here
+                // TODO: send item check to the Archipelago server here (i dont think this comment is right)
         );
 
         // ── Commands ──────────────────────────────────────────────────────────

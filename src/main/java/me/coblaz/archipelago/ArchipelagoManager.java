@@ -321,5 +321,51 @@ public final class ArchipelagoManager {
         else
             System.err.printf("[ArchipelagoMod] No inventory space for %s x%d%n", itemName, quantity);
     }
-    
+    // ── Send a completed location check to the AP server ─────────────────────────
+    /**
+     * Called when a player collects an achievement that maps to an Archipelago
+     * location. Looks up the numeric location ID and sends it to the server.
+     *
+     * Safe to call from the game thread (no queuing needed — the AP client's
+     * WebSocket send is thread-safe).
+     */
+    public void sendLocationCheck(
+            @Nonnull PlayerRef playerRef,
+            @Nonnull String    achievementId
+    ) {
+        // ── 1. Resolve numeric location ID ────────────────────────────────────
+        Long locationId = ArchipelagoLocationMap.getLocationId(achievementId);
+        if (locationId == null) {
+            System.out.printf(
+                    "[ArchipelagoMod] sendLocationCheck: achievement '%s' has no AP location ID — skipping%n",
+                    achievementId);
+            return;
+        }
+
+        // ── 2. Check that the player is connected ─────────────────────────────
+        String        uuid  = playerRef.getUuid().toString();
+        PlayerAPState state = playerStates.get(uuid);
+        if (state == null || !state.client().isConnected()) {
+            System.out.printf(
+                    "[ArchipelagoMod] sendLocationCheck: player %s is not connected — check for '%s' (id=%d) NOT sent%n",
+                    uuid, achievementId, locationId);
+            return;
+        }
+
+        // ── 3. Send ───────────────────────────────────────────────────────────
+        System.out.printf(
+                "[ArchipelagoMod] Sending location check: '%s' → location id %d%n",
+                achievementId, locationId);
+
+        // ⚠️  Verify the exact method name by decompiling Client.class in IntelliJ.
+        //     Common names in the archipelagomw Java client:
+        //       state.client().locationChecks(locationId);          ← most likely
+        //       state.client().sendChecks(List.of(locationId));
+        //       state.client().checkLocation(locationId);
+        state.client().checkLocation(locationId);
+
+        System.out.printf(
+                "[ArchipelagoMod] Location check sent successfully: '%s' (id=%d) for player %s%n",
+                achievementId, locationId, uuid);
+    }
 }
