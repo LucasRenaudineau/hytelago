@@ -204,7 +204,7 @@ def set_all_rules(world: HytaleWorld) -> None:
         "Progressive_Armorer",
         "Teleporter3",
     )
-    for loc in ("death_void", "death_fire"):
+    for loc in ("death_fire"):
         multiworld.get_location(loc, player).access_rule = _teleport_death
 
     # death_fall, death_drowning, death_suffocation, death_physical, death_projectile

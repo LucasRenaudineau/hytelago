@@ -94,10 +94,7 @@
 
 3000 : death_fall
 3001 : death_drowning
-3002 : death_suffocation
-3003 : death_void
 3004 : death_fire
-3005 : death_physical
 3006 : death_projectile
 
 ## Item possessed

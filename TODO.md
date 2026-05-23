@@ -22,3 +22,7 @@
 - Do a tuto to set it up (in readme + in a youtube video).
 - Implement the end (killing or going near the frost dragon).
 - Let the player choose for the end : killing the frost dragon, having x % of locations unlocked...
+
+# Radical changes ideas
+
+- Put zones in items, and deal damage to the player if he is in a zone he did not unlock (very interesting idea from the discord I read, but would need a bit of a change in my mod so probably doing it in a lot of time if ever).

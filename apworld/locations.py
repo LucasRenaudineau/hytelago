@@ -44,10 +44,7 @@ LOCATION_NAME_TO_ID: dict[str, int] = {
     # ── Death achievements ────────────────────────────────────────────────────
     "death_fall":        3000,
     "death_drowning":    3001,
-    "death_suffocation": 3002,
-    "death_void":        3003,
     "death_fire":        3004,
-    "death_physical":    3005,
     "death_projectile":  3006,
     # ── Item possessed ────────────────────────────────────────────────────────
     "collect_watering_can":           4000,

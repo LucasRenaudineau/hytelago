@@ -56,10 +56,7 @@ public final class ArchipelagoLocationMap {
         // ── Death achievements ────────────────────────────────────────────────
         ACH_TO_LOCATION_ID.put("death_fall",        3000L);
         ACH_TO_LOCATION_ID.put("death_drowning",    3001L);
-        ACH_TO_LOCATION_ID.put("death_suffocation", 3002L);
-        ACH_TO_LOCATION_ID.put("death_void",        3003L);
         ACH_TO_LOCATION_ID.put("death_fire",        3004L);
-        ACH_TO_LOCATION_ID.put("death_physical",    3005L);
         ACH_TO_LOCATION_ID.put("death_projectile",  3006L);
 
         // ── Item-possession achievements ──────────────────────────────────────
