@@ -24,10 +24,10 @@ public final class MobKillAchievements {
             new Entry("horse_skeleton_armored",   "kill_horse_skeleton_armored",   "Armored Bones",          3),
             new Entry("skeleton_burnt_soldier",   "kill_skeleton_burnt_soldier",   "Burnt to the Bone",      5),
             new Entry("zombie_burnt",             "kill_zombie_burnt",             "Crispy Undead",          5),
-            new Entry("golem_crystal_flame",      "kill_golem_crystal_flame",      "Flame Crystal Crusher",  3),
-            new Entry("golem_crystal_earth",      "kill_golem_crystal_earth",      "Earth Crystal Crusher",  3),
-            new Entry("golem_firesteel",          "kill_golem_firesteel",          "Firesteel Breaker",      3),
-            new Entry("golem_crystal_frost",      "kill_golem_crystal_frost",      "Frost Crystal Crusher",  3),
+            new Entry("golem_crystal_flame",      "kill_golem_crystal_flame",      "Flame Crystal Crusher",  1),
+            new Entry("golem_crystal_earth",      "kill_golem_crystal_earth",      "Earth Crystal Crusher",  1),
+            new Entry("golem_firesteel",          "kill_golem_firesteel",          "Firesteel Breaker",      1),
+            new Entry("golem_crystal_frost",      "kill_golem_crystal_frost",      "Frost Crystal Crusher",  1),
             new Entry("skeleton_frost_archer",    "kill_skeleton_frost_archer",    "Cold Shot",              5),
             new Entry("zombie_frost",             "kill_zombie_frost",             "Frozen Undead",          5),
             new Entry("goblin_hermit",            "kill_goblin_hermit",            "Hermit Hunter",          5),
@@ -45,7 +45,8 @@ public final class MobKillAchievements {
             new Entry("snake_marsh", "kill_snake_marsh", "Sliding in the desert", 5),
             new Entry("yeti", "kill_yeti", "It really exists", 1),
             new Entry("frost_dragon", "kill_frost_dragn", "Already finished (/", 1),
-            new Entry("bear_grizzly", "kill_bear_grizzly", "Not affraid of a big bear", 1)
+            new Entry("bear_grizzly", "kill_bear_grizzly", "Not affraid of a big bear", 1),
+            new Entry("skeleton_fighter", "kill_skeleton_fighter", "A simple fight", 1)
     );
 
     // ── Lookup map: roleName (lowercase) → achievementId ─────────────────────
