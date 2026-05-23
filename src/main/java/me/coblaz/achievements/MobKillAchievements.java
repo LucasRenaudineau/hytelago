@@ -44,7 +44,8 @@ public final class MobKillAchievements {
             new Entry("toad_rhino_magma", "kill_toad_rhino_magma", "Did not like my kiss ?", 1),
             new Entry("snake_marsh", "kill_snake_marsh", "Sliding in the desert", 5),
             new Entry("yeti", "kill_yeti", "It really exists", 1),
-            new Entry("frost_dragon", "kill_frost_dragn", "Already finished (/", 1)
+            new Entry("frost_dragon", "kill_frost_dragn", "Already finished (/", 1),
+            new Entry("bear_grizzly", "kill_bear_grizzly", "Not affraid of a big bear", 1)
     );
 
     // ── Lookup map: roleName (lowercase) → achievementId ─────────────────────

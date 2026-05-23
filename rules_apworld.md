@@ -80,6 +80,7 @@
 1020 : kill_snake_marsh
 1021 : kill_yeti
 1022 : kill_frost_dragon
+1023 : kill_bear_grizzly
 
 ## General kills
 
@@ -142,6 +143,7 @@ thirty_kills requires 2 Progressive Workbench, Campfire, 2 Progressive Blacksmit
 fifty_kills requires 2 Progressive Workbench, 2 Progressive_Blacksmith, 1 Progressive_Furnace, 1 Progressive Tanning, Ore_Cobalt10, Ingredient_Hide_Light10, Weapon_Daggers_Bone, Ingredient_Hide_Medium10, Ingredient_Chitin_Sturdy10
 seventy_kills and hundred_kills require 3 Progressive Workbench, 2 Progressive Blacksmith, 1 Progressive Furnace, 1 Progressive Tanning, Ore_Thorium10, Ingredient_Hide_Medium10, Ingredient_Hide_Heavy10, Ingredient_Chitin_Sturdy10
 
+kill_bear_grizzly requires : 1 Progressive Workbench, 1 Progressive Blacksmith, 1 Progressive Furnace
 kill_zombie_frost, kill_skeleton_frost_archer, kill_yeti require : 2 Progressive Armorer, 2 Progressive Backpack, 2 Progressive Blacksmith, 2 Progressive Furnace, 2 Progressive Tanning, 2 Progressive Workbench, Ore_Cobalt10, Ingredient_Hide_Medium10, Ingredient_Hide_Light10, Teleporter3
 kill_zombie_burnt, kill_zombie_sand, kill_scarac_broodmother_young, kill_toad_rhino_magma, kill_snake_marsh require : 1 Progressive Armorer, 1 Progressive Backpack, 1 Progressive Blacksmith, 1 Progressive Furnace, 1 Progressive Tanning, 2 Progressive Workbench, Ore_Iron10, Ingredient_Hide_Light10, Ingredient_Chitin_Sturdy10, Teleporter3
 frost_dragon and all kill golem achievements except kill_golem_crystal_earth require : 2 Progressive_Armorer, 2 Progressive_Backpack, 2 Progressive_Blacksmith, 2 Progressive_Furnace, 2 Progressive_Tanning, 3 Progressive_Workbench, Ore_Thorium10, Ore_Cobalt10, Ingredient_Hide_Soft10, Ingredient_Hide_Light10, Ingredient_Hide_Medium10, Ingredient_Hide_Heavy10, Ingredient_Chitin_Sturdy10, 2 Teleporter3, Repair_Kit2

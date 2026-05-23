@@ -102,6 +102,15 @@ def set_all_rules(world: HytaleWorld) -> None:
 
     # ── Monster Kill – burnt / sand / marsh / magma ───────────────────────────
 
+    _grizzly_bear_kill = _make_rule(
+        player,
+        "Progressive_Workbench",
+        "Progressive_Blacksmith",
+        "Progressive_Furnace"
+    )
+    for loc in ("kill_grizzly_bear"):
+        multiworld.get_location(loc,player).access_rule = _grizzly_bear_kill
+
     _mid_kills = _make_rule(
         player,
         "Progressive_Armorer",
