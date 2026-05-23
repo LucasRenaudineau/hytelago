@@ -53,6 +53,9 @@ public class KillListener extends DeathSystems.OnDeathSystem {
         // ── General kill milestones (every kill counts) ───────────────────────
         reg.incrementCount(playerRef, "first_kill",    1);
         reg.incrementCount(playerRef, "ten_kills",     1);
+        reg.incrementCount(playerRef, "thirty_kills",     1);
+        reg.incrementCount(playerRef, "fifty_kills",     1);
+        reg.incrementCount(playerRef, "seventy_kills",     1);
         reg.incrementCount(playerRef, "hundred_kills", 1);
 
         // ── Mob-specific achievement ──────────────────────────────────────────
