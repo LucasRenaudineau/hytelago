@@ -5,25 +5,17 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
 import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.inventory.InventoryComponent;
-import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import me.coblaz.achievements.*;
-import me.coblaz.items.ItemsAchievements;
 import me.coblaz.ui.AchievementListPage;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
-import java.util.List;
-import java.util.Map;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+public class ArchItemsCommand extends AbstractPlayerCommand {
 
-public class ItemsListCommand extends AbstractPlayerCommand {
-
-    public ItemsListCommand() {
-        super("items-list", "Opens your item-collection achievements", false);
+    public ArchItemsCommand() {
+        super("arch-items", "Opens your item-collection achievements", false);
     }
 
     @Override

@@ -68,7 +68,6 @@ public class Main extends JavaPlugin {
                                 Message.raw(def.getId()),
                                 true
                         )
-                // TODO: send item check to the Archipelago server here (i dont think this comment is right)
         );
 
         // ── Commands ──────────────────────────────────────────────────────────

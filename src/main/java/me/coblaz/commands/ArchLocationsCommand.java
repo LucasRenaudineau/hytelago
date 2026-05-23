@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 
 import me.coblaz.achievements.LocationsPropertyAchievements;
 
-public class AchListCommand extends AbstractPlayerCommand {
+public class ArchLocationsCommand extends AbstractPlayerCommand {
 
-    public AchListCommand() {
-        super("ach-list", "Opens your achievements list", false);
+    public ArchLocationsCommand() {
+        super("arch-list", "Opens your achievements (locations) list", false);
     }
 
     @Override

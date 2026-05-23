@@ -12,21 +12,19 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import me.coblaz.achievements.AchievementDefinition;
-import me.coblaz.achievements.AchievementRegistry;
 import me.coblaz.achievements.Registries;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
 import javax.annotation.Nonnull;
 
-public class AchCollectCommand extends AbstractPlayerCommand {
+public class ArchCollectCommand extends AbstractPlayerCommand {
 
-    // Positional required argument: /ach-collect <id>
-    // ArgTypes.STRING accepts any text; no validator needed since
-    // AchievementRegistry.forceCollect() handles unknown IDs gracefully.
+    // Positional required argument: /arch-collect <id>
+    // ArgTypes.STRING accepts any text
     private final RequiredArg<String> idArg;
 
-    public AchCollectCommand() {
-        super("ach-collect", "Force-collect an achievement: /ach-collect <id>", false);
+    public ArchCollectCommand() {
+        super("arch-collect", "Force-collect an achievement: /arch-collect <id>", false);
         this.idArg = withRequiredArg("id", "The achievement ID to force-collect", ArgTypes.STRING);
     }
 
