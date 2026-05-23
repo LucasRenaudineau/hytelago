@@ -74,9 +74,9 @@ public class Main extends JavaPlugin {
         this.getCommandRegistry().registerCommand(
                 new HelloTest("Hello", "Test command to say hello", false)
         );
-        this.getCommandRegistry().registerCommand(new AchListCommand());
-        this.getCommandRegistry().registerCommand(new AchCollectCommand());
-        this.getCommandRegistry().registerCommand(new ItemsListCommand());
+        this.getCommandRegistry().registerCommand(new ArchLocationsCommand());
+        this.getCommandRegistry().registerCommand(new ArchCollectCommand());
+        this.getCommandRegistry().registerCommand(new ArchItemsCommand());
         this.getCommandRegistry().registerCommand(new ArchSetCountCommand());
         this.getCommandRegistry().registerCommand(new ArchSetStateCommand());
         this.getCommandRegistry().registerCommand(new ArchSpawnCommand());

@@ -25,7 +25,7 @@ import me.coblaz.achievements.LocationsPropertyAchievements;
 public class ArchLocationsCommand extends AbstractPlayerCommand {
 
     public ArchLocationsCommand() {
-        super("arch-list", "Opens your achievements (locations) list", false);
+        super("arch-locations", "Opens your achievements (locations) list", false);
     }
 
     @Override
