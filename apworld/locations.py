@@ -36,6 +36,8 @@ LOCATION_NAME_TO_ID: dict[str, int] = {
     "kill_frost_dragon":             1022,
     "kill_bear_grizzly": 1023,
     "kill_skeleton_fighter": 1024,
+    "kill_wolf_black": 1025,
+    "kill_horse_skeleton": 1026,
     # ── General kills ─────────────────────────────────────────────────────────
     "first_kill":    2000,
     "ten_kills":     2001,

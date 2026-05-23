@@ -46,7 +46,9 @@ public final class MobKillAchievements {
             new Entry("yeti", "kill_yeti", "It really exists", 1),
             new Entry("frost_dragon", "kill_frost_dragn", "Already finished (/", 1),
             new Entry("bear_grizzly", "kill_bear_grizzly", "Not affraid of a big bear", 1),
-            new Entry("skeleton_fighter", "kill_skeleton_fighter", "A simple fight", 1)
+            new Entry("skeleton_fighter", "kill_skeleton_fighter", "A simple fight", 1),
+            new Entry("wolf_black", "kill_wolf_black", "WooooooOOO !", 3),
+            new Entry("horse_skeleton", "kill_horse_skeleton", "Bone destroyer", 1)
     );
 
     // ── Lookup map: roleName (lowercase) → achievementId ─────────────────────

@@ -82,6 +82,7 @@
 1022 : kill_frost_dragon
 1023 : kill_bear_grizzly
 1024 : kill_skeleton_fighter
+1025 : kill_wolf_black
 
 ## General kills
 
@@ -144,11 +145,11 @@ thirty_kills requires 2 Progressive Workbench, Campfire, 2 Progressive Blacksmit
 fifty_kills requires 2 Progressive Workbench, 2 Progressive_Blacksmith, 1 Progressive_Furnace, 1 Progressive Tanning, Ore_Cobalt10, Ingredient_Hide_Light10, Weapon_Daggers_Bone, Ingredient_Hide_Medium10, Ingredient_Chitin_Sturdy10
 seventy_kills and hundred_kills require 3 Progressive Workbench, 2 Progressive Blacksmith, 1 Progressive Furnace, 1 Progressive Tanning, Ore_Thorium10, Ingredient_Hide_Medium10, Ingredient_Hide_Heavy10, Ingredient_Chitin_Sturdy10
 
-kill_bear_grizzly and kill_skeleton_fighter requires : 1 Progressive Workbench, 1 Progressive Blacksmith, 1 Progressive Furnace
+kill_bear_grizzly, kill_skeleton_fighter and kill_wolf_black require : 1 Progressive Workbench, 1 Progressive Blacksmith, 1 Progressive Furnace
 kill_zombie_frost, kill_skeleton_frost_archer, kill_yeti require : 2 Progressive Armorer, 2 Progressive Backpack, 2 Progressive Blacksmith, 2 Progressive Furnace, 2 Progressive Tanning, 2 Progressive Workbench, Ore_Cobalt10, Ingredient_Hide_Medium10, Ingredient_Hide_Light10, Teleporter3
 kill_zombie_burnt, kill_zombie_sand, kill_scarac_broodmother_young, kill_toad_rhino_magma, kill_snake_marsh require : 1 Progressive Armorer, 1 Progressive Backpack, 1 Progressive Blacksmith, 1 Progressive Furnace, 1 Progressive Tanning, 2 Progressive Workbench, Ore_Iron10, Ingredient_Hide_Light10, Ingredient_Chitin_Sturdy10, Teleporter3
 frost_dragon and all kill golem achievements except kill_golem_crystal_earth require : 2 Progressive_Armorer, 2 Progressive_Backpack, 2 Progressive_Blacksmith, 2 Progressive_Furnace, 2 Progressive_Tanning, 3 Progressive_Workbench, Ore_Thorium10, Ore_Cobalt10, Ingredient_Hide_Soft10, Ingredient_Hide_Light10, Ingredient_Hide_Medium10, Ingredient_Hide_Heavy10, Ingredient_Chitin_Sturdy10, 2 Teleporter3, Repair_Kit2
-All kill outlander achievements require : 2 Progressive_Armorer, 2 Progressive_Backpack, 2 Progressive_Blacksmith, 2 Progressive_Furnace, 1 Progressive_Tanning, 2 Progressive_Workbench, Ore_Thorium10, Ore_Cobalt10, Ingredient_Hide_Soft10, Ingredient_Hide_Light10, Ingredient_Hide_Medium10, Ingredient_Hide_Heavy10, Ingredient_Chitin_Sturdy10, 1 Teleporter3
+All kill outlander, kill_horse_skeleton and kill_horse_skeleton_armored achievements require : 2 Progressive_Armorer, 2 Progressive_Backpack, 2 Progressive_Blacksmith, 2 Progressive_Furnace, 1 Progressive_Tanning, 2 Progressive_Workbench, Ore_Thorium10, Ore_Cobalt10, Ingredient_Hide_Soft10, Ingredient_Hide_Light10, Ingredient_Hide_Medium10, Ingredient_Hide_Heavy10, Ingredient_Chitin_Sturdy10, 1 Teleporter3
 kill_golem_crystal_earth requires : Ore_Copper10, 1 Progressive_Workbench, 1 Progressive_Armorer, 1 Progressive_Blacksmith, 1 Progressive_Furnace
 
 death_void, death_fire require : Progressive_Workbench, Progressive_Furnace, Progressive_Armorer, Teleporter3

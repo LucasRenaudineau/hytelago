@@ -108,7 +108,7 @@ def set_all_rules(world: HytaleWorld) -> None:
         "Progressive_Blacksmith",
         "Progressive_Furnace"
     )
-    for loc in ("kill_grizzly_bear", "kill_skeleton_fighter"):
+    for loc in ("kill_grizzly_bear", "kill_skeleton_fighter", "kill_wolf_black"):
         multiworld.get_location(loc,player).access_rule = _easy_kills
 
     _mid_kills = _make_rule(
@@ -187,6 +187,8 @@ def set_all_rules(world: HytaleWorld) -> None:
         "kill_outlander_marauder",
         "kill_outlander_priest",
         "kill_outlander_stalker",
+        "kill_horse_skeleton_armored",
+        "kill_horse_skeleton"
     ):
         multiworld.get_location(loc, player).access_rule = _outlander_kills
 
@@ -201,7 +203,7 @@ def set_all_rules(world: HytaleWorld) -> None:
         "Progressive_Furnace",
     )
 
-    # kill_zombie, kill_horse_skeleton_armored, kill_goblin_hermit, kill_eye_void
+    # kill_zombie, kill_goblin_hermit, kill_eye_void
     # have no stated requirements – always accessible.
 
     # ── Death achievements ────────────────────────────────────────────────────
