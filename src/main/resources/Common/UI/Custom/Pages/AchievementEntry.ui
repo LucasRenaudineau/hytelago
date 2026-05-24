@@ -1,10 +1,10 @@
 Group {
   LayoutMode: Left;
-  Anchor: (Height: 62);                  // ← bumped from 52 to give room
+  Anchor: (Height: 62);                  // bumped from 52 to give room
   Background: #1e1e2e(0.9);
   Padding: (Full: 10);
 
-  Group {                                // ← new wrapper for title + id
+  Group {                                // new wrapper for title + id
     LayoutMode: Top;
     Anchor: (Width: 360, Height: 42);
 
@@ -22,7 +22,7 @@ Group {
 
   Label #AchCount {
     Text: "0/1";
-    Anchor: (Width: 136, Height: 42);    // ← matched to group height
+    Anchor: (Width: 136, Height: 42);    // matched to group height
     Style: (FontSize: 15, TextColor: #aaaacc, VerticalAlignment: Center);
   }
 }

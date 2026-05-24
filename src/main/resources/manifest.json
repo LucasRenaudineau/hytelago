@@ -1,10 +1,10 @@
 {
   "Group": "me.coblaz",
-  "Name": "hytelago_achievements",
+  "Name": "hytelago",
   "Version": "1.0.0",
   "Description": "A Hytale plugin for Archipelago",
   "Main": "me.coblaz.Main",
-  "Website": "https://github.com/LucasRenaudineau/hytelago_achievements",
+  "Website": "https://github.com/LucasRenaudineau/hytelago",
   "ServerVersion": "*",
   "Dependencies": {},
   "OptionalDependencies": {},
