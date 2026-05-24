@@ -92,7 +92,7 @@
           "UpgradeRequirement": {
             "Material": [
               {
-                "ItemId": "Furnace_Tier_Upgrader2",
+                "ItemId": "Furnace_Tier_Upgrader3",
                 "Quantity": 1
               }
             ],
