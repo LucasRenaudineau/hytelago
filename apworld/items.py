@@ -114,7 +114,7 @@ DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
     "Repair_Kit2":               ItemClassification.progression,
 }
 
-# ─── Fixed item pool quantities ──────────────────────────────────────────────
+# ─── Item pool quantities ──────────────────────────────────────────────
 # Ingredient_Poop is excluded here; it is added dynamically as filler to fill
 # any remaining location slots.
 
@@ -133,7 +133,7 @@ ITEM_POOL_QUANTITIES: dict[str, int] = {
     "Progressive_Blacksmith":     2,
     "Campfire":                   1,
     "Chef_Stove":                 1,
-    "Progressive_Farmer":         2,
+    "Progressive_Farmer":         3,
     "Progressive_Furnace":        2,
     "Salvager":                   1,
     "Progressive_Tanning":        2,

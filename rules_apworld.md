@@ -17,7 +17,7 @@
 2002 : Progressive_Blacksmith (2)
 2003 : Campfire
 2004 : Chef_Stove
-2005 : Progressive_Farmer (2)
+2005 : Progressive_Farmer (3)
 2006 : Progressive_Furnace (2)
 2007 : Salvager
 2008 : Progressive_Tanning (2)
