@@ -114,7 +114,8 @@ public final class AchievementRegistry {
     public List<AchievementDefinition> collectDoneAchievements(
             @Nonnull PlayerRef          playerRef,
             @Nonnull Ref<EntityStore>   ref,
-            @Nonnull Store<EntityStore> store
+            @Nonnull Store<EntityStore> store,
+            boolean                     alsoCollectAlreadyCollected
     ) {
         List<AchievementDefinition> justCollected = new ArrayList<>();
 
@@ -122,13 +123,15 @@ public final class AchievementRegistry {
             PlayerAchievementData data   = getOrCreate(playerRef, def.getId());
             AchievementStatus     status = data.getStatus();
 
-            if (status != AchievementStatus.DONE) continue;
-
-            data.setStatus(AchievementStatus.COLLECTED);
-
-            justCollected.add(def);
-            fireListeners(playerRef, def);
-            giveRewardItems(ref, store, def);
+            if (status == AchievementStatus.DONE) {
+                data.setStatus(AchievementStatus.COLLECTED);
+                justCollected.add(def);
+                fireListeners(playerRef, def);
+                giveRewardItems(ref, store, def);
+            } else if (status == AchievementStatus.COLLECTED && alsoCollectAlreadyCollected) {
+                justCollected.add(def);
+                giveRewardItems(ref, store, def);
+            }
         }
 
         if (!justCollected.isEmpty()) savePlayer(playerRef);

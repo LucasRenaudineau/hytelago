@@ -29,6 +29,6 @@ public class ArchItemsCommand extends AbstractPlayerCommand {
         Registries.ITEMS.refreshStatuses(playerRef);
         Player player = store.getComponent(ref, Player.getComponentType());  // ← this was missing
         player.getPageManager().openCustomPage(ref, store,
-                new AchievementListPage(playerRef, Registries.ITEMS));
+                new AchievementListPage(playerRef, Registries.ITEMS, true));
     }
 }

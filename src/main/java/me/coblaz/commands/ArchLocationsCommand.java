@@ -39,7 +39,7 @@ public class ArchLocationsCommand extends AbstractPlayerCommand {
         Registries.LOCATIONS.refreshStatuses(playerRef);
         Player player = store.getComponent(ref, Player.getComponentType());  // ← this was missing
         player.getPageManager().openCustomPage(ref, store,
-                new AchievementListPage(playerRef, Registries.LOCATIONS));
+                new AchievementListPage(playerRef, Registries.LOCATIONS, false));
     }
     private void syncItemCounts(
             AchievementRegistry     reg,

@@ -42,16 +42,19 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
                         .build();
     }
 
-    // ── Constructor ───────────────────────────────────────────────────────────
+    // ── Fields & Constructor ──────────────────────────────────────────────────
 
     private final PlayerRef playerRef;
     private final AchievementRegistry registry;
+    private final boolean alsoCollectAlreadyCollected;
 
     public AchievementListPage(@Nonnull PlayerRef playerRef,
-                               @Nonnull AchievementRegistry registry) {
+                               @Nonnull AchievementRegistry registry,
+                               boolean alsoCollectAlreadyCollected) {
         super(playerRef, CustomPageLifetime.CanDismiss, AchEventData.CODEC);
         this.playerRef = playerRef;
         this.registry  = registry;
+        this.alsoCollectAlreadyCollected = alsoCollectAlreadyCollected;
     }
 
     // ── Build ─────────────────────────────────────────────────────────────────
@@ -91,7 +94,8 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
             @Nonnull Ref<EntityStore>   ref,
             @Nonnull Store<EntityStore> store
     ) {
-        List<AchievementDefinition> collected = registry.collectDoneAchievements(playerRef, ref, store);
+        List<AchievementDefinition> collected = registry.collectDoneAchievements(
+                playerRef, ref, store, alsoCollectAlreadyCollected);
 
         if (collected.isEmpty()) {
             EventTitleUtil.showEventTitleToPlayer(
@@ -130,7 +134,6 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
             @Nonnull UICommandBuilder cmd,
             @Nonnull UIEventBuilder   events
     ) {
-        AchievementRegistry         registry = this.registry;
         List<AchievementDefinition> defs = registry.getDefinitions();
 
         cmd.clear("#AchievementList");
@@ -145,7 +148,7 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
 
         for (int i = 0; i < defs.size(); i++) {
             AchievementDefinition def      = defs.get(i);
-            PlayerAchievementData data = registry.getData(playerRef, def.getId());
+            PlayerAchievementData data     = registry.getData(playerRef, def.getId());
             String                selector = "#AchievementList[" + i + "]";
 
             cmd.append("#AchievementList", "Pages/AchievementEntry.ui");
