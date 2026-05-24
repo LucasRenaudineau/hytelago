@@ -7,10 +7,10 @@ from BaseClasses import Location
 if TYPE_CHECKING:
     from .world import HytaleWorld
 
-# ─── ID lookup ──────────────────────────────────────────────────────────────
-
+# If some numbers are missing, it is because some locations were removed because they did not work or did not please me.
+# For the moment and for any contributer, I would advise to continue get increasing numbers and let the holes.
 LOCATION_NAME_TO_ID: dict[str, int] = {
-    # ── Monster Kill ──────────────────────────────────────────────────────────
+    # Monster kill
     "kill_zombie":                   1000,
     "kill_horse_skeleton_armored":   1001,
     "kill_zombie_burnt":             1002,
@@ -38,19 +38,19 @@ LOCATION_NAME_TO_ID: dict[str, int] = {
     "kill_skeleton_fighter": 1024,
     "kill_wolf_black": 1025,
     "kill_horse_skeleton": 1026,
-    # ── General kills ─────────────────────────────────────────────────────────
+    # General kills
     "first_kill":    2000,
     "ten_kills":     2001,
     "thirty_kills":  2002,
     "fifty_kills":   2003,
-    "seventy_kills": 2004,  # source had typo "seventy_fills"
+    "seventy_kills": 2004,
     "hundred_kills": 2005,
-    # ── Death achievements ────────────────────────────────────────────────────
+    # Death achievements
     "death_fall":        3000,
     "death_drowning":    3001,
     "death_fire":        3004,
     "death_projectile":  3006,
-    # ── Item possessed ────────────────────────────────────────────────────────
+    # Item possessed
     "collect_watering_can":           4000,
     "collect_voidheart":              4001,
     "collect_fire_essence_5":         4002,
@@ -89,14 +89,10 @@ LOCATION_NAME_TO_ID: dict[str, int] = {
     "collect_weapon_longsword_iron":  4035,
 }
 
-
-# ─── Location class ──────────────────────────────────────────────────────────
-
 class HytaleLocation(Location):
     game = "Hytale"
 
-
-# ─── Creation ────────────────────────────────────────────────────────────────
+# Creation
 
 def create_all_locations(world: HytaleWorld) -> None:
     hytale_region = world.get_region("Hytale")

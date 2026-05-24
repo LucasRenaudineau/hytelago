@@ -7,8 +7,6 @@ from BaseClasses import Item, ItemClassification
 if TYPE_CHECKING:
     from .world import HytaleWorld
 
-# ─── ID lookup ──────────────────────────────────────────────────────────────
-
 ITEM_NAME_TO_ID: dict[str, int] = {
     # Monster spawn traps
     "Golem_Crystal_Earth":       1000,
@@ -58,10 +56,8 @@ ITEM_NAME_TO_ID: dict[str, int] = {
     "Repair_Kit2":               3025,
 }
 
-# ─── Classifications ─────────────────────────────────────────────────────────
-
 DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
-    # Monster spawn traps – bad for the player
+    # Monster spawn traps
     "Golem_Crystal_Earth":       ItemClassification.trap,
     "Golem_Firesteel":           ItemClassification.trap,
     "Skeleton_Frost_Archer2":    ItemClassification.trap,
@@ -114,7 +110,7 @@ DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
     "Repair_Kit2":               ItemClassification.progression,
 }
 
-# ─── Item pool quantities ──────────────────────────────────────────────
+# Item pool quantities (Ingredient_Poop is not included because it is the filler item)
 # Ingredient_Poop is excluded here; it is added dynamically as filler to fill
 # any remaining location slots.
 
@@ -166,18 +162,13 @@ ITEM_POOL_QUANTITIES: dict[str, int] = {
     "Repair_Kit2":                3,
 }
 
-
-# ─── Item class ──────────────────────────────────────────────────────────────
-
 class HytaleItem(Item):
     game = "Hytale"
 
-
-# ─── Helpers ─────────────────────────────────────────────────────────────────
+# Helpers
 
 def get_filler_item_name(world: HytaleWorld) -> str:  # noqa: ARG001
     return "Ingredient_Poop"
-
 
 def create_item_with_correct_classification(world: HytaleWorld, name: str) -> HytaleItem:
     return HytaleItem(
@@ -186,7 +177,6 @@ def create_item_with_correct_classification(world: HytaleWorld, name: str) -> Hy
         ITEM_NAME_TO_ID[name],
         world.player,
     )
-
 
 def create_all_items(world: HytaleWorld) -> None:
     itempool: list[HytaleItem] = []

@@ -5,8 +5,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from .world import HytaleWorld
 
-
-# ─── Helpers ─────────────────────────────────────────────────────────────────
+# Helpers
 
 def _make_rule(player: int, *requirements: tuple[str, int] | str):
     """Return an access-rule function.
@@ -25,8 +24,7 @@ def _make_rule(player: int, *requirements: tuple[str, int] | str):
 
     return rule
 
-
-# ─── Main entry point ─────────────────────────────────────────────────────────
+# Main entry point
 
 def set_all_rules(world: HytaleWorld) -> None:
     player = world.player
@@ -37,9 +35,7 @@ def set_all_rules(world: HytaleWorld) -> None:
             player, *requirements
         )
 
-    # ── General kill milestones ───────────────────────────────────────────────
-
-    # first_kill, ten_kills – no requirements (bare hands suffice)
+    # General kill milestones
 
     set_rule(
         "thirty_kills",
@@ -82,7 +78,7 @@ def set_all_rules(world: HytaleWorld) -> None:
     for loc in ("seventy_kills", "hundred_kills"):
         multiworld.get_location(loc, player).access_rule = _hard_kills
 
-    # ── Monster Kill – frost / cold biome ─────────────────────────────────────
+    # Monster kills in cold biome
 
     _frost_kills = _make_rule(
         player,
@@ -100,7 +96,7 @@ def set_all_rules(world: HytaleWorld) -> None:
     for loc in ("kill_zombie_frost", "kill_skeleton_frost_archer", "kill_yeti"):
         multiworld.get_location(loc, player).access_rule = _frost_kills
 
-    # ── Monster Kill – burnt / sand / marsh / magma ───────────────────────────
+    # Monster kill in sand and magma zones
 
     _easy_kills = _make_rule(
         player,
@@ -133,7 +129,7 @@ def set_all_rules(world: HytaleWorld) -> None:
     ):
         multiworld.get_location(loc, player).access_rule = _mid_kills
 
-    # ── Monster Kill – high-tier golems + frost dragon ────────────────────────
+    # Monster kill for high tier golems and frost_dragon
 
     _elite_kills = _make_rule(
         player,
@@ -162,7 +158,7 @@ def set_all_rules(world: HytaleWorld) -> None:
     ):
         multiworld.get_location(loc, player).access_rule = _elite_kills
 
-    # ── Monster Kill – outlanders ─────────────────────────────────────────────
+    # Monster kill for outlanders or rare horses from devastated lands
 
     _outlander_kills = _make_rule(
         player,
@@ -192,7 +188,7 @@ def set_all_rules(world: HytaleWorld) -> None:
     ):
         multiworld.get_location(loc, player).access_rule = _outlander_kills
 
-    # ── Monster Kill – earth golem (easiest golem) ────────────────────────────
+    # Monster kill for earth golem
 
     set_rule(
         "kill_golem_crystal_earth",
@@ -206,7 +202,7 @@ def set_all_rules(world: HytaleWorld) -> None:
     # kill_zombie, kill_goblin_hermit, kill_eye_void
     # have no stated requirements – always accessible.
 
-    # ── Death achievements ────────────────────────────────────────────────────
+    # Death achievement
 
     _fire_death = _make_rule(
         player,
@@ -218,10 +214,10 @@ def set_all_rules(world: HytaleWorld) -> None:
     for loc in ("death_fire",):
         multiworld.get_location(loc, player).access_rule = _fire_death
 
-    # death_fall, death_drowning, death_suffocation, death_physical, death_projectile
+    # death_fall, death_drowning, death_projectile
     # have no stated requirements.
 
-    # ── Item possessed ────────────────────────────────────────────────────────
+    # Item possessed
 
     set_rule(
         "collect_watering_can",
@@ -356,7 +352,7 @@ def set_all_rules(world: HytaleWorld) -> None:
 
     set_rule("collect_furniture_crude_torch_10", "Progressive_Workbench")
 
-    # ── Smelting ──────────────────────────────────────────────────────────────
+    # Smelting
 
     set_rule("smelt_iron",   "Ore_Iron10",   "Progressive_Furnace")
     set_rule("smelt_copper", "Ore_Copper10", "Progressive_Furnace")
@@ -365,7 +361,7 @@ def set_all_rules(world: HytaleWorld) -> None:
     set_rule("smelt_thorium","Ore_Thorium10","Progressive_Furnace")
     set_rule("smelt_cobalt", "Ore_Cobalt10", "Progressive_Furnace")
 
-    # ── Copper gear ───────────────────────────────────────────────────────────
+    # Copper gear
 
     _copper_gear = _make_rule(
         player,
@@ -386,7 +382,7 @@ def set_all_rules(world: HytaleWorld) -> None:
     ):
         multiworld.get_location(loc, player).access_rule = _copper_gear
 
-    # ── Iron gear ─────────────────────────────────────────────────────────────
+    # Iron gear
 
     _iron_gear = _make_rule(
         player,
@@ -407,8 +403,8 @@ def set_all_rules(world: HytaleWorld) -> None:
     ):
         multiworld.get_location(loc, player).access_rule = _iron_gear
 
-    # ── Completion condition ──────────────────────────────────────────────────
-    # Goal: defeat the frost dragon, the hardest achievement in the game.
+    # Completion condition
+    # Goal: defeat the frost dragon
     world.multiworld.completion_condition[player] = _make_rule(
         player,
         ("Progressive_Armorer", 2),

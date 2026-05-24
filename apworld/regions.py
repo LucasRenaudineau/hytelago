@@ -7,7 +7,6 @@ from BaseClasses import Region
 if TYPE_CHECKING:
     from .world import HytaleWorld
 
-
 def create_regions(world: HytaleWorld) -> None:
     # All locations live in a single "Hytale" region.
     # Access logic is handled entirely by per-location rules (rules.py), not by region topology.

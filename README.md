@@ -36,10 +36,12 @@ Put the .jar of the last version in your Mods folder. Some mods are recommended 
 Send the Hytale.apworld to your archipelago server host.
 In the .yaml, change the player name, and send it to the archipelago server host.
 
-Once in game, you can list the commands with /arch-help command.
+Once in game, do /op self and then you can list the commands with /arch-help
 Once the server is hosted, you can connect using the arch-connect command.
 !!! Always connect to the server when you join the world, as it won't send new locations you would have discovered while disconnected. !!!
 See your advancement with /arch-locations and collect lost Workbench upgrader items with /arch-items
+!!! The only (intentional) non-working location is the kill_frost_dragon location which is also the one to release the player.
+When you find the frost dragon, manually type /arch-set_count kill_frost_dragon 1 or more directly /arch-collect kill_frost_dragon
 
 For the moment, don't stack your inventory, since items given to you won't be given if your inventory is full.
 
@@ -52,3 +54,4 @@ In case you would want to contribute, don't bother contact me on Discord as I ma
 
 All items, locations and their IDs are listed in the file rules_apworld.md
 In this file, you'll also find the rules soft logic, listed in human-readable english.
+The current goal is killing the frost_dragon.

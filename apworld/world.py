@@ -7,7 +7,6 @@ from . import items, locations, regions, rules
 from . import options as hytale_options
 from .web_world import HytaleWebWorld
 
-
 class HytaleWorld(World):
     """
     Hytale is an adventure/sandbox game.
@@ -25,9 +24,9 @@ class HytaleWorld(World):
     item_name_to_id = items.ITEM_NAME_TO_ID
 
     # All locations live in the "Hytale" region; the generator starts from "Menu".
-    # origin_region_name defaults to "Menu", which is correct for our setup.
+    # origin_region_name defaults to "Menu".
 
-    # ── Generation steps ──────────────────────────────────────────────────────
+    # Generation steps
 
     def create_regions(self) -> None:
         regions.create_regions(self)
@@ -39,7 +38,7 @@ class HytaleWorld(World):
     def create_items(self) -> None:
         items.create_all_items(self)
 
-    # ── Item helpers ──────────────────────────────────────────────────────────
+    # Item helpers
 
     def create_item(self, name: str) -> items.HytaleItem:
         return items.create_item_with_correct_classification(self, name)
@@ -47,7 +46,7 @@ class HytaleWorld(World):
     def get_filler_item_name(self) -> str:
         return items.get_filler_item_name(self)
 
-    # ── Slot data ─────────────────────────────────────────────────────────────
+    # Slot data
 
     def fill_slot_data(self) -> Mapping[str, Any]:
         # No custom options at the moment; return an empty dict.
