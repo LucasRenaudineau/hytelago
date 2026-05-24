@@ -23,7 +23,7 @@ tasks.jar {
         if (it.isDirectory) it else zipTree(it)
     })
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    archiveBaseName.set("hytelago_achievements")
+    archiveBaseName.set("hytelago")
     archiveVersion.set("1.0.0")
     archiveClassifier.set("")
 }

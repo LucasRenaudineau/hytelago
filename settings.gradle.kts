@@ -5,4 +5,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "hytelago_achievements"
+rootProject.name = "hytelago"
