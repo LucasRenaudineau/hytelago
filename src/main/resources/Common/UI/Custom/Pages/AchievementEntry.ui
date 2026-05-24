@@ -1,16 +1,28 @@
 Group {
   LayoutMode: Left;
-  Anchor: (Height: 52);
-  Background: #1e1e2e(0.9);     // ← was #5a1010(0.9), now neutral
+  Anchor: (Height: 62);                  // ← bumped from 52 to give room
+  Background: #1e1e2e(0.9);
   Padding: (Full: 10);
-  Label #AchTitle {
-    Text: "Achievement";
-    Anchor: (Width: 360, Height: 32);
-    Style: (FontSize: 16, TextColor: #ffffff, VerticalAlignment: Center);
+
+  Group {                                // ← new wrapper for title + id
+    LayoutMode: Top;
+    Anchor: (Width: 360, Height: 42);
+
+    Label #AchTitle {
+      Text: "Achievement";
+      Anchor: (Width: 360, Height: 26);
+      Style: (FontSize: 16, TextColor: #ffffff, VerticalAlignment: Center);
+    }
+    Label #AchId {
+      Text: "achievement_id";
+      Anchor: (Width: 360, Height: 16);
+      Style: (FontSize: 10, TextColor: #6e7da1, VerticalAlignment: Center);
+    }
   }
+
   Label #AchCount {
     Text: "0/1";
-    Anchor: (Width: 136, Height: 32);
+    Anchor: (Width: 136, Height: 42);    // ← matched to group height
     Style: (FontSize: 15, TextColor: #aaaacc, VerticalAlignment: Center);
   }
 }

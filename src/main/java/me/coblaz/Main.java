@@ -80,6 +80,7 @@ public class Main extends JavaPlugin {
         this.getCommandRegistry().registerCommand(new ArchSetCountCommand());
         this.getCommandRegistry().registerCommand(new ArchSetStateCommand());
         this.getCommandRegistry().registerCommand(new ArchSpawnCommand());
+        this.getCommandRegistry().registerCommand(new ArchHelpCommand());
 
         // ── Archipelago connection command ────────────────────────────────────
         this.getCommandRegistry().registerCommand(new ArchConnectCommand());

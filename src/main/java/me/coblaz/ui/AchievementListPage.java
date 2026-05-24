@@ -153,8 +153,10 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
 
             cmd.append("#AchievementList", "Pages/AchievementEntry.ui");
             cmd.set(selector + " #AchTitle.Text",            def.getTitle());
+            cmd.set(selector + " #AchId.Text",               def.getId());
             cmd.set(selector + " #AchCount.Text",            data.getCount() + "/" + def.getNeededCount());
             cmd.set(selector + " #AchTitle.Style.TextColor", colorFor(data.getStatus()));
+            cmd.set(selector + " #AchId.Style.TextColor",    "#6e7da1");
             cmd.set(selector + " #AchCount.Style.TextColor", colorFor(data.getStatus()));
         }
     }
