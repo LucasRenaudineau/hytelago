@@ -356,12 +356,6 @@ public final class ArchipelagoManager {
         System.out.printf(
                 "[ArchipelagoMod] Sending location check: '%s' → location id %d%n",
                 achievementId, locationId);
-
-        // ⚠️  Verify the exact method name by decompiling Client.class in IntelliJ.
-        //     Common names in the archipelagomw Java client:
-        //       state.client().locationChecks(locationId);          ← most likely
-        //       state.client().sendChecks(List.of(locationId));
-        //       state.client().checkLocation(locationId);
         state.client().checkLocation(locationId);
 
         System.out.printf(
