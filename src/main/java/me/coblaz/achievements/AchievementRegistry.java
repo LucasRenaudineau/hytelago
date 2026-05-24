@@ -14,20 +14,19 @@ import java.util.*;
 
 public final class AchievementRegistry {
 
-    // ── Singleton ────────────────────────────────────────────────────────────
     private final String name;
 
     public AchievementRegistry(String name) {
         this.name = name;
     }
 
-    // ── Internal state ───────────────────────────────────────────────────────
+    // Internal State
     private final List<AchievementDefinition>                     definitions   = new ArrayList<>();
     private final Map<String, Map<String, PlayerAchievementData>> playerData    = new HashMap<>();
     private final List<AchievementListener>                       listeners     = new ArrayList<>();
     private final Set<String>                                     loadedPlayers = new HashSet<>();
 
-    // ── Registration (called at plugin startup) ──────────────────────────────
+    // Registration (called at plugin startup)
 
     public void registerAchievement(@Nonnull AchievementDefinition def) {
         boolean duplicate = definitions.stream().anyMatch(d -> d.getId().equals(def.getId()));
@@ -39,12 +38,11 @@ public final class AchievementRegistry {
         definitions.add(def);
     }
 
-    /** Other mods call this to be notified when a player collects an achievement. */
     public void addListener(@Nonnull AchievementListener listener) {
         listeners.add(listener);
     }
 
-    // ── Data access ──────────────────────────────────────────────────────────
+    // Data access
 
     @Nonnull
     public List<AchievementDefinition> getDefinitions() {
@@ -65,7 +63,7 @@ public final class AchievementRegistry {
                 .findFirst().orElse(null);
     }
 
-    // ── Game logic ───────────────────────────────────────────────────────────
+    // Game logic
 
     /**
      * Increases the progress counter for a player's achievement.
@@ -81,7 +79,6 @@ public final class AchievementRegistry {
 
     /**
      * Directly overrides the status of a player's achievement.
-     * Useful for admin commands or special game logic.
      */
     public void setStatus(@Nonnull PlayerRef playerRef,
                           @Nonnull String achievementId,
@@ -139,7 +136,7 @@ public final class AchievementRegistry {
     }
 
     /**
-     * /ach-collect command: sets count = neededCount and immediately collects.
+     * /arch-collect command: sets count = neededCount and immediately collects.
      * Returns false if the id is unknown or already collected.
      */
     public boolean forceCollect(
@@ -161,7 +158,7 @@ public final class AchievementRegistry {
         return true;
     }
 
-    // ── Internals ─────────────────────────────────────────────────────────────
+    // Internals
 
     private void fireListeners(@Nonnull PlayerRef playerRef,
                                @Nonnull AchievementDefinition def) {
@@ -204,9 +201,6 @@ public final class AchievementRegistry {
 
     /**
      * Stable string key for the player map.
-     * ⚠️ NEEDS VERIFICATION: PlayerRef.toString() may not be stable across
-     * reconnects. Decompile PlayerRef — if it has getUniqueId() / getUUID()
-     * / getName(), use that instead.
      */
     @Nonnull
     private String playerKey(@Nonnull PlayerRef playerRef) {

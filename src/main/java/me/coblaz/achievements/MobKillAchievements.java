@@ -15,10 +15,6 @@ public final class MobKillAchievements {
             int needed
     ) {}
 
-    // ── Master list ───────────────────────────────────────────────────────────
-    // roleId        → exact string returned by npc.getRoleName() (case-insensitive match)
-    // needed        → kills required; adjust freely
-
     public static final List<Entry> ALL = List.of(
             new Entry("zombie",                   "kill_zombie",                   "Zombie Slayer",          2),
             new Entry("horse_skeleton_armored",   "kill_horse_skeleton_armored",   "Armored Bones",          3),
@@ -51,7 +47,7 @@ public final class MobKillAchievements {
             new Entry("horse_skeleton", "kill_horse_skeleton", "Bone destroyer", 1)
     );
 
-    // ── Lookup map: roleName (lowercase) → achievementId ─────────────────────
+    // Lookup map: roleName (lowercase) -> achievementId
 
     private static final Map<String, String> ROLE_TO_ACH_ID =
             ALL.stream().collect(Collectors.toMap(
@@ -59,7 +55,7 @@ public final class MobKillAchievements {
                     Entry::achievementId
             ));
 
-    // ── API ───────────────────────────────────────────────────────────────────
+    // API
 
     /** Registers every entry into the given registry. Call once at startup. */
     public static void registerAll(@Nonnull AchievementRegistry reg) {

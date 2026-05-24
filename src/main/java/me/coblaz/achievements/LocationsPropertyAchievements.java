@@ -15,7 +15,7 @@ public final class LocationsPropertyAchievements {
             String          title,
             int             needed,
             boolean          multipleCollects,
-            List<ItemReward> rewardItems      // ← new; use List.of() for all current entries
+            List<ItemReward> rewardItems
     ) {}
 
     public static final List<Entry> ALL = List.of(
@@ -57,11 +57,7 @@ public final class LocationsPropertyAchievements {
             new Entry("Weapon_Longsword_Iron", "collect_weapon_longsword_iron", "Iron Longsword", 1, false, List.of())
     );
 
-    // ── Lookup: itemId (lowercase) → list of achievementIds ──────────────────
-    // Uses a list because one item can map to multiple achievements
-    // (e.g. Life Essence at 100 AND 500)
-
-    // ── Lookup: itemId (lowercase) → list of achievementIds ──────────────────
+    // Lookup: itemId (lowercase) -> list of achievementIds
     private static final Map<String, List<String>> ITEM_TO_ACH_IDS =
             ALL.stream().collect(Collectors.groupingBy(
                     e -> e.itemId().toLowerCase(),
@@ -74,9 +70,9 @@ public final class LocationsPropertyAchievements {
                     e.achievementId(),
                     e.title(),
                     e.needed(),
-                    e.multipleCollects(),            // multipleCollects — false for all current entries
+                    e.multipleCollects(),
                     e.rewardItems(),
-                    "locations"           // ← group, drives which command shows them
+                    "locations"
             ));
         }
     }

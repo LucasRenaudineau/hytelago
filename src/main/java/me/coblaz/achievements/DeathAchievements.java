@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public final class DeathAchievements {
 
     public record Entry(
-            String causeId,       // matches DamageCause.getId() or EnvironmentSource.getType()
+            String causeId, // matches DamageCause.getId() or EnvironmentSource.getType()
             String achievementId,
             String title,
             int    needed

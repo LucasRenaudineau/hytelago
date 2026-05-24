@@ -14,7 +14,7 @@ public final class AchievementDefinition {
     private final List<ItemReward> rewardItems;
     private final String          group;
 
-    // ── Full constructor ──────────────────────────────────────────────────────
+    // Full constructor
     public AchievementDefinition(
             @Nonnull String           id,
             @Nonnull String           title,
@@ -31,7 +31,7 @@ public final class AchievementDefinition {
         this.group            = group;
     }
 
-    // ── Backward-compat constructor (existing registrations need no change) ──
+    // Backward-compatibility constructor
     public AchievementDefinition(
             @Nonnull String id,
             @Nonnull String title,
@@ -40,7 +40,7 @@ public final class AchievementDefinition {
         this(id, title, neededCount, false, List.of(), "general");
     }
 
-    // ── Getters ───────────────────────────────────────────────────────────────
+    // Getters
     @Nonnull public String           getId()              { return id; }
     @Nonnull public String           getTitle()           { return title; }
     public   int                     getNeededCount()     { return neededCount; }
