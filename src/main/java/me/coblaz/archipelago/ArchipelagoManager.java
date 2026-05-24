@@ -24,7 +24,7 @@ public final class ArchipelagoManager {
     public static final ArchipelagoManager INSTANCE = new ArchipelagoManager();
     private ArchipelagoManager() {}
 
-    // ── Pending actions: enqueued by WebSocket thread, drained by game thread ──
+    // Pending actions: enqueued by WebSocket thread, drained by game thread
     @FunctionalInterface
     public interface PendingAction {
         void run(
@@ -37,7 +37,7 @@ public final class ArchipelagoManager {
     private final Map<String, ConcurrentLinkedQueue<PendingAction>> pendingByPlayer
             = new HashMap<>();
 
-    // ── Concrete Client ────────────────────────────────────────────────────────
+    // Concrete Client
     private static final class HytaleAPClient extends Client {
         @Override public void onError(Exception ex) {
             System.err.println("[ArchipelagoMod] WebSocket ERROR: " + ex.getMessage());
@@ -48,8 +48,6 @@ public final class ArchipelagoManager {
                     reason, attemptingReconnect);
         }
     }
-
-    // Inside ArchipelagoManager — replace the anonymous Object with this:
 
     public static final class ItemEventListener {
 
@@ -77,7 +75,7 @@ public final class ArchipelagoManager {
                     index, itemId, itemName, lastProcessed.get());
 
             if (index <= lastProcessed.get()) {
-                System.out.printf("[ArchipelagoMod]  → SKIPPED (already processed up to %d)%n",
+                System.out.printf("[ArchipelagoMod] -> SKIPPED (already processed up to %d)%n",
                         lastProcessed.get());
                 return;
             }
@@ -123,7 +121,7 @@ public final class ArchipelagoManager {
         }
     }
 
-    // ── Static item tables ────────────────────────────────────────────────────
+    // Static item table
     private static final Map<Long, MobSpawn>  MOB_TABLE  = new LinkedHashMap<>();
     private static final Map<Long, String>    TIER_TABLE = new LinkedHashMap<>();
     private static final Map<Long, ItemGrant> LOOT_TABLE = new LinkedHashMap<>();
@@ -173,13 +171,13 @@ public final class ArchipelagoManager {
         LOOT_TABLE.put(3022L, new ItemGrant("Weapon_Daggers_Bone",              1));
         LOOT_TABLE.put(3023L, new ItemGrant("Weapon_Arrow_Clearshot",          30));
         LOOT_TABLE.put(3024L, new ItemGrant("Weapon_Deployable_Healing_Totem",  1));
-        LOOT_TABLE.put(3025L, new ItemGrant("Tool_Repair_Kit_Iron",                       2));
+        LOOT_TABLE.put(3025L, new ItemGrant("Tool_Repair_Kit_Iron",             2));
     }
 
-    // ── Per-player connection state ───────────────────────────────────────────
+    // Per-player connection state
     private final Map<String, PlayerAPState> playerStates = new HashMap<>();
 
-    // ── connect() ─────────────────────────────────────────────────────────────
+    // connect()
     public void connect(
             @Nonnull PlayerRef          playerRef,
             @Nonnull Ref<EntityStore>   ref,
@@ -210,20 +208,15 @@ public final class ArchipelagoManager {
         client.setName(slotName);
         client.setPassword("");   // set explicitly even if empty; some servers require it
 
-        // ── CRITICAL: tell the server to send us items ─────────────────────
+        // CRITICAL: tell the server to send us items
         // 0b001 = receive items from other worlds
         // 0b010 = starting inventory
         // 0b100 = items received while offline
-        // Without this, the server may connect us but never send ReceivedItems.
         try {
-            // Try the most common method names — check your library's decompilation
-            // and use whichever one exists:
             client.setItemsHandlingFlags(0b111);   // preferred: 7
             System.out.println("[ArchipelagoMod] items_handling set to 0b111 (7)");
         } catch (NoSuchMethodError | AbstractMethodError e) {
-            // If setItemsHandling doesn't exist, look for it under a different name
-            System.err.println("[ArchipelagoMod] WARNING: setItemsHandling not found on Client! " +
-                    "Items will NOT be received. Decompile Client.class to find the correct setter.");
+            System.err.println("[ArchipelagoMod] WARNING: setItemsHandling not found on Client! ");
         }
 
         ItemEventListener itemListener = new ItemEventListener(queue, lastProcessed, uuid);
@@ -241,7 +234,7 @@ public final class ArchipelagoManager {
         }
     }
 
-    // ── tick() ────────────────────────────────────────────────────────────────
+    // tick()
     public void tick(
             @Nonnull PlayerRef          playerRef,
             @Nonnull Store<EntityStore> freshStore
@@ -279,7 +272,7 @@ public final class ArchipelagoManager {
         pendingByPlayer.remove(uuid);
     }
 
-    // ── Dispatchers ───────────────────────────────────────────────────────────
+    // Dispatchers
     private void spawnMob(
             @Nonnull PlayerRef playerRef, @Nonnull Ref<EntityStore> ref,
             @Nonnull Store<EntityStore> store, @Nonnull String mobName, int count
@@ -321,7 +314,7 @@ public final class ArchipelagoManager {
         else
             System.err.printf("[ArchipelagoMod] No inventory space for %s x%d%n", itemName, quantity);
     }
-    // ── Send a completed location check to the AP server ─────────────────────────
+    // Send a completed location check to the AP server
     /**
      * Called when a player collects an achievement that maps to an Archipelago
      * location. Looks up the numeric location ID and sends it to the server.
@@ -333,7 +326,7 @@ public final class ArchipelagoManager {
             @Nonnull PlayerRef playerRef,
             @Nonnull String    achievementId
     ) {
-        // ── 1. Resolve numeric location ID ────────────────────────────────────
+        // Resolve numeric location ID
         Long locationId = ArchipelagoLocationMap.getLocationId(achievementId);
         if (locationId == null) {
             System.out.printf(
@@ -342,7 +335,7 @@ public final class ArchipelagoManager {
             return;
         }
 
-        // ── 2. Check that the player is connected ─────────────────────────────
+        // Check that the player is connected
         String        uuid  = playerRef.getUuid().toString();
         PlayerAPState state = playerStates.get(uuid);
         if (state == null || !state.client().isConnected()) {
@@ -352,7 +345,7 @@ public final class ArchipelagoManager {
             return;
         }
 
-        // ── 3. Send ───────────────────────────────────────────────────────────
+        // Send
         System.out.printf(
                 "[ArchipelagoMod] Sending location check: '%s' → location id %d%n",
                 achievementId, locationId);

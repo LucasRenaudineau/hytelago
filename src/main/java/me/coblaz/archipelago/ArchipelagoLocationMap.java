@@ -10,17 +10,17 @@ import java.util.Map;
  * Archipelago location ID.
  *
  * The numbers come from the YAML world definition:
- *   1000-1022 = monster kills
- *   2000-2005 = general kill milestones
- *   3000-3006 = death achievements
- *   4000-4035 = item-possession achievements
+ *   1xxx = monster kills
+ *   2xxx = general kill milestones
+ *   3xxx = death achievements
+ *   4xxx = item-possession achievements
  */
 public final class ArchipelagoLocationMap {
 
     private static final Map<String, Long> ACH_TO_LOCATION_ID = new HashMap<>();
 
     static {
-        // ── Monster kills ─────────────────────────────────────────────────────
+        // Monster kills
         ACH_TO_LOCATION_ID.put("kill_zombie",                   1000L);
         ACH_TO_LOCATION_ID.put("kill_horse_skeleton_armored",   1001L);
         ACH_TO_LOCATION_ID.put("kill_zombie_burnt",             1002L);
@@ -45,21 +45,21 @@ public final class ArchipelagoLocationMap {
         ACH_TO_LOCATION_ID.put("kill_yeti",                     1021L);
         ACH_TO_LOCATION_ID.put("kill_frost_dragon",             1022L);
 
-        // ── General kill milestones ───────────────────────────────────────────
+        // General kill milestones
         ACH_TO_LOCATION_ID.put("first_kill",    2000L);
         ACH_TO_LOCATION_ID.put("ten_kills",     2001L);
         ACH_TO_LOCATION_ID.put("thirty_kills",  2002L);
         ACH_TO_LOCATION_ID.put("fifty_kills",   2003L);
-        ACH_TO_LOCATION_ID.put("seventy_kills", 2004L);   // note: YAML says "seventy_fills" — keep in sync!
+        ACH_TO_LOCATION_ID.put("seventy_kills", 2004L);
         ACH_TO_LOCATION_ID.put("hundred_kills", 2005L);
 
-        // ── Death achievements ────────────────────────────────────────────────
+        // Death achievements
         ACH_TO_LOCATION_ID.put("death_fall",        3000L);
         ACH_TO_LOCATION_ID.put("death_drowning",    3001L);
         ACH_TO_LOCATION_ID.put("death_fire",        3004L);
         ACH_TO_LOCATION_ID.put("death_projectile",  3006L);
 
-        // ── Item-possession achievements ──────────────────────────────────────
+        // Item-possession achievements
         ACH_TO_LOCATION_ID.put("collect_watering_can",           4000L);
         ACH_TO_LOCATION_ID.put("collect_voidheart",              4001L);
         ACH_TO_LOCATION_ID.put("collect_fire_essence_5",         4002L);
