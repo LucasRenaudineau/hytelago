@@ -1,0 +1,49 @@
+# Hytelago mod
+
+# Summary
+
+- Download links
+- Set-up to play the mod
+- Compiling the mod and contributing
+- Items, locations, and rules logic
+
+# Download links
+
+- Apworld
+(Link to add)
+
+- .yaml
+(Link to add)
+
+- hytelago.jar
+(Link to add)
+
+- betterMap mod (recommended mod)
+(Link to add)
+
+- InfiniteTeleporters (recommended mod)
+(Link to add)
+
+# Set-up to play the mod
+
+Put the .jar of the last version in your Mods folder. Some mods are recommended : betterMap and InfiniteTeleporters.
+*Note : Hytelago overrides the assets of almost all workbenches and of the backpack upgrades to change their crafts and tier upgrades, so a lot of mods won't be compatible with it.*
+Send the Hytale.apworld to your archipelago server host.
+In the .yaml, change the player name, and send it to the archipelago server host.
+
+Once in game, you can list the commands with /arch-help command.
+Once the server is hosted, you can connect using the arch-connect command.
+!!! Always connect to the server when you join the world, as it won't send new locations you would have discovered while disconnected. !!!
+See your advancement with /arch-locations and collect lost Workbench upgrader items with /arch-items
+
+For the moment, don't stack your inventory, since items given to you won't be given if your inventory is full.
+
+# Compiling the mod and contributing
+
+To compile the mod, you'll need the HytaleServer.jar library in the ./libs folder at the root of the project.
+In case you would want to contribute, don't bother contact me on Discord as I may not be active on Github, my pseudo is Coblaz
+
+# Items, locations, and rules logic
+
+All items, locations and their IDs are listed in the file rules_apworld.md
+In this file, you'll also find the rules soft logic, listed in human-readable english.
