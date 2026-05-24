@@ -36,19 +36,18 @@ public class DeathListener extends DeathSystems.OnDeathSystem {
         Damage deathInfo = component.getDeathInfo();
         if (deathInfo == null) return;
 
-        // Get the PlayerRef of the dying player (not the killer — opposite of KillListener)
+        // Get the PlayerRef of the dying player (not the killer; opposite of KillListener)
         PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
         if (playerRef == null) return;
 
         AchievementRegistry reg = Registries.LOCATIONS;
 
-        // ── Resolve cause ID ──────────────────────────────────────────────────
+        // Resolve cause ID
 
         String causeId = resolveCauseId(deathInfo);
         if (causeId == null) return;
 
-        // ── Increment matching achievement ────────────────────────────────────
-        System.out.println("[DeathMod] causeId = " + causeId); // Line to delete after I know what are the good strings
+        // Increment matching achievement
         String achId = DeathAchievements.achievementIdForCause(causeId);
         if (achId != null) {
             reg.incrementCount(playerRef, achId, 1);
@@ -56,13 +55,13 @@ public class DeathListener extends DeathSystems.OnDeathSystem {
     }
 
     private String resolveCauseId(@Nonnull Damage deathInfo) {
-        // EnvironmentSource carries its own type string (lava, fire, etc.)
+        // EnvironmentSource carries its own type string (lava, fire,...)
         // Check this first since it's more specific than the DamageCause asset
         if (deathInfo.getSource() instanceof Damage.EnvironmentSource env) {
             return env.getType().toLowerCase();
         }
 
-        // For all other sources, use the DamageCause asset ID (fall, drowning, suffocation…)
+        // For all other sources, use the DamageCause asset ID (fall, drowning,...)
         DamageCause cause = DamageCause.getAssetMap().getAsset(deathInfo.getDamageCauseIndex());
         if (cause != null) {
             return cause.getId().toLowerCase();

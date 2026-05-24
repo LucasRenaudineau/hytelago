@@ -25,7 +25,7 @@ import java.util.List;
 
 public class AchievementListPage extends InteractiveCustomUIPage<AchievementListPage.AchEventData> {
 
-    // ── Codec ─────────────────────────────────────────────────────────────────
+    // Codec
 
     public static class AchEventData {
         public String action;
@@ -42,7 +42,7 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
                         .build();
     }
 
-    // ── Fields & Constructor ──────────────────────────────────────────────────
+    // Fields and Constructor
 
     private final PlayerRef playerRef;
     private final AchievementRegistry registry;
@@ -57,7 +57,7 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
         this.alsoCollectAlreadyCollected = alsoCollectAlreadyCollected;
     }
 
-    // ── Build ─────────────────────────────────────────────────────────────────
+    // Build
 
     @Override
     public void build(
@@ -75,7 +75,7 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
         );
     }
 
-    // ── Event handling ────────────────────────────────────────────────────────
+    // Event handling
 
     @Override
     public void handleDataEvent(
@@ -88,7 +88,7 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
         }
     }
 
-    // ── Collect logic ─────────────────────────────────────────────────────────
+    // Collect logic
 
     private void handleCollect(
             @Nonnull Ref<EntityStore>   ref,
@@ -128,7 +128,7 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
         sendUpdate(refresh, events, false);
     }
 
-    // ── List builder (used by both build() and refresh) ───────────────────────
+    // List builder (used by both build() and refresh)
 
     private void buildAchievementList(
             @Nonnull UICommandBuilder cmd,

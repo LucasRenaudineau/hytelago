@@ -50,7 +50,7 @@ public class KillListener extends DeathSystems.OnDeathSystem {
 
         AchievementRegistry reg = Registries.LOCATIONS;
 
-        // ── General kill milestones (every kill counts) ───────────────────────
+        // General kill milestones
         reg.incrementCount(playerRef, "first_kill",    1);
         reg.incrementCount(playerRef, "ten_kills",     1);
         reg.incrementCount(playerRef, "thirty_kills",     1);
@@ -58,7 +58,7 @@ public class KillListener extends DeathSystems.OnDeathSystem {
         reg.incrementCount(playerRef, "seventy_kills",     1);
         reg.incrementCount(playerRef, "hundred_kills", 1);
 
-        // ── Mob-specific achievement ──────────────────────────────────────────
+        // Mob-specific achievement
         String achId = MobKillAchievements.achievementIdForRole(entityName);
         if (achId != null) {
             reg.incrementCount(playerRef, achId, 1);

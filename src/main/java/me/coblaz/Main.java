@@ -31,7 +31,7 @@ public class Main extends JavaPlugin {
         AchievementRegistry locations = Registries.LOCATIONS;
         AchievementRegistry items     = Registries.ITEMS;
 
-        // ── General kill milestones ───────────────────────────────────────────
+        // General kill milestones
         locations.registerAchievement(new AchievementDefinition("first_kill",    "First Blood",       1));
         locations.registerAchievement(new AchievementDefinition("ten_kills",     "Fighter",          10));
         locations.registerAchievement(new AchievementDefinition("thirty_kills",  "Violent",          30));
@@ -39,13 +39,13 @@ public class Main extends JavaPlugin {
         locations.registerAchievement(new AchievementDefinition("seventy_kills", "Mass Murderer",    70));
         locations.registerAchievement(new AchievementDefinition("hundred_kills", "Mob Exterminator", 100));
 
-        // ── Mob-specific kill achievements ────────────────────────────────────
+        // Mob-specific kill achievements
         MobKillAchievements.registerAll(locations);
         LocationsPropertyAchievements.registerAll(locations);
         DeathAchievements.registerAll(locations);
         ItemsAchievements.registerAll(Registries.ITEMS);
 
-        // ── Listeners ─────────────────────────────────────────────────────────
+        // Listeners
         locations.addListener((playerRef, def) -> {
             System.out.printf(
                     "[ArchipelagoMod] Location achievement collected: '%s' (%s) by player %s%n",
@@ -70,7 +70,7 @@ public class Main extends JavaPlugin {
                         )
         );
 
-        // ── Commands ──────────────────────────────────────────────────────────
+        // Commands
         this.getCommandRegistry().registerCommand(
                 new HelloTest("Hello", "Test command to say hello", false)
         );
@@ -82,10 +82,10 @@ public class Main extends JavaPlugin {
         this.getCommandRegistry().registerCommand(new ArchSpawnCommand());
         this.getCommandRegistry().registerCommand(new ArchHelpCommand());
 
-        // ── Archipelago connection command ────────────────────────────────────
+        // Archipelago connection command
         this.getCommandRegistry().registerCommand(new ArchConnectCommand());
 
-        // ── Systems ───────────────────────────────────────────────────────────
+        // Systems
         EntityStore.REGISTRY.registerSystem(new KillListener());
         EntityStore.REGISTRY.registerSystem(new InventoryListener());
         EntityStore.REGISTRY.registerSystem(new DeathListener());

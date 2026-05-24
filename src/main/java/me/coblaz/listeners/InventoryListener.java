@@ -33,12 +33,12 @@ public class InventoryListener extends EntityEventSystem<EntityStore, InventoryC
             @Nonnull CommandBuffer<EntityStore> commandBuffer,
             @Nonnull InventoryChangeEvent event
     ) {
-        // ── Only care about successful ADD transactions ────────────────────────
+        // Only care about successful ADD transactions
         if (!(event.getTransaction() instanceof ItemStackTransaction tx)) return;
         if (tx.getAction() != ActionType.ADD)                            return;
         if (!tx.succeeded())                                             return;
 
-        // ── Get the item that was added ───────────────────────────────────────
+        // Get the item that was added
         ItemStack query = tx.getQuery();
         if (query == null) return;
 
