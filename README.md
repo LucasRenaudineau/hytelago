@@ -1,21 +1,26 @@
 # Hytelago mod
 
-# Summary
+# Table of contents
 
+- Description
 - Download links
 - Set-up to play the mod
 - Compiling the mod and contributing
 - Items, locations, and rules logic
 
+# Description
+
+Hytelago is a Hytale mod developped for playing Archipelago, a multiworld randomizer.
+
 # Download links
+
+- hytelago.jar
+(Link to add)
 
 - Apworld
 (Link to add)
 
 - .yaml
-(Link to add)
-
-- hytelago.jar
 (Link to add)
 
 - betterMap mod (recommended mod)

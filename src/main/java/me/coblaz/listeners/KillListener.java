@@ -43,7 +43,7 @@ public class KillListener extends DeathSystems.OnDeathSystem {
         Ref<EntityStore> sourceRef = entitySource.getRef();
         if (!sourceRef.isValid()) return;
 
-        PlayerRef playerRef = (PlayerRef) store.getComponent(sourceRef, PlayerRef.getComponentType());
+        PlayerRef playerRef = store.getComponent(sourceRef, PlayerRef.getComponentType());
         if (playerRef == null) return;
 
         String entityName = getEntityName(ref, store);
@@ -74,7 +74,10 @@ public class KillListener extends DeathSystems.OnDeathSystem {
 
     @Nonnull
     private String getEntityName(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
-        NPCEntity npc = (NPCEntity) store.getComponent(ref, NPCEntity.getComponentType());
+        var npcType = NPCEntity.getComponentType();
+        if (npcType == null) return "a creature";
+
+        NPCEntity npc = store.getComponent(ref, npcType);
         if (npc != null) {
             String role = npc.getRoleName();
             if (role != null && !role.isEmpty()) {
