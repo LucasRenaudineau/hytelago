@@ -62,7 +62,7 @@ public class ArchConnectCommand extends AbstractPlayerCommand {
         }
     }
 
-    // ── Helper ────────────────────────────────────────────────────────────────
+    // Helper
 
     private void showTitle(@Nonnull PlayerRef playerRef,
                            @Nonnull String    title,

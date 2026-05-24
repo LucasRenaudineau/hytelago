@@ -37,15 +37,15 @@ public class ArchSpawnCommand extends AbstractPlayerCommand {
     ) {
         String mobId = mobIdArg.get(ctx);
 
-        // ── 1. Resolve role index ─────────────────────────────────────────────
+        // Resolve role index
         int roleIndex = NPCPlugin.get().getIndex(mobId);
         if (roleIndex == Integer.MIN_VALUE) {
             reply(playerRef, "Unknown mob ID:", mobId);
             return;
         }
 
-        // ── 2. Read player position (getPosition returns the live internal
-        //       Vector3d — we must copy it before offsetting) ─────────────────
+        // Read player position (getPosition returns the live internal
+        // Vector3d; we must copy it before offsetting)
         TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());
         if (transform == null) {
             reply(playerRef, "Could not read your position.", "");
@@ -56,10 +56,10 @@ public class ArchSpawnCommand extends AbstractPlayerCommand {
         spawnPos.assign(transform.getPosition());   // safe copy
         spawnPos.setX(spawnPos.getX() + 2.0);       // 2-unit side offset
 
-        // ── 3. Spawn ──────────────────────────────────────────────────────────
-        // null rotation     → spawnEntity uses NULL_ROTATION internally
-        // null spawnModel   → role's default model is used
-        // null pre/postSpawn → no extra setup needed for a debug spawn
+        // 3. Spawn
+        // null rotation     -> spawnEntity uses NULL_ROTATION internally
+        // null spawnModel   -> role's default model is used
+        // null pre/postSpawn -> no extra setup needed for a debug spawn
         var result = NPCPlugin.get().spawnEntity(store, roleIndex, spawnPos,
                 null, null, null, null);
         if (result == null) {
