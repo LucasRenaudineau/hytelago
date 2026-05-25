@@ -31,6 +31,8 @@ Hytelago is a Hytale mod developped for playing Archipelago, a multiworld random
 
 # Set-up to play the mod
 
+Mod tested on Hytale version : 2026.03.26-89796E57B
+
 Put the .jar of the last version in your Mods folder. Some mods are recommended : betterMap and InfiniteTeleporters.
 *Note : Hytelago overrides the assets of almost all workbenches and of the backpack upgrades to change their crafts and tier upgrades, so a lot of mods won't be compatible with it.*
 Send the Hytale.apworld to your archipelago server host.
@@ -44,6 +46,7 @@ See your advancement with /arch-locations and collect lost Workbench upgrader it
 When you find the frost dragon, manually type /arch-set_count kill_frost_dragon 1 or more directly /arch-collect kill_frost_dragon
 
 For the moment, don't stack your inventory, since items given to you won't be given if your inventory is full.
+You can safely quit the game, reconnect and the items other players sent you during this time will be sent.
 
 # Compiling the mod and contributing
 
