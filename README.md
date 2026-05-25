@@ -29,6 +29,17 @@ Hytelago is a Hytale mod developped for playing Archipelago, a multiworld random
 - InfiniteTeleporters (recommended mod)
 [Here on curseforge](https://www.curseforge.com/hytale/mods/infinite-teleporters)
 
+# In-game commands
+
+/arch-help : lists the commands of Hytelago mod
+/arch-connect <ip address> <port> <player_name> : connects yourself to the archipelago server
+/arch-items : shows the items table
+/arch-locations : shows the locations table
+/arch-collect <achievementId> : force-collect an achievement (either from the item table or from the location table)
+/arch-set_count <count> <achievementId> : sets the count of an achievement to count
+/arch-set_state <achievementId> <NOT_DONE|DONE|COLLECTED> : changes the state of an achievement
+/arch-spawn <mobId> : spawns a mob on the player
+
 # Set-up to play the mod
 
 Mod tested on Hytale version : 2026.03.26-89796E57B
