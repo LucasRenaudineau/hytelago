@@ -4,6 +4,7 @@
 
 - Description
 - Download links
+- In-game commands
 - Set-up to play the mod
 - Compiling the mod and contributing
 - Items, locations, and rules logic
