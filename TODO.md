@@ -12,6 +12,7 @@
 - Implement the end (killing or going near the frost dragon).
 - Better handling of messages (add handling player X sent object obj to player Y)
 - Change the titles of the two tables into Items table and Locations table
+- Fix problem item not given if inventory is full
 
 # Radical changes ideas
 
