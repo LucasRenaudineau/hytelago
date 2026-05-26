@@ -15,16 +15,16 @@ Hytelago is a Hytale mod developped for playing Archipelago, a multiworld random
 
 # Download links
 
-- hytelago.jar
-(Compile yourself or wait for Curseforge to validate the mod.)
+- hytelago.jar<br>
+[Here on CurseForge](https://www.curseforge.com/hytale/mods/hytelago)
 
-- Apworld
+- Apworld<br>
 (For the moment, put all files inside apworld inside a Hytale folder, zip it and rename it Hytale.apworld)
 
-- .yaml
+- .yaml<br>
 (It is game_options.yaml)
 
-- betterMap mod (recommended mod)
+- betterMap mod (recommended mod)<br>
 [Here on curseforge](https://www.curseforge.com/hytale/mods/bettermap)
 
 - InfiniteTeleporters (recommended mod)
