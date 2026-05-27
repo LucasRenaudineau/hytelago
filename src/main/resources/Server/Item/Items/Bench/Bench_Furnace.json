@@ -10,7 +10,7 @@
   "Recipe": {
     "Input": [
       {
-        "ResourceTypeId": "Furnace_Tier_Upgrader1",
+        "ItemId": "Furnace_Tier_Upgrader1",
         "Quantity": 1
       }
     ],
