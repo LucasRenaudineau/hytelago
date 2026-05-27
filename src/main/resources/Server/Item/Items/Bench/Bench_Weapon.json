@@ -11,8 +11,8 @@
     "TimeSeconds": 3,
     "Input": [
       {
-        "ItemId": "Blacksmith_Anvil_Tier_Upgrader1",
-        "Quantity": 2
+        "ItemId": "Bench_Weapon_Tier_Upgrader1",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -100,7 +100,7 @@
           "UpgradeRequirement": {
             "Material": [
               {
-                "ItemId": "Blacksmith_Anvil_Tier_Upgrader2",
+                "ItemId": "Bench_Weapon_Tier_Upgrader2",
                 "Quantity": 1
               }
             ],

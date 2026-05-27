@@ -37,12 +37,9 @@ public final class ItemsAchievements {
                     List.of(new ItemReward("Backpack_Tier_Upgrader3", 1))),
 
             new Entry("Progressive_Blacksmith", "progressive_blacksmith1", "Blacksmith Upgrader 1", 1, true,
-                    List.of(new ItemReward("Blacksmith_Anvil_Tier_Upgrader1", 1))),
+                    List.of(new ItemReward("Bench_Weapon_Tier_Upgrader1", 1))),
             new Entry("Progressive_Blacksmith", "progressive_blacksmith2", "Blacksmith Upgrader 2", 2, true,
-                    List.of(new ItemReward("Blacksmith_Anvil_Tier_Upgrader2", 1))),
-
-            new Entry("Campfire", "campfire", "Campfire", 1, true,
-                    List.of(new ItemReward("Campfire_Tier_Upgrader1", 1))),
+                    List.of(new ItemReward("Bench_Weapon_Tier_Upgrader2", 1))),
 
             new Entry("Chef_Stove", "chef_stove", "Chef Stove", 1, true,
                     List.of(new ItemReward("Chef_Stove_Tier_Upgrader1", 1))),
