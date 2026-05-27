@@ -14,6 +14,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     compileOnly(files("libs/HytaleServer.jar"))
+    implementation("org.joml:joml:1.10.5")
     implementation("io.github.archipelagomw:Java-Client:0.2.1")
     implementation("com.google.code.gson:gson:2.13.1")
 }

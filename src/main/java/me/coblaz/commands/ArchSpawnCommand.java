@@ -2,7 +2,7 @@ package me.coblaz.commands;
 
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.math.vector.Vector3d;
+import org.joml.Vector3d;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
@@ -52,9 +52,8 @@ public class ArchSpawnCommand extends AbstractPlayerCommand {
             return;
         }
 
-        Vector3d spawnPos = new Vector3d();
-        spawnPos.assign(transform.getPosition());   // safe copy
-        spawnPos.setX(spawnPos.getX() + 2.0);       // 2-unit side offset
+        Vector3d spawnPos = new Vector3d(transform.getPosition());
+        spawnPos.x += 2.0;
 
         // 3. Spawn
         // null rotation     -> spawnEntity uses NULL_ROTATION internally
@@ -80,8 +79,7 @@ public class ArchSpawnCommand extends AbstractPlayerCommand {
     public static void spawnMob(String mobId, Ref<EntityStore> ref, Store<EntityStore> store) {
         TransformComponent t = store.getComponent(ref, TransformComponent.getComponentType());
         if (t == null) return;
-        Vector3d pos = new Vector3d();
-        pos.assign(t.getPosition());
+        Vector3d pos = new Vector3d(t.getPosition());
         NPCPlugin.get().spawnEntity(store, NPCPlugin.get().getIndex(mobId), pos, null, null, null, null);
     }
 }
