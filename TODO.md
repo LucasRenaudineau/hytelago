@@ -1,13 +1,11 @@
 # TO DO
 
 - Add death link in and out.
-- Verify versions (Hytale version, archipelago version).
 - Make the Arcanist workbench craftable only on workbench tier 3.
 - Add option to allow/disallow death link.
 - Make the tables customizable depending on the .yaml configuration.
 - Randomize kweebec sells.
 - Add discovery of biomes into locations table.
-- Add memories in locations table.
 - Create a Hytale map that verifies all items and locations in a line to improve work when hytale changes of version.
 - Implement the end (killing or going near the frost dragon).
 - Better handling of messages (add handling player X sent object obj to player Y)
