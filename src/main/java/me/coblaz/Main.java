@@ -44,6 +44,7 @@ public class Main extends JavaPlugin {
         LocationsPropertyAchievements.registerAll(locations);
         DeathAchievements.registerAll(locations);
         ItemsAchievements.registerAll(Registries.ITEMS);
+        MemoriesAchievements.registerAll(locations);
 
         // Listeners
         locations.addListener((playerRef, def) -> {

@@ -1,5 +1,6 @@
 package me.coblaz.commands;
 
+import com.hypixel.hytale.builtin.adventure.memories.MemoriesPlugin;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
@@ -11,6 +12,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import me.coblaz.achievements.AchievementRegistry;
+import me.coblaz.achievements.MemoriesAchievements;
 import me.coblaz.achievements.Registries;
 import me.coblaz.ui.AchievementListPage;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
@@ -36,11 +38,19 @@ public class ArchLocationsCommand extends AbstractPlayerCommand {
             @NonNullDecl PlayerRef          playerRef,
             @NonNullDecl World              world
     ) {
+        syncItemCounts(Registries.LOCATIONS, playerRef, ref, store);  // was defined but never called — bug fix
+        syncMemoriesCount(Registries.LOCATIONS, playerRef, world);           // new
         Registries.LOCATIONS.refreshStatuses(playerRef);
         Player player = store.getComponent(ref, Player.getComponentType());
         player.getPageManager().openCustomPage(ref, store,
                 new AchievementListPage(playerRef, Registries.LOCATIONS, false));
     }
+
+    private void syncMemoriesCount(AchievementRegistry reg, PlayerRef playerRef, World world) {
+        int count = MemoriesPlugin.get().getMemoriesLevel(world.getGameplayConfig());
+        MemoriesAchievements.updateMemoriesCount(reg, playerRef, count);
+    }
+
     private void syncItemCounts(
             AchievementRegistry     reg,
             PlayerRef               playerRef,
