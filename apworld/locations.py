@@ -87,6 +87,7 @@ LOCATION_NAME_TO_ID: dict[str, int] = {
     "collect_armor_iron_legs":        4033,
     "collect_weapon_mace_iron":       4034,
     "collect_weapon_longsword_iron":  4035,
+    **{f"memories_{i}": 5000 + i for i in range(1, 151)},
 }
 
 class HytaleLocation(Location):

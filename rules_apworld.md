@@ -139,6 +139,12 @@
 4034 : collect_weapon_mace_iron
 4035 : collect_weapon_longsword_iron
 
+## Memories collected
+
+5001 : memories_1
+...
+5150 : memories_150
+
 # Soft logic
 
 thirty_kills requires 2 Progressive Workbench, Campfire, 2 Progressive Blacksmith, 1 Progressive_Furnace, 1 Progressive Tanning, Weapon_Daggers_Bone, Weapon_Shortbow_Combat, 1 Weapon_Arrow_Clearshot30, Ingredient_Hide_Soft10, Ore_Iron10
@@ -178,3 +184,8 @@ smelt_cobalt requires : Ore_Cobalt10, Progressive_Furnace
 collect_armor_copper_head collect_armor_copper_hands collect_armor_copper_chest collect_armor_copper_legs collect_weapon_mace_copper collect_weapon_longsword_copper require : Progressive_Workbench, Progressive_Armorer, Progressive_Blacksmith, Progressive_Furnace, Ore_Copper10, Salvager
 collect_armor_iron_head collect_armor_iron_hands collect_armor_iron_chest collect_armor_iron_legs collect_weapon_mace_iron collect_weapon_longsword_iron require : Progressive_Workbench, Progressive_Armorer, Progressive_Blacksmith, Progressive_Furnace, Ore_Iron10, Salvager
 
+memories_1 to memories_10 require : nothing
+memories_11 to memories_30 require : Progressive_Workbench and Progressive_Furnace
+memories_31 to memories_60 require : 2 Progressive_Workbench, Progressive_Furnace, Campfire, Ore_Copper10, Ore_Iron10, Progressive_Blacksmith, Progressive_Armorer, Teleporter3
+memories_61 to memories_100 require : 2 Progressive_Workbench, Progressive_Furnace, Campfire, Ore_Copper10, Ore_Iron10, 2 Progressive_Blacksmith, 2 Progressive_Armorer, 3 Teleporter3
+memories_101 to memories_150 require : 2 Progressive_Workbench, Progressive_Furnace, Campfire, Ore_Copper10, Ore_Iron10, 2 Progressive_Blacksmith, 2 Progressive_Armorer, 5 Teleporter3, Ore_Iron10, Chef_Stove

@@ -96,6 +96,11 @@ public final class ArchipelagoLocationMap {
         ACH_TO_LOCATION_ID.put("collect_armor_iron_legs",        4033L);
         ACH_TO_LOCATION_ID.put("collect_weapon_mace_iron",       4034L);
         ACH_TO_LOCATION_ID.put("collect_weapon_longsword_iron",  4035L);
+
+        // Memories achievements
+        for (int i = 1; i <= 150; i++) {
+            ACH_TO_LOCATION_ID.put("memories_" + i, 5000L + i);
+        }
     }
 
     /**

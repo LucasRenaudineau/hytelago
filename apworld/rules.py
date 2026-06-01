@@ -403,6 +403,65 @@ def set_all_rules(world: HytaleWorld) -> None:
     ):
         multiworld.get_location(loc, player).access_rule = _iron_gear
 
+    # Tier 1 — memories_1–10: no requirements (freely accessible by default)
+
+    # Tier 2 — memories_11–30
+    _memories_t2 = _make_rule(
+        player,
+        "Progressive_Workbench",
+        "Progressive_Furnace",
+    )
+    for i in range(11, 31):
+        multiworld.get_location(f"memories_{i}", player).access_rule = _memories_t2
+
+    # Tier 3 — memories_31–60
+    _memories_t3 = _make_rule(
+        player,
+        ("Progressive_Workbench", 2),
+        "Progressive_Furnace",
+        "Campfire",
+        "Ore_Copper10",
+        "Ore_Iron10",
+        "Progressive_Blacksmith",
+        "Progressive_Armorer",
+        "Teleporter3",
+    )
+    for i in range(31, 61):
+        multiworld.get_location(f"memories_{i}", player).access_rule = _memories_t3
+
+    # Tier 4 — memories_61–100
+    _memories_t4 = _make_rule(
+        player,
+        ("Progressive_Workbench", 2),
+        "Progressive_Furnace",
+        "Campfire",
+        "Ore_Copper10",
+        "Ore_Iron10",
+        ("Progressive_Blacksmith", 2),
+        ("Progressive_Armorer", 2),
+        ("Teleporter3", 3),
+    )
+    for i in range(61, 101):
+        multiworld.get_location(f"memories_{i}", player).access_rule = _memories_t4
+
+    # Tier 5 — memories_101–150
+    # Note: Ore_Iron10 appeared twice in the spec; kept once (redundant duplicate).
+    _memories_t5 = _make_rule(
+        player,
+        ("Progressive_Workbench", 2),
+        "Progressive_Furnace",
+        "Campfire",
+        "Ore_Copper10",
+        "Ore_Iron10",
+        ("Progressive_Blacksmith", 2),
+        ("Progressive_Armorer", 2),
+        ("Teleporter3", 5),
+        "Chef_Stove",
+    )
+    for i in range(101, 151):
+        multiworld.get_location(f"memories_{i}", player).access_rule = _memories_t5
+
+
     # Completion condition
     # Goal: defeat the frost dragon
     world.multiworld.completion_condition[player] = _make_rule(
