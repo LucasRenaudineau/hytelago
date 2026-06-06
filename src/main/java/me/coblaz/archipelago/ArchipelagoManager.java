@@ -4,10 +4,15 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
+import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
+import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import io.github.archipelagomw.Client;
+import io.github.archipelagomw.bounce.DeathLinkHandler;
 import io.github.archipelagomw.events.ArchipelagoEventListener;
+import io.github.archipelagomw.events.DeathLinkEvent;
 import io.github.archipelagomw.events.ReceiveItemEvent;
 import me.coblaz.achievements.Registries;
 import me.coblaz.items.ItemsAchievements;
@@ -15,6 +20,7 @@ import me.coblaz.items.ItemsAchievements;
 import javax.annotation.Nonnull;
 import java.net.URISyntaxException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -121,6 +127,26 @@ public final class ArchipelagoManager {
         }
     }
 
+    /**
+     * Listens for DeathLink bounce packets from the AP server. When another
+     * player dies, this queues an action to kill the local player in Hytale.
+     */
+    public static final class DeathLinkEventListener {
+
+        private final ConcurrentLinkedQueue<PendingAction> queue;
+
+        public DeathLinkEventListener(ConcurrentLinkedQueue<PendingAction> queue) {
+            this.queue = queue;
+        }
+
+        @ArchipelagoEventListener
+        public void onDeathLink(DeathLinkEvent event) {
+            System.out.printf("[ArchipelagoMod][EVENT] DeathLinkEvent  source='%s'  cause='%s'%n",
+                    event.source, event.cause);
+            queue.add((pr, r, s) -> INSTANCE.killPlayer(pr, r, s));
+        }
+    }
+
     // Static item table
     private static final Map<Long, MobSpawn>  MOB_TABLE  = new LinkedHashMap<>();
     private static final Map<Long, String>    TIER_TABLE = new LinkedHashMap<>();
@@ -177,6 +203,10 @@ public final class ArchipelagoManager {
     // Per-player connection state
     private final Map<String, PlayerAPState> playerStates = new HashMap<>();
 
+    // UUIDs of players whose next death was caused by an incoming DeathLink.
+    // Used to avoid bouncing that death straight back to the server (loop).
+    private final Set<String> deathLinkSuppress = ConcurrentHashMap.newKeySet();
+
     // connect()
     public void connect(
             @Nonnull PlayerRef          playerRef,
@@ -221,9 +251,12 @@ public final class ArchipelagoManager {
 
         ItemEventListener itemListener = new ItemEventListener(queue, lastProcessed, uuid);
         client.getEventManager().registerListener(itemListener);
-        System.out.println("[ArchipelagoMod] Listener registered on event manager");
 
-        playerStates.put(uuid, new PlayerAPState(client, lastProcessed, ref, store, itemListener));
+        DeathLinkEventListener deathLinkListener = new DeathLinkEventListener(queue);
+        client.getEventManager().registerListener(deathLinkListener);
+        System.out.println("[ArchipelagoMod] Listeners registered on event manager");
+
+        playerStates.put(uuid, new PlayerAPState(client, lastProcessed, ref, store, slotName, itemListener, deathLinkListener));
 
         try {
             client.connect(ip + ":" + port);
@@ -354,5 +387,55 @@ public final class ArchipelagoManager {
         System.out.printf(
                 "[ArchipelagoMod] Location check sent successfully: '%s' (id=%d) for player %s%n",
                 achievementId, locationId, uuid);
+    }
+
+    // DeathLink
+
+    /**
+     * Enable or disable DeathLink for a connected player (the /arch-death_link
+     * command). Adds/removes the DeathLink tag on the AP connection.
+     *
+     * @return true if applied, false if the player is not connected.
+     */
+    public boolean setDeathLink(@Nonnull PlayerRef playerRef, boolean enabled) {
+        PlayerAPState state = playerStates.get(playerRef.getUuid().toString());
+        if (state == null || !state.client().isConnected()) return false;
+        state.client().setDeathLinkEnabled(enabled);
+        System.out.printf("[ArchipelagoMod] DeathLink %s for %s%n",
+                enabled ? "ENABLED" : "DISABLED", state.slotName());
+        return true;
+    }
+
+    /**
+     * Called by the DeathListener whenever a player dies in Hytale. If DeathLink
+     * is on and the death wasn't itself caused by an incoming DeathLink, this
+     * bounces the death to the AP server.
+     */
+    public void onLocalDeath(@Nonnull PlayerRef playerRef, @Nonnull String cause) {
+        String uuid = playerRef.getUuid().toString();
+
+        // Swallow deaths we caused ourselves from an incoming DeathLink (no loop)
+        if (deathLinkSuppress.remove(uuid)) return;
+
+        PlayerAPState state = playerStates.get(uuid);
+        if (state == null || !state.client().isConnected()) return;
+        if (!state.client().getTags().contains(DeathLinkHandler.DEATHLINK_TAG)) return;
+
+        System.out.printf("[ArchipelagoMod] Sending DeathLink: source='%s' cause='%s'%n",
+                state.slotName(), cause);
+        state.client().sendDeathlink(state.slotName(), cause);
+    }
+
+    /** Kills the player in Hytale in response to an incoming DeathLink. */
+    private void killPlayer(
+            @Nonnull PlayerRef playerRef, @Nonnull Ref<EntityStore> ref,
+            @Nonnull Store<EntityStore> store
+    ) {
+        // Mark so the resulting death isn't bounced back to the server
+        deathLinkSuppress.add(playerRef.getUuid().toString());
+        DeathComponent.tryAddComponent(store, ref,
+                new Damage(Damage.NULL_SOURCE, DamageCause.COMMAND, 2.1474836E9f));
+        System.out.printf("[ArchipelagoMod] Player %s killed by incoming DeathLink%n",
+                playerRef.getUuid());
     }
 }

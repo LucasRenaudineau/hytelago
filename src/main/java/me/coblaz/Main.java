@@ -85,6 +85,7 @@ public class Main extends JavaPlugin {
 
         // Archipelago connection command
         this.getCommandRegistry().registerCommand(new ArchConnectCommand());
+        this.getCommandRegistry().registerCommand(new ArchDeathLinkCommand());
 
         // Systems
         EntityStore.REGISTRY.registerSystem(new KillListener());

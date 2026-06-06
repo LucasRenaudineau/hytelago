@@ -15,5 +15,7 @@ public record PlayerAPState(
         AtomicInteger       lastProcessed,
         Ref<EntityStore>    ref,
         Store<EntityStore>  store,
-        ArchipelagoManager.ItemEventListener itemListener   // strong ref prevents GC
+        String              slotName,
+        ArchipelagoManager.ItemEventListener      itemListener,       // strong ref prevents GC
+        ArchipelagoManager.DeathLinkEventListener deathLinkListener   // strong ref prevents GC
 ) {}

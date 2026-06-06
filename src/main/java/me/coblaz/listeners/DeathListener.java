@@ -14,6 +14,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import me.coblaz.achievements.AchievementRegistry;
 import me.coblaz.achievements.DeathAchievements;
 import me.coblaz.achievements.Registries;
+import me.coblaz.archipelago.ArchipelagoManager;
 
 import javax.annotation.Nonnull;
 
@@ -45,6 +46,10 @@ public class DeathListener extends DeathSystems.OnDeathSystem {
         // Resolve cause ID
 
         String causeId = resolveCauseId(deathInfo);
+
+        // DeathLink: bounce this death to the AP server (no-op if DeathLink is off)
+        ArchipelagoManager.INSTANCE.onLocalDeath(playerRef, causeId != null ? causeId : "unknown");
+
         if (causeId == null) return;
 
         // Increment matching achievement

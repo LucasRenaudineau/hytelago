@@ -34,6 +34,7 @@ public class ArchHelpCommand extends AbstractPlayerCommand {
         ctx.sendMessage(Message.raw("/arch-set_count <count> <achievementId> : sets the count of an achievement to count"));
         ctx.sendMessage(Message.raw("/arch-set_state <achievementId> <NOT_DONE|DONE|COLLECTED> : changes the state of an achievement"));
         ctx.sendMessage(Message.raw("/arch-spawn <mobId> : spawns a mob on the player"));
+        ctx.sendMessage(Message.raw("/arch-death_link <on|off> : triggers or untrigger death link (off by default)"));
         ctx.sendMessage(Message.raw("For more help, please check the github repository of the Hytelago mod : https://github.com/LucasRenaudineau/hytelago"));
     }
 }
