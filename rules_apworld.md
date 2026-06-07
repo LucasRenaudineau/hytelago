@@ -2,13 +2,15 @@
 
 ## Monster spawn traps
 
-1000 : Golem_Crystal_Earth
-1001 : Golem_Firesteel
-1002 : Skeleton_Frost_Archer2
-1003 : Outlander_Berserker
-1004 : Eye_Void
-1005 : Zombie2
-1006 : Scarak_Broodmother_Young
+1000 : Golem_Crystal_Earth (2)
+1001 : Golem_Firesteel (2)
+1002 : Skeleton_Frost_Archer2 (2)
+1003 : Outlander_Berserker (2)
+1004 : Eye_Void (2)
+1005 : Zombie2 (6)
+1006 : Scarak_Broodmother_Young (2)
+1007 : Scarak_Seeker (2)
+1008 : Yeti (2)
 
 ## Tier Upgraders
 
@@ -25,20 +27,20 @@
 
 ## Random loot
 
-3000 : Ore_Copper10
-3001 : Ore_Iron10
-3002 : Ore_Cobalt10
-3003 : Ore_Gold10
-3004 : Ore_Silver10
-3005 : Ore_Thorium10
-3006 : Ingredient_Hide_Soft10 (2)
-3007 : Ingredient_Hide_Light10 (2)
-3008 : Ingredient_Hide_Medium10 (2)
-3009 : Ingredient_Hide_Heavy10 (2)
-3010 : Ingredient_Chitin_Sturdy10 (2)
-3011 : Ingredient_Poop (1) // Put to 6 to match the totals of locations
+3000 : Ore_Copper10 (3)
+3001 : Ore_Iron10 (3)
+3002 : Ore_Cobalt10 (3)
+3003 : Ore_Gold10 (3)
+3004 : Ore_Silver10 (3)
+3005 : Ore_Thorium10 (3)
+3006 : Ingredient_Hide_Soft10 (4)
+3007 : Ingredient_Hide_Light10 (4)
+3008 : Ingredient_Hide_Medium10 (4)
+3009 : Ingredient_Hide_Heavy10 (4)
+3010 : Ingredient_Chitin_Sturdy10 (4)
+3011 : Ingredient_Poop // Filler item
 3012 : Flamethrower_Goblin
-3013 : Teleporter3 (5)
+3013 : Teleporter3 (10)
 3014 : Armor_Adamantite_Legs
 3015 : Armor_Adamantite_Chest
 3016 : Armor_Adamantite_Head
@@ -48,9 +50,16 @@
 3020 : Weapon_Longsword_Copper
 3021 : Weapon_Shortbow_Combat
 3022 : Weapon_Daggers_Bone
-3023 : Weapon_Arrow_Clearshot30 (5)
-3024 : Weapon_Deployable_Healing_Totem
-3025 : Repair_Kit2 (3)
+3023 : Weapon_Arrow_Clearshot30 (10)
+3024 : Weapon_Deployable_Healing_Totem (2)
+3025 : Repair_Kit2 (10)
+3026 : Plant_Crop_Carrot_Item5 (2)
+3027 : Plant_Seeds_Corn (2)
+3028 : Plant_Cactus_1 (2) // _1 does not stand for the fact it gives one. The location actually gives one, but Plant_Cactus_1 is the entire id of the item for Hytale
+3029 : Ingredient_Charcoal10 (10)
+3030 : Furniture_Village_Chest_Small2 (5)
+3031 : Plant_Crop_Wheat_Block3 (10)
+3032 : Food_Bread5 (10)
 
 
 # Locations

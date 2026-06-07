@@ -16,6 +16,8 @@ ITEM_NAME_TO_ID: dict[str, int] = {
     "Eye_Void":                  1004,
     "Zombie2":                   1005,
     "Scarak_Broodmother_Young":  1006,
+    "Scarak_Seeker":             1007,
+    "Yeti":                      1008,
     # Tier Upgraders
     "Progressive_Armorer":       2000,
     "Progressive_Backpack":      2001,
@@ -54,6 +56,13 @@ ITEM_NAME_TO_ID: dict[str, int] = {
     "Weapon_Arrow_Clearshot30":  3023,
     "Weapon_Deployable_Healing_Totem": 3024,
     "Repair_Kit2":               3025,
+    "Plant_Crop_Carrot_Item5":   3026,
+    "Plant_Seeds_Corn":          3027,
+    "Plant_Cactus_1":            3028,
+    "Ingredient_Charcoal10":     3029,
+    "Furniture_Village_Chest_Small2": 3030,
+    "Plant_Crop_Wheat_Block3":   3031,
+    "Food_Bread5":               3032,
 }
 
 DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
@@ -65,6 +74,8 @@ DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
     "Eye_Void":                  ItemClassification.trap,
     "Zombie2":                   ItemClassification.trap,
     "Scarak_Broodmother_Young":  ItemClassification.trap,
+    "Scarak_Seeker":             ItemClassification.trap,
+    "Yeti":                      ItemClassification.trap,
     # Tier Upgraders – all required by some rule
     "Progressive_Armorer":       ItemClassification.progression,
     "Progressive_Backpack":      ItemClassification.progression,
@@ -108,6 +119,14 @@ DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
     "Weapon_Arrow_Clearshot30":  ItemClassification.progression,
     "Weapon_Deployable_Healing_Totem": ItemClassification.useful,
     "Repair_Kit2":               ItemClassification.progression,
+    # New loot – helpful but not gating any rule
+    "Plant_Crop_Carrot_Item5":   ItemClassification.useful,
+    "Plant_Seeds_Corn":          ItemClassification.useful,
+    "Plant_Cactus_1":            ItemClassification.useful,
+    "Ingredient_Charcoal10":     ItemClassification.useful,
+    "Furniture_Village_Chest_Small2": ItemClassification.useful,
+    "Plant_Crop_Wheat_Block3":   ItemClassification.useful,
+    "Food_Bread5":               ItemClassification.useful,
 }
 
 # Item pool quantities (Ingredient_Poop is not included because it is the filler item)
@@ -115,14 +134,16 @@ DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
 # any remaining location slots.
 
 ITEM_POOL_QUANTITIES: dict[str, int] = {
-    # Monster spawn traps (1 each)
-    "Golem_Crystal_Earth":        1,
-    "Golem_Firesteel":            1,
-    "Skeleton_Frost_Archer2":     1,
-    "Outlander_Berserker":        1,
-    "Eye_Void":                   1,
-    "Zombie2":                    1,
-    "Scarak_Broodmother_Young":   1,
+    # Monster spawn traps
+    "Golem_Crystal_Earth":        2,
+    "Golem_Firesteel":            2,
+    "Skeleton_Frost_Archer2":     2,
+    "Outlander_Berserker":        2,
+    "Eye_Void":                   2,
+    "Zombie2":                    6,
+    "Scarak_Broodmother_Young":   2,
+    "Scarak_Seeker":              2,
+    "Yeti":                       2,
     # Tier Upgraders
     "Progressive_Armorer":        2,
     "Progressive_Backpack":       3,
@@ -135,19 +156,19 @@ ITEM_POOL_QUANTITIES: dict[str, int] = {
     "Progressive_Tanning":        2,
     "Progressive_Workbench":      3,
     # Random loot
-    "Ore_Copper10":               1,
-    "Ore_Iron10":                 1,
-    "Ore_Cobalt10":               1,
-    "Ore_Gold10":                 1,
-    "Ore_Silver10":               1,
-    "Ore_Thorium10":              1,
-    "Ingredient_Hide_Soft10":     2,
-    "Ingredient_Hide_Light10":    2,
-    "Ingredient_Hide_Medium10":   2,
-    "Ingredient_Hide_Heavy10":    2,
-    "Ingredient_Chitin_Sturdy10": 2,
+    "Ore_Copper10":               3,
+    "Ore_Iron10":                 3,
+    "Ore_Cobalt10":               3,
+    "Ore_Gold10":                 3,
+    "Ore_Silver10":               3,
+    "Ore_Thorium10":              3,
+    "Ingredient_Hide_Soft10":     4,
+    "Ingredient_Hide_Light10":    4,
+    "Ingredient_Hide_Medium10":   4,
+    "Ingredient_Hide_Heavy10":    4,
+    "Ingredient_Chitin_Sturdy10": 4,
     "Flamethrower_Goblin":        1,
-    "Teleporter3":                5,
+    "Teleporter3":                10,
     "Armor_Adamantite_Legs":      1,
     "Armor_Adamantite_Chest":     1,
     "Armor_Adamantite_Head":      1,
@@ -157,9 +178,16 @@ ITEM_POOL_QUANTITIES: dict[str, int] = {
     "Weapon_Longsword_Copper":    1,
     "Weapon_Shortbow_Combat":     1,
     "Weapon_Daggers_Bone":        1,
-    "Weapon_Arrow_Clearshot30":   5,
-    "Weapon_Deployable_Healing_Totem": 1,
-    "Repair_Kit2":                3,
+    "Weapon_Arrow_Clearshot30":   10,
+    "Weapon_Deployable_Healing_Totem": 2,
+    "Repair_Kit2":                10,
+    "Plant_Crop_Carrot_Item5":    2,
+    "Plant_Seeds_Corn":           2,
+    "Plant_Cactus_1":             2,
+    "Ingredient_Charcoal10":      10,
+    "Furniture_Village_Chest_Small2": 5,
+    "Plant_Crop_Wheat_Block3":    10,
+    "Food_Bread5":                10,
 }
 
 class HytaleItem(Item):

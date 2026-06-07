@@ -160,6 +160,8 @@ public final class ArchipelagoManager {
         MOB_TABLE.put(1004L, new MobSpawn("Eye_Void",                 1));
         MOB_TABLE.put(1005L, new MobSpawn("Zombie",                   2));
         MOB_TABLE.put(1006L, new MobSpawn("Scarak_Broodmother_Young", 1));
+        MOB_TABLE.put(1007L, new MobSpawn("Scarak_Seeker",            1));
+        MOB_TABLE.put(1008L, new MobSpawn("Yeti",                     1));
 
         TIER_TABLE.put(2000L, "Progressive_Armorer");
         TIER_TABLE.put(2001L, "Progressive_Backpack");
@@ -198,6 +200,13 @@ public final class ArchipelagoManager {
         LOOT_TABLE.put(3023L, new ItemGrant("Weapon_Arrow_Clearshot",          30));
         LOOT_TABLE.put(3024L, new ItemGrant("Weapon_Deployable_Healing_Totem",  1));
         LOOT_TABLE.put(3025L, new ItemGrant("Tool_Repair_Kit_Iron",             2));
+        LOOT_TABLE.put(3026L, new ItemGrant("Plant_Crop_Carrot_Item",           5));
+        LOOT_TABLE.put(3027L, new ItemGrant("Plant_Seeds_Corn",                 1));
+        LOOT_TABLE.put(3028L, new ItemGrant("Plant_Cactus_1",                   1));
+        LOOT_TABLE.put(3029L, new ItemGrant("Ingredient_Charcoal",             10));
+        LOOT_TABLE.put(3030L, new ItemGrant("Furniture_Village_Chest_Small",    2));
+        LOOT_TABLE.put(3031L, new ItemGrant("Plant_Crop_Wheat_Block",           3));
+        LOOT_TABLE.put(3032L, new ItemGrant("Food_Bread",                       5));
     }
 
     // Per-player connection state
