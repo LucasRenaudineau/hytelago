@@ -40,10 +40,11 @@ Hytelago is a Hytale mod developped for playing Archipelago, a multiworld random
 /arch-set_count <count> <achievementId> : sets the count of an achievement to count<br>
 /arch-set_state <achievementId> <NOT_DONE|DONE|COLLECTED> : changes the state of an achievement<br>
 /arch-spawn <mobId> : spawns a mob on the player<br>
+/arc-death_link <on|off> : activate or deactivate death link<br>
 
 # Set-up to play the mod
 
-Mod tested on Hytale version : 0.5.1
+Mod tested on Hytale version : 0.5.4
 
 Put the .jar of the last version in your Mods folder. Some mods are recommended : betterMap and InfiniteTeleporters.
 *Note : Hytelago overrides the assets of almost all workbenches and of the backpack upgrades to change their crafts and tier upgrades, so a lot of mods won't be compatible with it.*
