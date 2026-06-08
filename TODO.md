@@ -3,7 +3,6 @@
 - Test death link in
 - Add an optional argument for password for arch-connect
 - Make the Arcanist workbench craftable only on workbench tier 3.
-- Make the tables customizable depending on the .yaml configuration.
 - Randomize kweebec sells.
 - Add discovery of biomes into locations table.
 - Create a Hytale map that verifies all items and locations in a line to improve work when hytale changes of version.
@@ -11,7 +10,6 @@
 - Better handling of messages (add handling player X sent object obj to player Y)
 - Change the titles of the two tables into Items table and Locations table
 - Fix problem item not given if inventory is full
-- Add items to match roughly the number of locations
 
 # Radical changes ideas
 
@@ -21,3 +19,4 @@
 - Let the player choose for the end : killing the frost dragon, having x % of locations unlocked...
 - Memories : get a location every x %
 - A button to collect achievement per achievement
+- Make the tables customizable depending on the .yaml configuration.
