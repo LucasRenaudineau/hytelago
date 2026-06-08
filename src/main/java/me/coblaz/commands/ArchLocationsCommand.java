@@ -39,15 +39,19 @@ public class ArchLocationsCommand extends AbstractPlayerCommand {
             @NonNullDecl World              world
     ) {
         syncItemCounts(Registries.LOCATIONS, playerRef, ref, store);  // was defined but never called — bug fix
-        syncMemoriesCount(Registries.LOCATIONS, playerRef, world);           // new
+        syncMemoriesCount(Registries.LOCATIONS, playerRef);                  // new
         Registries.LOCATIONS.refreshStatuses(playerRef);
         Player player = store.getComponent(ref, Player.getComponentType());
         player.getPageManager().openCustomPage(ref, store,
                 new AchievementListPage(playerRef, Registries.LOCATIONS, false));
     }
 
-    private void syncMemoriesCount(AchievementRegistry reg, PlayerRef playerRef, World world) {
-        int count = MemoriesPlugin.get().getMemoriesLevel(world.getGameplayConfig());
+    private void syncMemoriesCount(AchievementRegistry reg, PlayerRef playerRef) {
+        // getMemoriesLevel() returns a stepped *level* (1, 2, 3…) derived from the
+        // MemoriesAmountPerLevel thresholds, not the raw memory count. The milestone
+        // achievements (memories_1…150) expect the actual count, so use the recorded
+        // memory set size directly.
+        int count = MemoriesPlugin.get().getRecordedMemories().size();
         MemoriesAchievements.updateMemoriesCount(reg, playerRef, count);
     }
 
