@@ -18,7 +18,7 @@ Hytelago is a Hytale mod developped for playing Archipelago, a multiworld random
 - hytelago.jar<br>
 [Here on CurseForge](https://www.curseforge.com/hytale/mods/hytelago)
 
-- Apworld (To generate it, take all files inside ./apworld, put them in a Hytale/ folder, zip the Hytale folder, rename the output Hytale.apworld) <br>
+- Apworld (To generate it by yourself, take all files inside ./apworld, put them in a Hytale/ folder, zip the Hytale folder, rename the output Hytale.apworld) <br>
 [Here in the github releases](https://github.com/LucasRenaudineau/hytelago/releases/tag/release)
 
 - .yaml (it is ./game_options.yaml)
