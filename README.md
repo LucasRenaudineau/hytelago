@@ -46,17 +46,17 @@ Hytelago is a Hytale mod developped for playing Archipelago, a multiworld random
 
 Mod tested on Hytale version : 0.5.4
 
-Put the .jar of the last version in your Mods folder. Some mods are recommended : betterMap and InfiniteTeleporters.
+Put the .jar of the last version in your Mods folder. Some mods are recommended : betterMap and InfiniteTeleporters.<br>
 *Note : Hytelago overrides the assets of almost all workbenches and of the backpack upgrades to change their crafts and tier upgrades, so a lot of mods won't be compatible with it.*
 Send the Hytale.apworld to your archipelago server host.
 In the .yaml, change the player name, and send it to the archipelago server host.
-*Note : If you don't know how to self host a Archipelago server, read [this guide](https://archipelago.gg/tutorial/Archipelago/setup_en).*
+*Note : If you don't know how to self host a Archipelago server, read [this guide](https://archipelago.gg/tutorial/Archipelago/setup_en).*<br>
 
-Once in game, do /op self and then you can list the commands with /arch-help
-Once the server is hosted, you can connect using the arch-connect command.
-!!! Always connect to the server when you join the world, as it won't send new locations you would have discovered while disconnected. !!!
-See your advancement with /arch-locations and collect lost Workbench upgrader items with /arch-items
-!!! The only (intentional) non-working location is the kill_frost_dragon location which is also the one to release the player.
+Once in game, do /op self and then you can list the commands with /arch-help<br>
+Once the server is hosted, you can connect using the arch-connect command.<br>
+!!! Always connect to the server when you join the world, as it won't send new locations you would have discovered while disconnected. !!!<br>
+See your advancement with /arch-locations and collect lost Workbench upgrader items with /arch-items<br>
+!!! The only (intentional) non-working location is the kill_frost_dragon location which is also the one to release the player.<br>
 When you find the frost dragon, manually type /arch-set_count kill_frost_dragon 1 or more directly /arch-collect kill_frost_dragon
 
 For the moment, don't stack your inventory, since items given to you won't be given if your inventory is full.
