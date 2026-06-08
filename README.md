@@ -18,11 +18,11 @@ Hytelago is a Hytale mod developped for playing Archipelago, a multiworld random
 - hytelago.jar<br>
 [Here on CurseForge](https://www.curseforge.com/hytale/mods/hytelago)
 
-- Apworld<br>
-(For the moment, put all files inside apworld inside a Hytale folder, zip the Hytale folder and rename the zip output Hytale.apworld)
+- Apworld (To generate it, take all files inside ./apworld, put them in a Hytale/ folder, zip the Hytale folder, rename the output Hytale.apworld) <br>
+[Here in the github releases](https://github.com/LucasRenaudineau/hytelago/releases/tag/release)
 
-- .yaml<br>
-(It is game_options.yaml)
+- .yaml (it is ./game_options.yaml)
+[Here in the github releases](https://github.com/LucasRenaudineau/hytelago/releases/tag/release)
 
 - betterMap mod (recommended mod)<br>
 [Here on curseforge](https://www.curseforge.com/hytale/mods/bettermap)
@@ -50,6 +50,7 @@ Put the .jar of the last version in your Mods folder. Some mods are recommended 
 *Note : Hytelago overrides the assets of almost all workbenches and of the backpack upgrades to change their crafts and tier upgrades, so a lot of mods won't be compatible with it.*
 Send the Hytale.apworld to your archipelago server host.
 In the .yaml, change the player name, and send it to the archipelago server host.
+*Note : If you don't know how to self host a Archipelago server, read [this guide](https://archipelago.gg/tutorial/Archipelago/setup_en).*
 
 Once in game, do /op self and then you can list the commands with /arch-help
 Once the server is hosted, you can connect using the arch-connect command.
