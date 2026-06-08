@@ -1,7 +1,5 @@
 # TO DO
 
-- URGENT : Memories not matching the current memory number
-- URGENT : Make collecting locations impossible when not connected to the server
 - Test death link in
 - Add an optional argument for password for arch-connect
 - Make the Arcanist workbench craftable only on workbench tier 3.

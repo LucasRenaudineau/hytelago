@@ -19,6 +19,8 @@ import me.coblaz.achievements.AchievementDefinition;
 import me.coblaz.achievements.AchievementRegistry;
 import me.coblaz.achievements.AchievementStatus;
 import me.coblaz.achievements.PlayerAchievementData;
+import me.coblaz.achievements.Registries;
+import me.coblaz.archipelago.ArchipelagoManager;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -94,6 +96,19 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
             @Nonnull Ref<EntityStore>   ref,
             @Nonnull Store<EntityStore> store
     ) {
+        // Locations can only be collected while connected to the Archipelago
+        // server; otherwise the click has no effect on the table.
+        if (registry == Registries.LOCATIONS
+                && !ArchipelagoManager.INSTANCE.isConnected(playerRef)) {
+            EventTitleUtil.showEventTitleToPlayer(
+                    playerRef,
+                    Message.raw("Not connected to Archipelago."),
+                    Message.raw("Connect before collecting locations."),
+                    true
+            );
+            return;
+        }
+
         List<AchievementDefinition> collected = registry.collectDoneAchievements(
                 playerRef, ref, store, alsoCollectAlreadyCollected);
 

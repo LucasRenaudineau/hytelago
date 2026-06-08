@@ -50,12 +50,14 @@ public class ArchConnectCommand extends AbstractPlayerCommand {
         int    port     = portArg.get(ctx);
         String slotName = slotArg.get(ctx);
 
-        // Optimistic feedback: show "connecting" immediately
+        // Show "connecting" immediately. The actual outcome is asynchronous:
+        // connect() only opens the WebSocket, and the server may still reject the
+        // slot (or be unreachable). Success/failure is reported later, once the
+        // server answers — see ArchipelagoManager.HytaleAPClient.onConnectionResult.
         showTitle(playerRef, "Archipelago", "Connecting to " + ip + ":" + port + " …");
 
         try {
             ArchipelagoManager.INSTANCE.connect(playerRef, ref, store, ip, port, slotName);
-            showTitle(playerRef, "Archipelago", "Connected as " + slotName);
         } catch (RuntimeException ex) {
             // ArchipelagoManager wraps URISyntaxException in a RuntimeException
             showTitle(playerRef, "Connection failed", ex.getMessage());

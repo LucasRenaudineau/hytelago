@@ -7,13 +7,17 @@ import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import io.github.archipelagomw.Client;
 import io.github.archipelagomw.bounce.DeathLinkHandler;
 import io.github.archipelagomw.events.ArchipelagoEventListener;
+import io.github.archipelagomw.events.ConnectionResultEvent;
 import io.github.archipelagomw.events.DeathLinkEvent;
 import io.github.archipelagomw.events.ReceiveItemEvent;
+import io.github.archipelagomw.network.ConnectionResult;
 import me.coblaz.achievements.Registries;
 import me.coblaz.items.ItemsAchievements;
 
@@ -45,13 +49,140 @@ public final class ArchipelagoManager {
 
     // Concrete Client
     private static final class HytaleAPClient extends Client {
+
+        private final ConcurrentLinkedQueue<PendingAction> feedbackQueue;
+        private final String                               slotName;
+
+        // The connect() call only opens a WebSocket; the slot is not actually
+        // joined until the server answers with a ConnectionResultEvent (or the
+        // socket closes on failure). This flag marks that the server has given
+        // a verdict, so a later socket close doesn't double-report a failure.
+        private volatile boolean resultReported = false;
+
+        // True only between a successful ConnectionResultEvent and the socket
+        // closing. The base Client.isConnected() merely reports that the
+        // WebSocket is open, which happens before the slot is confirmed — so we
+        // must NOT treat that as "connected" for gameplay purposes.
+        private volatile boolean slotConnected = false;
+
+        // Set when we close this client on purpose (superseding it with a new
+        // connection, or /arch-disconnect). Such a clean close must not be
+        // reported to the player as a connection failure.
+        private volatile boolean intentionalClose = false;
+
+        HytaleAPClient(ConcurrentLinkedQueue<PendingAction> feedbackQueue, String slotName) {
+            this.feedbackQueue = feedbackQueue;
+            this.slotName      = slotName;
+        }
+
+        /** True only once the AP server has accepted the slot and the socket is still open. */
+        boolean isSlotConnected() {
+            return slotConnected && isConnected();
+        }
+
+        /** Close without surfacing a "Connection failed" message to the player. */
+        void closeSilently() {
+            intentionalClose = true;
+            close();
+        }
+
         @Override public void onError(Exception ex) {
             System.err.println("[ArchipelagoMod] WebSocket ERROR: " + ex.getMessage());
             ex.printStackTrace();
         }
+
         @Override public void onClose(String reason, int attemptingReconnect) {
             System.out.printf("[ArchipelagoMod] WebSocket CLOSED  reason='%s'  reconnectAttempt=%d%n",
                     reason, attemptingReconnect);
+            boolean wasSlotConnected = slotConnected;
+            slotConnected = false;
+
+            // A close we triggered ourselves (superseded by a new connection, or
+            // /arch-disconnect) is never a failure — stay silent.
+            if (intentionalClose) return;
+
+            // Ignore reconnect-attempt closes, which carry a non-zero delay.
+            if (attemptingReconnect != 0) return;
+
+            if (resultReported) {
+                // We were genuinely connected and the link dropped afterwards.
+                // Only tell the player if the slot had actually been joined.
+                if (wasSlotConnected) {
+                    showTitle("Archipelago", "Disconnected from the server.");
+                }
+            } else {
+                // Socket closed before the server ever confirmed the slot
+                // (e.g. host unreachable or refused).
+                resultReported = true;
+                showTitle("Connection failed",
+                        (reason == null || reason.isBlank())
+                                ? "Could not reach the Archipelago server."
+                                : reason);
+            }
+        }
+
+        private void showTitle(String title, String subtitle) {
+            // Defer to the game thread via the per-player action queue.
+            feedbackQueue.add((pr, r, s) -> EventTitleUtil.showEventTitleToPlayer(
+                    pr, Message.raw(title), Message.raw(subtitle), true));
+        }
+    }
+
+    /**
+     * Listens for the AP server's answer to our Connect packet — the real
+     * success/failure signal (not connect() returning).
+     *
+     * This MUST be a public top-level/nested listener object, NOT the
+     * HytaleAPClient itself: EventManager dispatches with reflective
+     * method.invoke() and never calls setAccessible(true), so a listener method
+     * declared on a non-public class (like the private HytaleAPClient) throws
+     * IllegalAccessException and is silently dropped — the connection result
+     * would never be received. The Minecraft mod registers a separate public
+     * APConnectEvents object for the same reason.
+     */
+    public static final class ConnectionResultListener {
+
+        private final HytaleAPClient                       client;
+        private final ConcurrentLinkedQueue<PendingAction> feedbackQueue;
+        private final String                               slotName;
+
+        public ConnectionResultListener(
+                HytaleAPClient                       client,
+                ConcurrentLinkedQueue<PendingAction> feedbackQueue,
+                String                               slotName
+        ) {
+            this.client        = client;
+            this.feedbackQueue = feedbackQueue;
+            this.slotName      = slotName;
+        }
+
+        @ArchipelagoEventListener
+        public void onConnectionResult(ConnectionResultEvent event) {
+            client.resultReported = true;
+            ConnectionResult result = event.getResult();
+            System.out.printf("[ArchipelagoMod][EVENT] ConnectionResultEvent  result=%s%n", result);
+            if (result == ConnectionResult.Success) {
+                client.slotConnected = true;
+                showTitle("Archipelago", "Connected as " + slotName);
+            } else {
+                showTitle("Connection failed", describe(result));
+            }
+        }
+
+        private void showTitle(String title, String subtitle) {
+            feedbackQueue.add((pr, r, s) -> EventTitleUtil.showEventTitleToPlayer(
+                    pr, Message.raw(title), Message.raw(subtitle), true));
+        }
+
+        private static String describe(ConnectionResult result) {
+            return switch (result) {
+                case Success             -> "Connected.";
+                case InvalidSlot         -> "Unknown slot name.";
+                case InvalidGame         -> "Slot is for a different game.";
+                case SlotAlreadyTaken    -> "That slot is already taken.";
+                case IncompatibleVersion -> "Incompatible Archipelago version.";
+                case InvalidPassword     -> "Invalid password.";
+            };
         }
     }
 
@@ -232,7 +363,7 @@ public final class ArchipelagoManager {
         PlayerAPState old = playerStates.remove(uuid);
         if (old != null) {
             System.out.println("[ArchipelagoMod] Closing previous connection for " + uuid);
-            old.client().close();
+            closeClient(old.client());
         }
 
         pendingByPlayer.computeIfAbsent(uuid, k -> new ConcurrentLinkedQueue<>());
@@ -242,7 +373,7 @@ public final class ArchipelagoManager {
         AtomicInteger lastProcessed = new AtomicInteger(saved);
         System.out.printf("[ArchipelagoMod] Resuming from saved index %d%n", saved);
 
-        HytaleAPClient client = new HytaleAPClient();
+        HytaleAPClient client = new HytaleAPClient(queue, slotName);
         client.setGame("Hytale");
         client.setName(slotName);
         client.setPassword("");   // set explicitly even if empty; some servers require it
@@ -263,6 +394,11 @@ public final class ArchipelagoManager {
 
         DeathLinkEventListener deathLinkListener = new DeathLinkEventListener(queue);
         client.getEventManager().registerListener(deathLinkListener);
+
+        // Reports real connection success/failure. Must be its own public
+        // listener object — see ConnectionResultListener for why.
+        ConnectionResultListener resultListener = new ConnectionResultListener(client, queue, slotName);
+        client.getEventManager().registerListener(resultListener);
         System.out.println("[ArchipelagoMod] Listeners registered on event manager");
 
         playerStates.put(uuid, new PlayerAPState(client, lastProcessed, ref, store, slotName, itemListener, deathLinkListener));
@@ -304,14 +440,33 @@ public final class ArchipelagoManager {
 
     public boolean isConnected(@Nonnull PlayerRef playerRef) {
         PlayerAPState state = playerStates.get(playerRef.getUuid().toString());
-        return state != null && state.client().isConnected();
+        return state != null && isSlotConnected(state);
+    }
+
+    /**
+     * True only once the AP server has accepted the slot (ConnectionResult.Success)
+     * and the socket is still open. The base client's isConnected() goes true as
+     * soon as the WebSocket opens — before the slot is confirmed — so it must not
+     * be used to gate gameplay (e.g. collecting locations).
+     */
+    private boolean isSlotConnected(@Nonnull PlayerAPState state) {
+        return state.client() instanceof HytaleAPClient client && client.isSlotConnected();
     }
 
     public void disconnect(@Nonnull PlayerRef playerRef) {
         String uuid = playerRef.getUuid().toString();
         PlayerAPState state = playerStates.remove(uuid);
-        if (state != null) state.client().close();
+        if (state != null) closeClient(state.client());
         pendingByPlayer.remove(uuid);
+    }
+
+    /** Close a client we own without surfacing a spurious "Connection failed" title. */
+    private void closeClient(@Nonnull Client client) {
+        if (client instanceof HytaleAPClient c) {
+            c.closeSilently();
+        } else {
+            client.close();
+        }
     }
 
     // Dispatchers
@@ -380,7 +535,7 @@ public final class ArchipelagoManager {
         // Check that the player is connected
         String        uuid  = playerRef.getUuid().toString();
         PlayerAPState state = playerStates.get(uuid);
-        if (state == null || !state.client().isConnected()) {
+        if (state == null || !isSlotConnected(state)) {
             System.out.printf(
                     "[ArchipelagoMod] sendLocationCheck: player %s is not connected — check for '%s' (id=%d) NOT sent%n",
                     uuid, achievementId, locationId);
@@ -408,7 +563,7 @@ public final class ArchipelagoManager {
      */
     public boolean setDeathLink(@Nonnull PlayerRef playerRef, boolean enabled) {
         PlayerAPState state = playerStates.get(playerRef.getUuid().toString());
-        if (state == null || !state.client().isConnected()) return false;
+        if (state == null || !isSlotConnected(state)) return false;
         state.client().setDeathLinkEnabled(enabled);
         System.out.printf("[ArchipelagoMod] DeathLink %s for %s%n",
                 enabled ? "ENABLED" : "DISABLED", state.slotName());
@@ -427,7 +582,7 @@ public final class ArchipelagoManager {
         if (deathLinkSuppress.remove(uuid)) return;
 
         PlayerAPState state = playerStates.get(uuid);
-        if (state == null || !state.client().isConnected()) return;
+        if (state == null || !isSlotConnected(state)) return;
         if (!state.client().getTags().contains(DeathLinkHandler.DEATHLINK_TAG)) return;
 
         System.out.printf("[ArchipelagoMod] Sending DeathLink: source='%s' cause='%s'%n",
