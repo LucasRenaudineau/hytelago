@@ -12,10 +12,12 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import io.github.archipelagomw.Client;
+import io.github.archipelagomw.Print.APPrint;
 import io.github.archipelagomw.bounce.DeathLinkHandler;
 import io.github.archipelagomw.events.ArchipelagoEventListener;
 import io.github.archipelagomw.events.ConnectionResultEvent;
 import io.github.archipelagomw.events.DeathLinkEvent;
+import io.github.archipelagomw.events.PrintJSONEvent;
 import io.github.archipelagomw.events.ReceiveItemEvent;
 import io.github.archipelagomw.network.ConnectionResult;
 import me.coblaz.achievements.Registries;
@@ -278,6 +280,42 @@ public final class ArchipelagoManager {
         }
     }
 
+    /**
+     * Listens for PrintJSON packets — every human-readable message the AP server
+     * broadcasts (item sends, hints, joins/parts, chat, goals, countdowns, ...).
+     * The Java-Client's WebSocket has already resolved player/item/location IDs
+     * into names before firing this event, so joining the parts yields plain
+     * English. The text is shown in the player's chat box (like /arch-help),
+     * not as an on-screen event title.
+     *
+     * Must be a public class — see ConnectionResultListener for why.
+     */
+    public static final class PrintJSONListener {
+
+        private final ConcurrentLinkedQueue<PendingAction> queue;
+
+        public PrintJSONListener(ConcurrentLinkedQueue<PendingAction> queue) {
+            this.queue = queue;
+        }
+
+        @ArchipelagoEventListener
+        public void onPrintJSON(PrintJSONEvent event) {
+            APPrint print = event.apPrint;
+            if (print == null) return;
+
+            // Parts already carry resolved names; fall back to the raw message
+            // field for packets that have no parts.
+            String text = (print.parts != null) ? print.getPlainText() : print.message;
+            if (text == null || text.isBlank()) return;
+
+            System.out.printf("[ArchipelagoMod][EVENT] PrintJSONEvent  type=%s  text='%s'%n",
+                    event.type, text);
+
+            String line = "[Archipelago] " + text;
+            queue.add((pr, r, s) -> pr.sendMessage(Message.raw(line)));
+        }
+    }
+
     // Static item table
     private static final Map<Long, MobSpawn>  MOB_TABLE  = new LinkedHashMap<>();
     private static final Map<Long, String>    TIER_TABLE = new LinkedHashMap<>();
@@ -394,6 +432,10 @@ public final class ArchipelagoManager {
 
         DeathLinkEventListener deathLinkListener = new DeathLinkEventListener(queue);
         client.getEventManager().registerListener(deathLinkListener);
+
+        // Relays every server text message (PrintJSON) into the player's chat
+        // box. The EventManager keeps a strong reference, so no need to store it.
+        client.getEventManager().registerListener(new PrintJSONListener(queue));
 
         // Reports real connection success/failure. Must be its own public
         // listener object — see ConnectionResultListener for why.
