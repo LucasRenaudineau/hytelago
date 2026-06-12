@@ -7,7 +7,6 @@
 - Add discovery of biomes into locations table.
 - Create a Hytale map that verifies all items and locations in a line to improve work when hytale changes of version.
 - Implement the end (killing or going near the frost dragon).
-- Better handling of messages (add handling player X sent object obj to player Y)
 - Change the titles of the two tables into Items table and Locations table
 - Fix problem item not given if inventory is full
 
