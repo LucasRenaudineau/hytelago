@@ -154,6 +154,26 @@
 ...
 5150 : memories_150
 
+## Regions explored
+
+6000 : region_drifting_plains
+6001 : region_seedlings_woods
+6002 : region_the_fens
+6003 : region_golden_steppes
+6004 : region_badlands
+6005 : region_desolate_bassin
+6006 : region_crystalline_depths
+6007 : region_frostmarch_tundra
+6008 : region_boreal_reach
+6009 : region_the_everfrost
+6010 : region_cinder_wastes
+6011 : region_charred_woodlands
+
+### Indication :
+
+In game, WorldMapTracker reports these regions as raw translation keys (map.region.* in server.lang), not display names.
+Mapping : Zone1_Tier1 to Zone1_Tier3 = Drifting Plains, Seedling Woods, The Fens ; Zone2_Tier1 to Zone2_Tier3 = Golden Steppes, Badlands, Desolate Basin ; Oceans = Crystalline Depths ; Zone3_Tier1 to Zone3_Tier3 = Frostmarch Tundra, Boreal Reach, The Everfrost ; Zone4_Tier4 and Zone4_Tier5 = Cinder Wastes, Charred Woodlands
+
 # Soft logic
 
 thirty_kills requires 2 Progressive Workbench, Campfire, 2 Progressive Blacksmith, 1 Progressive_Furnace, 1 Progressive Tanning, Weapon_Daggers_Bone, Weapon_Shortbow_Combat, 1 Weapon_Arrow_Clearshot30, Ingredient_Hide_Soft10, Ore_Iron10
@@ -198,3 +218,8 @@ memories_11 to memories_30 require : Progressive_Workbench and Progressive_Furna
 memories_31 to memories_60 require : 2 Progressive_Workbench, Progressive_Furnace, Campfire, Ore_Copper10, Ore_Iron10, Progressive_Blacksmith, Progressive_Armorer, Teleporter3
 memories_61 to memories_100 require : 2 Progressive_Workbench, Progressive_Furnace, Campfire, Ore_Copper10, Ore_Iron10, 2 Progressive_Blacksmith, 2 Progressive_Armorer, 3 Teleporter3
 memories_101 to memories_150 require : 2 Progressive_Workbench, Progressive_Furnace, Campfire, Ore_Copper10, Ore_Iron10, 2 Progressive_Blacksmith, 2 Progressive_Armorer, 5 Teleporter3, Ore_Iron10, Chef_Stove
+
+6000 to 6002 require : nothing
+6003 to 6006 require : Progressive_Workbench, Progressive_Furnace and Teleporter3
+6007 to 6009 require : 2 Progressive_Workbench, Progressive_Furnace, Campfire, Ore_Copper10, Ore_Iron10, 2 Progressive_Blacksmith, 2 Progressive_Armorer, 3 Teleporter3
+6010 and 6011 require : 2 Progressive_Workbench, Progressive_Furnace, Campfire, Ore_Copper10, Ore_Iron10, 2 Progressive_Blacksmith, 2 Progressive_Armorer, 5 Teleporter3, Ore_Iron10, Chef_Stove

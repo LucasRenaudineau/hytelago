@@ -461,6 +461,38 @@ def set_all_rules(world: HytaleWorld) -> None:
     for i in range(101, 151):
         multiworld.get_location(f"memories_{i}", player).access_rule = _memories_t5
 
+    # Regions explored
+
+    # region_drifting_plains, region_seedlings_woods, region_the_fens (6000–6002):
+    # no requirements – always accessible.
+
+    # 6003–6006
+    _regions_mid = _make_rule(
+        player,
+        "Progressive_Workbench",
+        "Progressive_Furnace",
+        "Teleporter3",
+    )
+    for loc in (
+        "region_golden_steppes",
+        "region_badlands",
+        "region_desolate_bassin",
+        "region_crystalline_depths",
+    ):
+        multiworld.get_location(loc, player).access_rule = _regions_mid
+
+    # 6007–6009 share the same requirements as memories tier 4
+    for loc in (
+        "region_frostmarch_tundra",
+        "region_boreal_reach",
+        "region_the_everfrost",
+    ):
+        multiworld.get_location(loc, player).access_rule = _memories_t4
+
+    # 6010–6011 share the same requirements as memories tier 5
+    for loc in ("region_cinder_wastes", "region_charred_woodlands"):
+        multiworld.get_location(loc, player).access_rule = _memories_t5
+
 
     # Completion condition
     # Goal: defeat the frost dragon

@@ -14,6 +14,8 @@ import java.util.Map;
  *   2xxx = general kill milestones
  *   3xxx = death achievements
  *   4xxx = item-possession achievements
+ *   5xxx = memories collected
+ *   6xxx = regions explored
  */
 public final class ArchipelagoLocationMap {
 
@@ -101,6 +103,20 @@ public final class ArchipelagoLocationMap {
         for (int i = 1; i <= 150; i++) {
             ACH_TO_LOCATION_ID.put("memories_" + i, 5000L + i);
         }
+
+        // Regions explored
+        ACH_TO_LOCATION_ID.put("region_drifting_plains",    6000L);
+        ACH_TO_LOCATION_ID.put("region_seedlings_woods",    6001L);
+        ACH_TO_LOCATION_ID.put("region_the_fens",           6002L);
+        ACH_TO_LOCATION_ID.put("region_golden_steppes",     6003L);
+        ACH_TO_LOCATION_ID.put("region_badlands",           6004L);
+        ACH_TO_LOCATION_ID.put("region_desolate_bassin",    6005L);
+        ACH_TO_LOCATION_ID.put("region_crystalline_depths", 6006L);
+        ACH_TO_LOCATION_ID.put("region_frostmarch_tundra",  6007L);
+        ACH_TO_LOCATION_ID.put("region_boreal_reach",       6008L);
+        ACH_TO_LOCATION_ID.put("region_the_everfrost",      6009L);
+        ACH_TO_LOCATION_ID.put("region_cinder_wastes",      6010L);
+        ACH_TO_LOCATION_ID.put("region_charred_woodlands",  6011L);
     }
 
     /**

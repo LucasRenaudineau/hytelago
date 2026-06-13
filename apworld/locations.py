@@ -88,6 +88,19 @@ LOCATION_NAME_TO_ID: dict[str, int] = {
     "collect_weapon_mace_iron":       4034,
     "collect_weapon_longsword_iron":  4035,
     **{f"memories_{i}": 5000 + i for i in range(1, 151)},
+    # Regions explored
+    "region_drifting_plains":    6000,
+    "region_seedlings_woods":    6001,
+    "region_the_fens":           6002,
+    "region_golden_steppes":     6003,
+    "region_badlands":           6004,
+    "region_desolate_bassin":    6005,
+    "region_crystalline_depths": 6006,
+    "region_frostmarch_tundra":  6007,
+    "region_boreal_reach":       6008,
+    "region_the_everfrost":      6009,
+    "region_cinder_wastes":      6010,
+    "region_charred_woodlands":  6011,
 }
 
 class HytaleLocation(Location):

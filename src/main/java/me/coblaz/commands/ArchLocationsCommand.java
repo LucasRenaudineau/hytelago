@@ -10,10 +10,12 @@ import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.universe.world.WorldMapTracker;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import me.coblaz.achievements.AchievementRegistry;
 import me.coblaz.achievements.MemoriesAchievements;
 import me.coblaz.achievements.Registries;
+import me.coblaz.achievements.RegionsAchievements;
 import me.coblaz.ui.AchievementListPage;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
@@ -38,12 +40,19 @@ public class ArchLocationsCommand extends AbstractPlayerCommand {
             @NonNullDecl PlayerRef          playerRef,
             @NonNullDecl World              world
     ) {
+        Player player = store.getComponent(ref, Player.getComponentType());
         syncItemCounts(Registries.LOCATIONS, playerRef, ref, store);  // was defined but never called — bug fix
         syncMemoriesCount(Registries.LOCATIONS, playerRef);                  // new
+        syncCurrentRegion(Registries.LOCATIONS, playerRef, player);
         Registries.LOCATIONS.refreshStatuses(playerRef);
-        Player player = store.getComponent(ref, Player.getComponentType());
         player.getPageManager().openCustomPage(ref, store,
                 new AchievementListPage(playerRef, Registries.LOCATIONS, false));
+    }
+
+    private void syncCurrentRegion(AchievementRegistry reg, PlayerRef playerRef, Player player) {
+        WorldMapTracker.ZoneDiscoveryInfo zone = player.getWorldMapTracker().getCurrentZone();
+        if (zone == null) return;
+        RegionsAchievements.incrementCurrentRegion(reg, playerRef, zone.regionName());
     }
 
     private void syncMemoriesCount(AchievementRegistry reg, PlayerRef playerRef) {
