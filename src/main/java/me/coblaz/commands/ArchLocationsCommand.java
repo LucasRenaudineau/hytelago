@@ -12,15 +12,20 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.WorldMapTracker;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.util.EventTitleUtil;
+import me.coblaz.achievements.AchievementDefinition;
 import me.coblaz.achievements.AchievementRegistry;
 import me.coblaz.achievements.MemoriesAchievements;
 import me.coblaz.achievements.Registries;
 import me.coblaz.achievements.RegionsAchievements;
+import me.coblaz.archipelago.ArchipelagoManager;
 import me.coblaz.ui.AchievementListPage;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -41,12 +46,42 @@ public class ArchLocationsCommand extends AbstractPlayerCommand {
             @NonNullDecl World              world
     ) {
         Player player = store.getComponent(ref, Player.getComponentType());
+
+        // The locations table only exists once the AP server has confirmed the
+        // slot and told us which locations this seed contains. Before that there
+        // is no seed to mirror, so show nothing rather than the full catalogue.
+        if (!ArchipelagoManager.INSTANCE.isConnected(playerRef)) {
+            EventTitleUtil.showEventTitleToPlayer(
+                    playerRef,
+                    Message.raw("Not connected to Archipelago."),
+                    Message.raw("Run /arch-connect first to load your locations."),
+                    true);
+            return;
+        }
+
+        // Only the locations that exist in the connected seed (built from the
+        // slot data) are shown and collectable.
+        Set<String> visibleIds = visibleLocationIds(playerRef);
+
         syncItemCounts(Registries.LOCATIONS, playerRef, ref, store);  // was defined but never called — bug fix
         syncMemoriesCount(Registries.LOCATIONS, playerRef);                  // new
         syncCurrentRegion(Registries.LOCATIONS, playerRef, player);
         Registries.LOCATIONS.refreshStatuses(playerRef);
         player.getPageManager().openCustomPage(ref, store,
-                new AchievementListPage(playerRef, Registries.LOCATIONS, false));
+                new AchievementListPage(playerRef, Registries.LOCATIONS, false, visibleIds));
+    }
+
+    /**
+     * The registered achievement ids whose AP location is part of this player's
+     * seed. Returns {@code null} (no filter — show all) only for connected seeds
+     * that sent no slot data, preserving the legacy "every location is live"
+     * fallback used elsewhere in the mod.
+     */
+    private Set<String> visibleLocationIds(PlayerRef playerRef) {
+        return Registries.LOCATIONS.getDefinitions().stream()
+                .map(AchievementDefinition::getId)
+                .filter(id -> ArchipelagoManager.INSTANCE.isLocationActive(playerRef, id))
+                .collect(Collectors.toSet());
     }
 
     private void syncCurrentRegion(AchievementRegistry reg, PlayerRef playerRef, Player player) {

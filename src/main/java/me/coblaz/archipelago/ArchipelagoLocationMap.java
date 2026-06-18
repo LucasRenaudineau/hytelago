@@ -3,7 +3,9 @@ package me.coblaz.archipelago;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Maps every achievement ID (as registered in Registries) to its numeric
@@ -127,6 +129,42 @@ public final class ArchipelagoLocationMap {
     @Nullable
     public static Long getLocationId(@Nonnull String achievementId) {
         return ACH_TO_LOCATION_ID.get(achievementId);
+    }
+
+    /**
+     * Builds the set of location IDs that actually exist in the connected seed,
+     * filtering the full catalogue above by the player's slot data. This mirrors
+     * the apworld's {@code get_active_location_names} so the mod only treats the
+     * locations the generator created as real checks.
+     *
+     * Location-id ranges:
+     *   1000-1999  monster kills            (always)
+     *   2000-2999  general kill milestones  (always)
+     *   3000-3999  death achievements       (death_locations)
+     *   4000-4999  item-possession          (always)
+     *   5000-5999  memories                 (memories / memories_max / memories_every)
+     *   6000-6999  regions explored         (regions)
+     */
+    @Nonnull
+    public static Set<Long> buildActiveLocationIds(@Nonnull HytaleSlotData slot) {
+        int every = Math.max(1, slot.memories_every);
+        Set<Long> active = new HashSet<>();
+
+        for (long id : ACH_TO_LOCATION_ID.values()) {
+            if (id >= 3000 && id <= 3999) {
+                if (!slot.hasDeathLocations()) continue;
+            } else if (id > 5000 && id <= 5999) {
+                if (!slot.hasMemories()) continue;
+                int index = (int) (id - 5000);
+                if (index > slot.memories_max) continue;
+                // memories_every == 2 keeps memories_1, memories_3, memories_5, ...
+                if ((index - 1) % every != 0) continue;
+            } else if (id >= 6000 && id <= 6999) {
+                if (!slot.hasRegions()) continue;
+            }
+            active.add(id);
+        }
+        return active;
     }
 
     private ArchipelagoLocationMap() {}

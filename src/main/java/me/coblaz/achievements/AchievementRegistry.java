@@ -6,6 +6,7 @@ import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import me.coblaz.archipelago.ArchipelagoManager;
 import me.coblaz.items.ItemReward;
 
 import javax.annotation.Nonnull;
@@ -114,9 +115,27 @@ public final class AchievementRegistry {
             @Nonnull Store<EntityStore> store,
             boolean                     alsoCollectAlreadyCollected
     ) {
+        return collectDoneAchievements(playerRef, ref, store, alsoCollectAlreadyCollected, null);
+    }
+
+    /**
+     * As above, but only considers achievements whose id is in {@code visibleIds}.
+     * Passing {@code null} considers every registered achievement. This keeps the
+     * Collect button in sync with a filtered table (e.g. only the locations that
+     * exist in the connected seed).
+     */
+    @Nonnull
+    public List<AchievementDefinition> collectDoneAchievements(
+            @Nonnull PlayerRef          playerRef,
+            @Nonnull Ref<EntityStore>   ref,
+            @Nonnull Store<EntityStore> store,
+            boolean                     alsoCollectAlreadyCollected,
+            @Nullable Set<String>       visibleIds
+    ) {
         List<AchievementDefinition> justCollected = new ArrayList<>();
 
         for (AchievementDefinition def : definitions) {
+            if (visibleIds != null && !visibleIds.contains(def.getId())) continue;
             PlayerAchievementData data   = getOrCreate(playerRef, def.getId());
             AchievementStatus     status = data.getStatus();
 
@@ -185,7 +204,11 @@ public final class AchievementRegistry {
     private void loadIfNeeded(@Nonnull String key) {
         if (loadedPlayers.contains(key)) return;
         loadedPlayers.add(key);
-        Map<String, PlayerAchievementData> saved = AchievementSaveManager.load(name, key);
+        // Save files are scoped to the connected seed. With no seed (player not
+        // connected) there is nothing to load — the table starts empty.
+        String seedId = ArchipelagoManager.INSTANCE.getSeedId(key);
+        if (seedId == null) return;
+        Map<String, PlayerAchievementData> saved = AchievementSaveManager.load(seedId, name, key);
         if (!saved.isEmpty()) {
             playerData.put(key, saved);
         }
@@ -193,10 +216,36 @@ public final class AchievementRegistry {
 
     private void savePlayer(@Nonnull PlayerRef playerRef) {
         String key = playerKey(playerRef);
+        // Only persist while connected to a seed; offline progress is not saved.
+        String seedId = ArchipelagoManager.INSTANCE.getSeedId(key);
+        if (seedId == null) return;
+
         Map<String, PlayerAchievementData> data = playerData.get(key);
-        if (data != null) {
-            AchievementSaveManager.save(name, key, data);
+        if (data == null) return;
+
+        // The locations table is persisted with only the rows that exist in this
+        // seed's slot data; the items registry is saved in full.
+        Map<String, PlayerAchievementData> toSave = data;
+        if ("locations".equals(name)) {
+            toSave = new HashMap<>();
+            for (Map.Entry<String, PlayerAchievementData> e : data.entrySet()) {
+                if (ArchipelagoManager.INSTANCE.isLocationActive(key, e.getKey())) {
+                    toSave.put(e.getKey(), e.getValue());
+                }
+            }
         }
+        AchievementSaveManager.save(seedId, name, key, toSave);
+    }
+
+    /**
+     * Drops the cached in-memory data and load flag for one player so the next
+     * access reloads from the (now correct) per-seed file. Called on connect so a
+     * reconnect to a different seed does not show the previous seed's progress.
+     */
+    public void invalidatePlayer(@Nonnull PlayerRef playerRef) {
+        String key = playerKey(playerRef);
+        playerData.remove(key);
+        loadedPlayers.remove(key);
     }
 
     /**

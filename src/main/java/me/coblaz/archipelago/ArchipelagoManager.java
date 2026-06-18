@@ -147,15 +147,21 @@ public final class ArchipelagoManager {
         private final HytaleAPClient                       client;
         private final ConcurrentLinkedQueue<PendingAction> feedbackQueue;
         private final String                               slotName;
+        private final String                               uuid;
+        private final AtomicInteger                        lastProcessed;
 
         public ConnectionResultListener(
                 HytaleAPClient                       client,
                 ConcurrentLinkedQueue<PendingAction> feedbackQueue,
-                String                               slotName
+                String                               slotName,
+                String                               uuid,
+                AtomicInteger                        lastProcessed
         ) {
             this.client        = client;
             this.feedbackQueue = feedbackQueue;
             this.slotName      = slotName;
+            this.uuid          = uuid;
+            this.lastProcessed = lastProcessed;
         }
 
         @ArchipelagoEventListener
@@ -165,6 +171,42 @@ public final class ArchipelagoManager {
             System.out.printf("[ArchipelagoMod][EVENT] ConnectionResultEvent  result=%s%n", result);
             if (result == ConnectionResult.Success) {
                 client.slotConnected = true;
+
+                // Build the location/item tables from this seed's slot data, and
+                // apply the Death Link setting the player generated with.
+                HytaleSlotData slot = null;
+                try {
+                    slot = event.getSlotData(HytaleSlotData.class);
+                } catch (Exception ex) {
+                    System.err.println("[ArchipelagoMod] Could not parse slot data: " + ex.getMessage());
+                }
+
+                // Identify this seed so all saved files (tables + item index) are
+                // scoped to this specific game. Set BEFORE loading the index so the
+                // per-seed path resolves correctly.
+                INSTANCE.onSlotConnected(uuid, slot, event.getSeedName(), slotName);
+
+                // Now the seed is known, resume the item index from this seed's
+                // file. Safe on the WebSocket thread: AtomicInteger is thread-safe
+                // and this runs before any ReceiveItemEvent on the same thread.
+                String seedId = INSTANCE.getSeedId(uuid);
+                int saved = ArchipelagoProgressSaveManager.loadLastIndex(seedId, uuid);
+                lastProcessed.set(saved);
+                System.out.printf("[ArchipelagoMod] Resuming from saved index %d (seed=%s)%n", saved, seedId);
+
+                // Drop any in-memory achievement data from a previous seed so the
+                // table reloads from this seed's file. Done on the game thread.
+                feedbackQueue.add((pr, r, s) -> {
+                    Registries.LOCATIONS.invalidatePlayer(pr);
+                    Registries.ITEMS.invalidatePlayer(pr);
+                });
+
+                if (slot != null) {
+                    client.setDeathLinkEnabled(slot.hasDeathLink());
+                    System.out.printf("[ArchipelagoMod] DeathLink %s from slot data for %s%n",
+                            slot.hasDeathLink() ? "ENABLED" : "DISABLED", slotName);
+                }
+
                 showTitle("Archipelago", "Connected as " + slotName);
             } else {
                 showTitle("Connection failed", describe(result));
@@ -255,7 +297,7 @@ public final class ArchipelagoManager {
             }
 
             lastProcessed.set((int) index);
-            ArchipelagoProgressSaveManager.saveLastIndex(uuid, (int) index);
+            ArchipelagoProgressSaveManager.saveLastIndex(INSTANCE.getSeedId(uuid), uuid, (int) index);
             System.out.printf("[ArchipelagoMod]  → lastProcessed updated to %d%n", index);
         }
     }
@@ -381,9 +423,54 @@ public final class ArchipelagoManager {
     // Per-player connection state
     private final Map<String, PlayerAPState> playerStates = new HashMap<>();
 
+    // Per-player slot data and the active location-id table built from it on
+    // connection. Populated by onSlotConnected(); read by sendLocationCheck().
+    private final Map<String, HytaleSlotData> slotDataByPlayer       = new ConcurrentHashMap<>();
+    private final Map<String, Set<Long>>      activeLocationsByPlayer = new ConcurrentHashMap<>();
+
+    // Per-player identity of the connected seed (uuid -> seedId), used to scope
+    // all on-disk save files to one specific game so two seeds never share files.
+    private final Map<String, String>         seedIdByPlayer          = new ConcurrentHashMap<>();
+
     // UUIDs of players whose next death was caused by an incoming DeathLink.
     // Used to avoid bouncing that death straight back to the server (loop).
     private final Set<String> deathLinkSuppress = ConcurrentHashMap.newKeySet();
+
+    /**
+     * Called when the AP server confirms the slot. Stores the slot data and
+     * builds the active location table that defines which achievements are real
+     * checks for this seed. A {@code null} slot data (older seeds that send
+     * none) clears any previous table, falling back to "every location is live".
+     */
+    public void onSlotConnected(@Nonnull String uuid,
+                                @javax.annotation.Nullable HytaleSlotData slot,
+                                @javax.annotation.Nullable String seedName,
+                                @Nonnull String slotName) {
+        // Scope all save files to this game regardless of whether slot data was
+        // sent. A missing seed name (very old servers) falls back to the slot name.
+        String seedId = sanitizeSeedId((seedName == null || seedName.isBlank() ? "unknown" : seedName)
+                + "_" + slotName);
+        seedIdByPlayer.put(uuid, seedId);
+
+        if (slot == null) {
+            slotDataByPlayer.remove(uuid);
+            activeLocationsByPlayer.remove(uuid);
+            System.out.println("[ArchipelagoMod] No slot data received — using full location table.");
+            return;
+        }
+        Set<Long> active = ArchipelagoLocationMap.buildActiveLocationIds(slot);
+        slotDataByPlayer.put(uuid, slot);
+        activeLocationsByPlayer.put(uuid, active);
+        System.out.printf(
+                "[ArchipelagoMod] Built tables from slot data for %s: %d active locations "
+                        + "(death_link=%b traps=%b death_locations=%b memories=%b[max=%d every=%d] regions=%b)%n",
+                uuid, active.size(), slot.hasDeathLink(), slot.hasTraps(), slot.hasDeathLocations(),
+                slot.hasMemories(), slot.memories_max, slot.memories_every, slot.hasRegions());
+    }
+
+    private static String sanitizeSeedId(@Nonnull String raw) {
+        return raw.replaceAll("[^a-zA-Z0-9_\\-]", "_");
+    }
 
     // connect()
     public void connect(
@@ -407,9 +494,10 @@ public final class ArchipelagoManager {
         pendingByPlayer.computeIfAbsent(uuid, k -> new ConcurrentLinkedQueue<>());
         ConcurrentLinkedQueue<PendingAction> queue = pendingByPlayer.get(uuid);
 
-        int saved = ArchipelagoProgressSaveManager.loadLastIndex(uuid);
-        AtomicInteger lastProcessed = new AtomicInteger(saved);
-        System.out.printf("[ArchipelagoMod] Resuming from saved index %d%n", saved);
+        // The saved item index is per-seed and the seed is unknown until the
+        // server confirms the slot, so start neutral here; ConnectionResultListener
+        // loads the real value once the seed id is known.
+        AtomicInteger lastProcessed = new AtomicInteger(-1);
 
         HytaleAPClient client = new HytaleAPClient(queue, slotName);
         client.setGame("Hytale");
@@ -439,7 +527,7 @@ public final class ArchipelagoManager {
 
         // Reports real connection success/failure. Must be its own public
         // listener object — see ConnectionResultListener for why.
-        ConnectionResultListener resultListener = new ConnectionResultListener(client, queue, slotName);
+        ConnectionResultListener resultListener = new ConnectionResultListener(client, queue, slotName, uuid, lastProcessed);
         client.getEventManager().registerListener(resultListener);
         System.out.println("[ArchipelagoMod] Listeners registered on event manager");
 
@@ -486,6 +574,53 @@ public final class ArchipelagoManager {
     }
 
     /**
+     * The AP location IDs that actually exist in this player's connected seed,
+     * built from the slot data on connection. Returns {@code null} when the
+     * player is not connected or the seed sent no slot data — callers decide
+     * whether that means "show nothing" or "show everything".
+     *
+     * @see ArchipelagoLocationMap#buildActiveLocationIds(HytaleSlotData)
+     */
+    @javax.annotation.Nullable
+    public Set<Long> getActiveLocationIds(@Nonnull PlayerRef playerRef) {
+        return activeLocationsByPlayer.get(playerRef.getUuid().toString());
+    }
+
+    /**
+     * The seed id (seed name + slot) the player is connected to, used to scope
+     * save files to one game. {@code null} when the player is not connected, in
+     * which case callers must skip persistence (offline progress is not saved).
+     */
+    @javax.annotation.Nullable
+    public String getSeedId(@Nonnull PlayerRef playerRef) {
+        return seedIdByPlayer.get(playerRef.getUuid().toString());
+    }
+
+    /** As {@link #getSeedId(PlayerRef)} but keyed by the raw uuid string. */
+    @javax.annotation.Nullable
+    public String getSeedId(@Nonnull String uuid) {
+        return seedIdByPlayer.get(uuid);
+    }
+
+    /**
+     * True when {@code achievementId} maps to a location that exists in this
+     * player's connected seed. Returns {@code true} when the player is connected
+     * but the seed sent no slot data (legacy "every location is live" fallback),
+     * and {@code false} when there is no active table at all.
+     */
+    public boolean isLocationActive(@Nonnull String uuid, @Nonnull String achievementId) {
+        Set<Long> active = activeLocationsByPlayer.get(uuid);
+        if (active == null) return seedIdByPlayer.containsKey(uuid); // connected, no slot data -> all live
+        Long locId = ArchipelagoLocationMap.getLocationId(achievementId);
+        return locId != null && active.contains(locId);
+    }
+
+    /** Convenience overload for callers holding a {@link PlayerRef}. */
+    public boolean isLocationActive(@Nonnull PlayerRef playerRef, @Nonnull String achievementId) {
+        return isLocationActive(playerRef.getUuid().toString(), achievementId);
+    }
+
+    /**
      * True only once the AP server has accepted the slot (ConnectionResult.Success)
      * and the socket is still open. The base client's isConnected() goes true as
      * soon as the WebSocket opens — before the slot is confirmed — so it must not
@@ -500,6 +635,9 @@ public final class ArchipelagoManager {
         PlayerAPState state = playerStates.remove(uuid);
         if (state != null) closeClient(state.client());
         pendingByPlayer.remove(uuid);
+        slotDataByPlayer.remove(uuid);
+        activeLocationsByPlayer.remove(uuid);
+        seedIdByPlayer.remove(uuid);
     }
 
     /** Close a client we own without surfacing a spurious "Connection failed" title. */
@@ -576,6 +714,18 @@ public final class ArchipelagoManager {
 
         // Check that the player is connected
         String        uuid  = playerRef.getUuid().toString();
+
+        // Only send checks for locations that exist in this seed. If no slot
+        // data was received (older seeds), the table is absent and every
+        // location is treated as live.
+        Set<Long> active = activeLocationsByPlayer.get(uuid);
+        if (active != null && !active.contains(locationId)) {
+            System.out.printf(
+                    "[ArchipelagoMod] sendLocationCheck: '%s' (id=%d) not in this seed's table — skipping%n",
+                    achievementId, locationId);
+            return;
+        }
+
         PlayerAPState state = playerStates.get(uuid);
         if (state == null || !isSlotConnected(state)) {
             System.out.printf(

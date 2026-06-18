@@ -15,11 +15,15 @@ public final class AchievementSaveManager {
 
     private AchievementSaveManager() {}
 
-    /** Write every achievement for one player to their JSON file. */
-    public static void save(@Nonnull String registryName,
+    /**
+     * Write every achievement for one player to their JSON file, scoped to the
+     * given seed so two AP games never share a file.
+     */
+    public static void save(@Nonnull String seedId,
+                            @Nonnull String registryName,
                             @Nonnull String playerKey,
                             @Nonnull Map<String, PlayerAchievementData> data) {
-        Path dir = SAVE_DIR.resolve(registryName);
+        Path dir = SAVE_DIR.resolve(sanitize(seedId)).resolve(registryName);
         try {
             Files.createDirectories(dir);
 
@@ -44,8 +48,10 @@ public final class AchievementSaveManager {
 
     /** Read a player's JSON file back into a live map. Returns empty map if no file yet. */
     @Nonnull
-    public static Map<String, PlayerAchievementData> load(@Nonnull String registryName, @Nonnull String playerKey) {
-        Path file = SAVE_DIR.resolve(registryName).resolve(sanitize(playerKey) + ".json");
+    public static Map<String, PlayerAchievementData> load(@Nonnull String seedId,
+                                                          @Nonnull String registryName,
+                                                          @Nonnull String playerKey) {
+        Path file = SAVE_DIR.resolve(sanitize(seedId)).resolve(registryName).resolve(sanitize(playerKey) + ".json");
         Map<String, PlayerAchievementData> result = new HashMap<>();
         if (!Files.exists(file)) return result;
 

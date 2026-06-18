@@ -223,3 +223,23 @@ memories_101 to memories_150 require : 2 Progressive_Workbench, Progressive_Furn
 6003 to 6006 require : Progressive_Workbench, Progressive_Furnace and Teleporter3
 6007 to 6009 require : 2 Progressive_Workbench, Progressive_Furnace, Campfire, Ore_Copper10, Ore_Iron10, 2 Progressive_Blacksmith, 2 Progressive_Armorer, 3 Teleporter3
 6010 and 6011 require : 2 Progressive_Workbench, Progressive_Furnace, Campfire, Ore_Copper10, Ore_Iron10, 2 Progressive_Blacksmith, 2 Progressive_Armorer, 5 Teleporter3, Ore_Iron10, Chef_Stove
+
+# .yaml options :
+
+death_link : true or false
+traps : true or false
+death_locations : true or false
+memories : true or false
+memories_max : number between 1 and 150 //default : 150
+memories_every : number between 1 and 150 (and it adds for instance memories_1 memories_3... if it equal to 2) //default : 1
+regions : true or false
+
+# How to determine the items pool
+
+There is always all tier upgraders and their max number.
+There is always 2 teleporter3
+There is always all random loots but only one time (not max number).
+
+Once this is given, if the player put death_link on, it gives once every trap (not max number).
+Then, it counts the total number of locations depending on the .yaml options page, and it adds the items in order (with traps only if they are activated), until their max number, until it fills 95% of the number of locations.
+The rest is automatically added as the filler item.

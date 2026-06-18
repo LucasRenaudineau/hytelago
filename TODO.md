@@ -1,6 +1,6 @@
 # TO DO
 
-- Test death link in
+- Test death link in test
 - Add an optional argument for password for arch-connect
 - Make the Arcanist workbench craftable only on workbench tier 3.
 - Randomize kweebec sells.
@@ -13,7 +13,6 @@
 # Radical changes ideas
 
 - Put zones in items, and deal damage to the player if he is in a zone he did not unlock (very interesting idea from the discord I read, but would need a bit of a change in my mod so probably doing it in a lot of time if ever).
-- Make the config .yaml customizable (and update the two achievement tables in games to match).
 - Better UI with HUI
 - Let the player choose for the end : killing the frost dragon, having x % of locations unlocked...
 - Memories : get a location every x %

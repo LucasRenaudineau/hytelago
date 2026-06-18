@@ -23,7 +23,10 @@ import me.coblaz.achievements.Registries;
 import me.coblaz.archipelago.ArchipelagoManager;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class AchievementListPage extends InteractiveCustomUIPage<AchievementListPage.AchEventData> {
 
@@ -50,13 +53,26 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
     private final AchievementRegistry registry;
     private final boolean alsoCollectAlreadyCollected;
 
+    // When non-null, only these achievement ids are shown and collectable. Used
+    // to restrict the locations table to the rows that exist in the connected
+    // seed (built from the slot data). Null means "show every registered row".
+    @Nullable private final Set<String> visibleIds;
+
     public AchievementListPage(@Nonnull PlayerRef playerRef,
                                @Nonnull AchievementRegistry registry,
                                boolean alsoCollectAlreadyCollected) {
+        this(playerRef, registry, alsoCollectAlreadyCollected, null);
+    }
+
+    public AchievementListPage(@Nonnull PlayerRef playerRef,
+                               @Nonnull AchievementRegistry registry,
+                               boolean alsoCollectAlreadyCollected,
+                               @Nullable Set<String> visibleIds) {
         super(playerRef, CustomPageLifetime.CanDismiss, AchEventData.CODEC);
         this.playerRef = playerRef;
         this.registry  = registry;
         this.alsoCollectAlreadyCollected = alsoCollectAlreadyCollected;
+        this.visibleIds = visibleIds;
     }
 
     // Build
@@ -110,7 +126,7 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
         }
 
         List<AchievementDefinition> collected = registry.collectDoneAchievements(
-                playerRef, ref, store, alsoCollectAlreadyCollected);
+                playerRef, ref, store, alsoCollectAlreadyCollected, visibleIds);
 
         if (collected.isEmpty()) {
             EventTitleUtil.showEventTitleToPlayer(
@@ -150,6 +166,15 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
             @Nonnull UIEventBuilder   events
     ) {
         List<AchievementDefinition> defs = registry.getDefinitions();
+
+        // Restrict to the seed's locations when a filter is set.
+        if (visibleIds != null) {
+            List<AchievementDefinition> filtered = new ArrayList<>();
+            for (AchievementDefinition def : defs) {
+                if (visibleIds.contains(def.getId())) filtered.add(def);
+            }
+            defs = filtered;
+        }
 
         cmd.clear("#AchievementList");
 
