@@ -1,9 +1,17 @@
 name: player_name
 game: Hytale
-description: Non-configurable (yet) yaml option file for Hytelago.
+description: Yaml option file for Hytelago.
 Hytale:
   progression_balancing: '50'
   accessibility: full
+  # Hytelago options
+  death_link: false      # bounce deaths between worlds; also seeds one of each trap
+  traps: false           # fill monster-spawn traps up to their maximum
+  death_locations: false # add the "die in a specific way" locations
+  memories: true         # add the memories_N locations
+  memories_max: 150      # highest memory milestone used (1-150)
+  memories_every: 1      # step between memory milestones (2 -> memories_1, 3, 5...)
+  regions: true          # add the region-exploration locations
   local_items: []
   non_local_items: []
   start_hints: []
