@@ -33,14 +33,14 @@ Hytelago is a Hytale mod developped for playing Archipelago, a multiworld random
 # In-game commands
 
 /arch-help : lists the commands of Hytelago mod<br>
-/arch-connect <ip address> <port> <player_name> : connects yourself to the archipelago server<br>
+/arch-connect <ip address> <port> <player_name> [--password=<password>]: connects yourself to the archipelago server<br>
 /arch-items : shows the items table<br>
 /arch-locations : shows the locations table<br>
 /arch-collect <achievementId> : force-collect an achievement (either from the item table or from the location table)<br>
 /arch-set_count <count> <achievementId> : sets the count of an achievement to count<br>
 /arch-set_state <achievementId> <NOT_DONE|DONE|COLLECTED> : changes the state of an achievement<br>
 /arch-spawn <mobId> : spawns a mob on the player<br>
-/arc-death_link <on|off> : activate or deactivate death link<br>
+/arch-death_link <on|off> : activate or deactivate death link<br>
 
 # Set-up to play the mod
 

@@ -472,38 +472,33 @@ public final class ArchipelagoManager {
         return raw.replaceAll("[^a-zA-Z0-9_\\-]", "_");
     }
 
-    // connect()
     public void connect(
             @Nonnull PlayerRef          playerRef,
             @Nonnull Ref<EntityStore>   ref,
             @Nonnull Store<EntityStore> store,
             @Nonnull String             ip,
             int                         port,
-            @Nonnull String             slotName
+            @Nonnull String             slotName,
+            @Nonnull String             password
     ) {
         String uuid = playerRef.getUuid().toString();
-        System.out.printf("[ArchipelagoMod] connect() called  player=%s  slot=%s  host=%s:%d%n",
-                uuid, slotName, ip, port);
-
+        System.out.printf("[ArchipelagoMod] connect() called  player=%s  slot=%s  host=%s:%d  password=%s%n",
+                uuid, slotName, ip, port, password.isEmpty() ? "(none)" : "(set)");
         PlayerAPState old = playerStates.remove(uuid);
         if (old != null) {
             System.out.println("[ArchipelagoMod] Closing previous connection for " + uuid);
             closeClient(old.client());
         }
-
         pendingByPlayer.computeIfAbsent(uuid, k -> new ConcurrentLinkedQueue<>());
         ConcurrentLinkedQueue<PendingAction> queue = pendingByPlayer.get(uuid);
-
         // The saved item index is per-seed and the seed is unknown until the
         // server confirms the slot, so start neutral here; ConnectionResultListener
         // loads the real value once the seed id is known.
         AtomicInteger lastProcessed = new AtomicInteger(-1);
-
         HytaleAPClient client = new HytaleAPClient(queue, slotName);
         client.setGame("Hytale");
         client.setName(slotName);
-        client.setPassword("");   // set explicitly even if empty; some servers require it
-
+        client.setPassword(password);   // now comes from the player, defaults to "" if --password wasn't used
         // CRITICAL: tell the server to send us items
         // 0b001 = receive items from other worlds
         // 0b010 = starting inventory
@@ -514,25 +509,15 @@ public final class ArchipelagoManager {
         } catch (NoSuchMethodError | AbstractMethodError e) {
             System.err.println("[ArchipelagoMod] WARNING: setItemsHandling not found on Client! ");
         }
-
         ItemEventListener itemListener = new ItemEventListener(queue, lastProcessed, uuid);
         client.getEventManager().registerListener(itemListener);
-
         DeathLinkEventListener deathLinkListener = new DeathLinkEventListener(queue);
         client.getEventManager().registerListener(deathLinkListener);
-
-        // Relays every server text message (PrintJSON) into the player's chat
-        // box. The EventManager keeps a strong reference, so no need to store it.
         client.getEventManager().registerListener(new PrintJSONListener(queue));
-
-        // Reports real connection success/failure. Must be its own public
-        // listener object — see ConnectionResultListener for why.
         ConnectionResultListener resultListener = new ConnectionResultListener(client, queue, slotName, uuid, lastProcessed);
         client.getEventManager().registerListener(resultListener);
         System.out.println("[ArchipelagoMod] Listeners registered on event manager");
-
         playerStates.put(uuid, new PlayerAPState(client, lastProcessed, ref, store, slotName, itemListener, deathLinkListener));
-
         try {
             client.connect(ip + ":" + port);
             System.out.printf("[ArchipelagoMod] connect() returned (WebSocket handshake initiated) — slot=%s%n", slotName);

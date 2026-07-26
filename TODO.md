@@ -1,10 +1,8 @@
 # TO DO
 
 - Test death link in test
-- Add an optional argument for password for arch-connect
 - Make the Arcanist workbench craftable only on workbench tier 3.
 - Randomize kweebec sells.
-- Add discovery of biomes into locations table.
 - Create a Hytale map that verifies all items and locations in a line to improve work when hytale changes of version.
 - Implement the end (killing or going near the frost dragon).
 - Change the titles of the two tables into Items table and Locations table

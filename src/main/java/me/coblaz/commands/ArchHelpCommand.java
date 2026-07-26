@@ -27,7 +27,7 @@ public class ArchHelpCommand extends AbstractPlayerCommand {
     ) {
         ctx.sendMessage(Message.raw("Here is the list of in-game commands :"));
         ctx.sendMessage(Message.raw("/arch-help : lists the commands of Hytelago mod"));
-        ctx.sendMessage(Message.raw("/arch-connect <ip address> <port> <player_name> : connects yourself to the archipelago server"));
+        ctx.sendMessage(Message.raw("/arch-connect <ip address> <port> <player_name> [--password=<password>]: connects yourself to the archipelago server"));
         ctx.sendMessage(Message.raw("/arch-items : shows the items table"));
         ctx.sendMessage(Message.raw("/arch-locations : shows the locations table"));
         ctx.sendMessage(Message.raw("/arch-collect <achievementId> : force-collect an achievement (either from the item table or from the location table)"));
