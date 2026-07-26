@@ -2,5 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/Java-Client" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/MinecraftFabricAPWorld" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/MinecraftFabricArchipelagoMod" vcs="Git" />
   </component>
 </project>
