@@ -60,6 +60,12 @@ public class ArchConnectCommand extends AbstractPlayerCommand {
         String slotName = slotArg.get(ctx);
         String password = passwordArg.get(ctx);
 
+        // Removes " or ' from beginning and end of slotName string to allow them to be used for slot names with spaces
+        int nameLength = slotName.length();
+        if ((slotName.charAt(0) == '\"' && slotName.charAt(nameLength - 1) == '\"') || (slotName.charAt(0) == '\'' && slotName.charAt(nameLength - 1) == '\'')) {
+            slotName = slotName.substring(1, nameLength - 1);
+        }
+
         // Show "connecting" immediately. The actual outcome is asynchronous:
         // connect() only opens the WebSocket, and the server may still reject the
         // slot (or be unreachable). Success/failure is reported later, once the
