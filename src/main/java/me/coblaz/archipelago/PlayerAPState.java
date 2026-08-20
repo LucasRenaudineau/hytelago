@@ -13,7 +13,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public record PlayerAPState(
         Client              client,
         AtomicInteger       lastProcessed,
-        Ref<EntityStore>    ref,
         Store<EntityStore>  store,
         String              slotName,
         ArchipelagoManager.ItemEventListener      itemListener,       // strong ref prevents GC

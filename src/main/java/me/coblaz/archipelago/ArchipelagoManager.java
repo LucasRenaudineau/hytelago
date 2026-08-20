@@ -517,7 +517,7 @@ public final class ArchipelagoManager {
         ConnectionResultListener resultListener = new ConnectionResultListener(client, queue, slotName, uuid, lastProcessed);
         client.getEventManager().registerListener(resultListener);
         System.out.println("[ArchipelagoMod] Listeners registered on event manager");
-        playerStates.put(uuid, new PlayerAPState(client, lastProcessed, ref, store, slotName, itemListener, deathLinkListener));
+        playerStates.put(uuid, new PlayerAPState(client, lastProcessed, store, slotName, itemListener, deathLinkListener));
         try {
             client.connect(ip + ":" + port);
             System.out.printf("[ArchipelagoMod] connect() returned (WebSocket handshake initiated) — slot=%s%n", slotName);
@@ -539,7 +539,7 @@ public final class ArchipelagoManager {
         PlayerAPState state = playerStates.get(uuid);
         if (state == null) return;
 
-        Ref<EntityStore> ref = state.ref();
+        Ref<EntityStore> ref = playerRef.getReference();
 
         PendingAction action;
         while ((action = queue.poll()) != null) {
