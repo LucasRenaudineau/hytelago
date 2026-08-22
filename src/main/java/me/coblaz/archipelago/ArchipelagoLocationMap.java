@@ -43,7 +43,7 @@ public final class ArchipelagoLocationMap {
         ACH_TO_LOCATION_ID.put("kill_golem_crystal_sand",       1015L);
         ACH_TO_LOCATION_ID.put("kill_zombie_sand",              1016L);
         ACH_TO_LOCATION_ID.put("kill_eye_void",                 1017L);
-        ACH_TO_LOCATION_ID.put("kill_scarac_broodmother_young", 1018L);
+        ACH_TO_LOCATION_ID.put("kill_scarak_broodmother", 1018L);
         ACH_TO_LOCATION_ID.put("kill_toad_rhino_magma",         1019L);
         ACH_TO_LOCATION_ID.put("kill_snake_marsh",              1020L);
         ACH_TO_LOCATION_ID.put("kill_yeti",                     1021L);

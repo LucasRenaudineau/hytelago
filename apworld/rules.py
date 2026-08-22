@@ -133,7 +133,7 @@ def set_all_rules(world: HytaleWorld) -> None:
     for loc in (
         "kill_zombie_burnt",
         "kill_zombie_sand",
-        "kill_scarac_broodmother_young",
+        "kill_scarak_broodmother",
         "kill_toad_rhino_magma",
         "kill_snake_marsh",
     ):

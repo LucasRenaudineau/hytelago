@@ -8,7 +8,7 @@
 1003 : Outlander_Berserker (2)
 1004 : Eye_Void (2)
 1005 : Zombie2 (6)
-1006 : Scarak_Broodmother_Young (2)
+1006 : Scarak_Broodmother (2)
 1007 : Scarak_Seeker (2)
 1008 : Yeti (2)
 
@@ -84,7 +84,7 @@
 1015 : kill_golem_crystal_sand
 1016 : kill_zombie_sand
 1017 : kill_eye_void
-1018 : kill_scarac_broodmother_young
+1018 : kill_scarak_broodmother
 1019 : kill_toad_rhino_magma
 1020 : kill_snake_marsh
 1021 : kill_yeti
@@ -182,7 +182,7 @@ seventy_kills and hundred_kills require 3 Progressive Workbench, 2 Progressive B
 
 kill_bear_grizzly, kill_skeleton_fighter and kill_wolf_black require : 1 Progressive Workbench, 1 Progressive Blacksmith, 1 Progressive Furnace
 kill_zombie_frost, kill_skeleton_frost_archer, kill_yeti require : 2 Progressive Armorer, 2 Progressive Backpack, 2 Progressive Blacksmith, 2 Progressive Furnace, 2 Progressive Tanning, 2 Progressive Workbench, Ore_Cobalt10, Ingredient_Hide_Medium10, Ingredient_Hide_Light10, Teleporter3
-kill_zombie_burnt, kill_zombie_sand, kill_scarac_broodmother_young, kill_toad_rhino_magma, kill_snake_marsh require : 1 Progressive Armorer, 1 Progressive Backpack, 1 Progressive Blacksmith, 1 Progressive Furnace, 1 Progressive Tanning, 2 Progressive Workbench, Ore_Iron10, Ingredient_Hide_Light10, Ingredient_Chitin_Sturdy10, Teleporter3
+kill_zombie_burnt, kill_zombie_sand, kill_scarak_broodmother, kill_toad_rhino_magma, kill_snake_marsh require : 1 Progressive Armorer, 1 Progressive Backpack, 1 Progressive Blacksmith, 1 Progressive Furnace, 1 Progressive Tanning, 2 Progressive Workbench, Ore_Iron10, Ingredient_Hide_Light10, Ingredient_Chitin_Sturdy10, Teleporter3
 frost_dragon and all kill golem achievements except kill_golem_crystal_earth require : 2 Progressive_Armorer, 2 Progressive_Backpack, 2 Progressive_Blacksmith, 2 Progressive_Furnace, 2 Progressive_Tanning, 3 Progressive_Workbench, Ore_Thorium10, Ore_Cobalt10, Ingredient_Hide_Soft10, Ingredient_Hide_Light10, Ingredient_Hide_Medium10, Ingredient_Hide_Heavy10, Ingredient_Chitin_Sturdy10, 2 Teleporter3, Repair_Kit2
 All kill outlander, kill_horse_skeleton and kill_horse_skeleton_armored achievements require : 2 Progressive_Armorer, 2 Progressive_Backpack, 2 Progressive_Blacksmith, 2 Progressive_Furnace, 1 Progressive_Tanning, 2 Progressive_Workbench, Ore_Thorium10, Ore_Cobalt10, Ingredient_Hide_Soft10, Ingredient_Hide_Light10, Ingredient_Hide_Medium10, Ingredient_Hide_Heavy10, Ingredient_Chitin_Sturdy10, 1 Teleporter3
 kill_golem_crystal_earth requires : Ore_Copper10, 1 Progressive_Workbench, 1 Progressive_Armorer, 1 Progressive_Blacksmith, 1 Progressive_Furnace
