@@ -15,7 +15,7 @@ ITEM_NAME_TO_ID: dict[str, int] = {
     "Outlander_Berserker":       1003,
     "Eye_Void":                  1004,
     "Zombie2":                   1005,
-    "Scarak_Broodmother_Young":  1006,
+    "Scarak_Broodmother":  1006,
     "Scarak_Seeker":             1007,
     "Yeti":                      1008,
     # Tier Upgraders
@@ -73,7 +73,7 @@ DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
     "Outlander_Berserker":       ItemClassification.trap,
     "Eye_Void":                  ItemClassification.trap,
     "Zombie2":                   ItemClassification.trap,
-    "Scarak_Broodmother_Young":  ItemClassification.trap,
+    "Scarak_Broodmother":  ItemClassification.trap,
     "Scarak_Seeker":             ItemClassification.trap,
     "Yeti":                      ItemClassification.trap,
     # Tier Upgraders – all required by some rule
@@ -141,7 +141,7 @@ ITEM_POOL_QUANTITIES: dict[str, int] = {
     "Outlander_Berserker":        2,
     "Eye_Void":                   2,
     "Zombie2":                    6,
-    "Scarak_Broodmother_Young":   2,
+    "Scarak_Broodmother":   2,
     "Scarak_Seeker":              2,
     "Yeti":                       2,
     # Tier Upgraders

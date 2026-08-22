@@ -36,7 +36,7 @@ public final class MobKillAchievements {
             new Entry("golem_crystal_sand",       "kill_golem_crystal_sand",       "Sand Crystal Crusher",   3),
             new Entry("zombie_sand",              "kill_zombie_sand",              "Desert Undead",          5),
             new Entry("eye_void",                 "kill_eye_void",                 "Void Sight",             1),
-            new Entry("scarak_broodmother_young", "kill_scarak_broodmother_young", "Brood Breaker",          1),
+            new Entry("scarak_broodmother", "kill_scarak_broodmother", "Brood Breaker",          1),
             new Entry("toad_rhino_magma", "kill_toad_rhino_magma", "Did not like my kiss ?", 1),
             new Entry("snake_marsh", "kill_snake_marsh", "Sliding in the desert", 5),
             new Entry("yeti", "kill_yeti", "It really exists", 1),

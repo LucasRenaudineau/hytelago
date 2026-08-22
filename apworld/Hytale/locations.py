@@ -29,7 +29,7 @@ LOCATION_NAME_TO_ID: dict[str, int] = {
     "kill_golem_crystal_sand":       1015,
     "kill_zombie_sand":              1016,
     "kill_eye_void":                 1017,
-    "kill_scarac_broodmother_young": 1018,
+    "kill_scarak_broodmother": 1018,
     "kill_toad_rhino_magma":         1019,
     "kill_snake_marsh":              1020,
     "kill_yeti":                     1021,
