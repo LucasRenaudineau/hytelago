@@ -659,7 +659,6 @@ public final class ArchipelagoManager {
             @Nonnull Store<EntityStore> store, @Nonnull String mobName, int count, double distance
     ) {
         int maxRetries = 10; // The maximum amount of attempts to spawn the mob before giving up
-        Random random = ThreadLocalRandom.current();
         NPCPlugin npcPlugin = NPCPlugin.get();
         int roleIndex = npcPlugin.getIndex(mobName);
         if (roleIndex == Integer.MIN_VALUE)
@@ -670,6 +669,7 @@ public final class ArchipelagoManager {
         World world = store.getExternalData().getWorld();
         world.execute(() -> { // Referencing the EntityStore's data must be done on the main thread.
             // Get the player's position
+            Random random = ThreadLocalRandom.current();
             TransformComponent transformComponent = (TransformComponent)store.getComponent(ref, TransformComponent.getComponentType());
             assert transformComponent != null;
             Vector3d playerPosition = transformComponent.getPosition();
