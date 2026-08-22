@@ -15,7 +15,7 @@ ITEM_NAME_TO_ID: dict[str, int] = {
     "Outlander_Berserker":       1003,
     "Eye_Void":                  1004,
     "Zombie2":                   1005,
-    "Scarak_Broodmother_Young":  1006,
+    "Scarak_Broodmother":        1006,
     "Scarak_Seeker":             1007,
     "Yeti":                      1008,
     # Tier Upgraders

@@ -2,34 +2,52 @@ package me.coblaz.archipelago;
 
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.function.consumer.TriConsumer;
+import com.hypixel.hytale.math.vector.Rotation3f;
+import com.hypixel.hytale.server.core.asset.type.model.config.Model;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
-import io.github.archipelagomw.Client;
-import io.github.archipelagomw.Print.APPrint;
+import com.hypixel.hytale.server.flock.FlockPlugin;
+import com.hypixel.hytale.server.npc.asset.builder.Builder;
+import com.hypixel.hytale.server.npc.asset.builder.BuilderInfo;
+import com.hypixel.hytale.server.npc.entities.NPCEntity;
+import com.hypixel.hytale.server.npc.NPCPlugin;
+import com.hypixel.hytale.server.npc.role.Role;
+import com.hypixel.hytale.server.spawning.ISpawnableWithModel;
+import com.hypixel.hytale.server.spawning.SpawningContext;
+import com.hypixel.hytale.server.spawning.SpawnTestResult;
+import it.unimi.dsi.fastutil.Pair;
+import org.joml.Vector3d;
+
 import io.github.archipelagomw.bounce.DeathLinkHandler;
+import io.github.archipelagomw.Client;
 import io.github.archipelagomw.events.ArchipelagoEventListener;
 import io.github.archipelagomw.events.ConnectionResultEvent;
 import io.github.archipelagomw.events.DeathLinkEvent;
 import io.github.archipelagomw.events.PrintJSONEvent;
 import io.github.archipelagomw.events.ReceiveItemEvent;
 import io.github.archipelagomw.network.ConnectionResult;
+import io.github.archipelagomw.Print.APPrint;
 import me.coblaz.achievements.Registries;
 import me.coblaz.items.ItemsAchievements;
 
-import javax.annotation.Nonnull;
 import java.net.URISyntaxException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
+import javax.annotation.Nonnull;
 
 public final class ArchipelagoManager {
 
@@ -264,10 +282,11 @@ public final class ArchipelagoManager {
             if (itemId >= 1000 && itemId <= 1999) {
                 MobSpawn spawn = MOB_TABLE.get(itemId);
                 if (spawn != null) {
-                    String mob   = spawn.mobName();
-                    int    count = spawn.count();
+                    String mob      = spawn.mobName();
+                    int    count    = spawn.count();
+                    double distance = spawn.distance();
                     System.out.printf("[ArchipelagoMod]  → Queuing MOB spawn: %dx %s%n", count, mob);
-                    queue.add((pr, r, s) -> INSTANCE.spawnMob(pr, r, s, mob, count));
+                    queue.add((pr, r, s) -> INSTANCE.spawnMob(pr, r, s, mob, count, distance));
                 } else {
                     System.err.printf("[ArchipelagoMod]  → UNKNOWN mob id: %d%n", itemId);
                 }
@@ -364,15 +383,15 @@ public final class ArchipelagoManager {
     private static final Map<Long, ItemGrant> LOOT_TABLE = new LinkedHashMap<>();
 
     static {
-        MOB_TABLE.put(1000L, new MobSpawn("Golem_Crystal_Earth",      1));
-        MOB_TABLE.put(1001L, new MobSpawn("Golem_Firesteel",          1));
-        MOB_TABLE.put(1002L, new MobSpawn("Skeleton_Frost_Archer",    2));
-        MOB_TABLE.put(1003L, new MobSpawn("Outlander_Berserker",      1));
-        MOB_TABLE.put(1004L, new MobSpawn("Eye_Void",                 1));
-        MOB_TABLE.put(1005L, new MobSpawn("Zombie",                   2));
-        MOB_TABLE.put(1006L, new MobSpawn("Scarak_Broodmother_Young", 1));
-        MOB_TABLE.put(1007L, new MobSpawn("Scarak_Seeker",            1));
-        MOB_TABLE.put(1008L, new MobSpawn("Yeti",                     1));
+        MOB_TABLE.put(1000L, new MobSpawn("Golem_Crystal_Earth",   1,  8.0D));
+        MOB_TABLE.put(1001L, new MobSpawn("Golem_Firesteel",       1,  8.0D));
+        MOB_TABLE.put(1002L, new MobSpawn("Skeleton_Frost_Archer", 2,  8.0D));
+        MOB_TABLE.put(1003L, new MobSpawn("Outlander_Berserker",   1,  6.0D));
+        MOB_TABLE.put(1004L, new MobSpawn("Eye_Void",              1,  8.0D));
+        MOB_TABLE.put(1005L, new MobSpawn("Zombie",                2,  4.0D));
+        MOB_TABLE.put(1006L, new MobSpawn("Scarak_Broodmother",    1, 12.0D));
+        MOB_TABLE.put(1007L, new MobSpawn("Scarak_Seeker",         1,  8.0D));
+        MOB_TABLE.put(1008L, new MobSpawn("Yeti",                  1,  8.0D));
 
         TIER_TABLE.put(2000L, "Progressive_Armorer");
         TIER_TABLE.put(2001L, "Progressive_Backpack");
@@ -637,10 +656,77 @@ public final class ArchipelagoManager {
     // Dispatchers
     private void spawnMob(
             @Nonnull PlayerRef playerRef, @Nonnull Ref<EntityStore> ref,
-            @Nonnull Store<EntityStore> store, @Nonnull String mobName, int count
+            @Nonnull Store<EntityStore> store, @Nonnull String mobName, int count, double distance
     ) {
-        System.out.printf("[ArchipelagoMod] TODO spawn %dx %s near %s%n",
-                count, mobName, playerRef.getUuid());
+        int maxRetries = 10; // The maximum amount of attempts to spawn the mob before giving up
+        Random random = ThreadLocalRandom.current();
+        NPCPlugin npcPlugin = NPCPlugin.get();
+        int roleIndex = npcPlugin.getIndex(mobName);
+        if (roleIndex == Integer.MIN_VALUE)
+            throw new RuntimeException(mobName + " gave an invalid role index.");
+        npcPlugin.forceValidation(roleIndex);
+        BuilderInfo roleInfo = npcPlugin.getRoleBuilderInfo(roleIndex);
+
+        World world = store.getExternalData().getWorld();
+        world.execute(() -> { // Referencing the EntityStore's data must be done on the main thread.
+            // Get the player's position
+            TransformComponent transformComponent = (TransformComponent)store.getComponent(ref, TransformComponent.getComponentType());
+            assert transformComponent != null;
+            Vector3d playerPosition = transformComponent.getPosition();
+
+            // Perform the same sanity checks that Hytale's NPC Spawn command uses
+            if (!npcPlugin.testAndValidateRole(roleInfo))
+                throw new IllegalArgumentException("[ArchipelagoMod] Error spawning " + mobName + ": Role failed validation. Check server log for details");
+            Builder<Role> roleBuilder = npcPlugin.tryGetCachedValidRole(roleIndex);
+            if (roleBuilder == null)
+                throw new IllegalArgumentException("[ArchipelagoMod] Error spawning " + mobName + ": Can't find a matching role builder");
+            if (!(roleBuilder instanceof ISpawnableWithModel))
+                throw new IllegalArgumentException("[ArchipelagoMod] Error spawning " + mobName + ": Role builder must support ISpawnableWithModel interface");
+            ISpawnableWithModel spawnable = (ISpawnableWithModel)roleBuilder;
+            if (!roleBuilder.isSpawnable())
+                throw new IllegalArgumentException("[ArchipelagoMod] Error spawning " + mobName + ": Abstract role templates cannot be spawned directly - a variant needs to be created!");
+            SpawningContext spawningContext = new SpawningContext();
+            if (!spawningContext.setSpawnable(spawnable))
+                throw new IllegalStateException("[ArchipelagoMod] Error spawning " + mobName + ": Can't set rolebuilder in spawning context");
+
+            // Set the mobs' desired spawn position to be a specified distance from the player
+            Vector3d randomPosition = new Vector3d(distance, 0D, 0D);
+            Vector3d spawnPosition = new Vector3d();
+            int tries;
+            for (tries = 0; tries < maxRetries; tries++)
+            {
+                // Set the mobs' desired position to be a random position around the player
+                randomPosition.rotateY(random.nextGaussian() * Math.PI * 2D, randomPosition);
+                randomPosition.add(playerPosition, spawnPosition);
+
+                // Ask the spawning context if any valid spawning locations exist near that location.
+                if (!spawningContext.set(world, spawnPosition.x, spawnPosition.y, spawnPosition.z))
+                    continue;
+                if (spawnable.canSpawn(spawningContext) == SpawnTestResult.TEST_OK)
+                    break;
+            }
+            if (tries == maxRetries)
+                System.err.printf("[ArchipelagoMod] Can't spawn any %s near %s - No space!%n", mobName, playerRef.getUuid());
+
+            // Get the mob's model and transform data from the spawning context
+            TriConsumer<NPCEntity, Ref<EntityStore>, Store<EntityStore>> skinApplyingFunction = null;
+            Model model = spawningContext.getModel();
+            spawnPosition = spawningContext.newPosition();
+            Rotation3f rotation = spawningContext.newRotation();
+
+            // Spawn the NPC and get its reference
+            Pair<Ref<EntityStore>, NPCEntity> npcPair = npcPlugin.spawnEntity(store, roleIndex, spawnPosition, rotation, model, skinApplyingFunction);
+            Ref<EntityStore> npcRef = (Ref<EntityStore>)npcPair.first();
+            NPCEntity npc = (NPCEntity)npcPair.second();
+
+            // If spawning more than one, try to spawn the rest as a flock
+            if (count > 1) {
+                Ref<EntityStore> flock = FlockPlugin.trySpawnFlock(npcRef, npc, store, roleIndex, spawnPosition, rotation, count, skinApplyingFunction);
+                if (flock == null)
+                    System.err.printf("[ArchipelagoMod] Failed to spawn all %dx %s near %s - Cannot create flock!%n",
+                            count, mobName, playerRef.getUuid());
+            }
+        });
     }
 
     private void incrementTierAchievements(@Nonnull PlayerRef playerRef, @Nonnull String baseName) {
