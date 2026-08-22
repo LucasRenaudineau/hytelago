@@ -5,6 +5,7 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.function.consumer.TriConsumer;
 import com.hypixel.hytale.math.vector.Rotation3f;
 import com.hypixel.hytale.server.core.asset.type.model.config.Model;
+import com.hypixel.hytale.server.core.entity.ItemUtils;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.Message;
@@ -760,7 +761,7 @@ public final class ArchipelagoManager {
         else if (backpack != null && backpack.getInventory().canAddItemStack(stack))
             backpack.getInventory().addItemStack(stack);
         else
-            System.err.printf("[ArchipelagoMod] No inventory space for %s x%d%n", itemName, quantity);
+            store.getExternalData().getWorld().execute(() -> { ItemUtils.throwItem(ref, stack, 0F /* throw speed */, store); });
     }
     // Send a completed location check to the AP server
     /**
