@@ -2,6 +2,7 @@ package me.coblaz.achievements;
 
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.server.core.entity.ItemUtils;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
@@ -280,19 +281,13 @@ public final class AchievementRegistry {
 
             if (hotbar   != null && hotbar.getInventory().canAddItemStack(stack)) {
                 hotbar.getInventory().addItemStack(stack);
-                given = true;
             } else if (storage  != null && storage.getInventory().canAddItemStack(stack)) {
                 storage.getInventory().addItemStack(stack);
-                given = true;
             } else if (backpack != null && backpack.getInventory().canAddItemStack(stack)) {
                 backpack.getInventory().addItemStack(stack);
-                given = true;
             }
-
-            if (!given) {
-                System.err.println("[AchievementMod] No inventory space to give '"
-                        + reward.itemId() + "' x" + reward.quantity()
-                        + " for achievement '" + def.getId() + "'");
+            else {
+                store.getExternalData().getWorld().execute(() -> { ItemUtils.throwItem(ref, stack, 0F /* throw speed */, store); });
             }
         }
     }
