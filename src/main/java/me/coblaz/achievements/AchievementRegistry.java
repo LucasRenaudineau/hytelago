@@ -277,7 +277,6 @@ public final class AchievementRegistry {
 
         for (ItemReward reward : def.getRewardItems()) {
             ItemStack stack = new ItemStack(reward.itemId(), reward.quantity());
-            boolean given   = false;
 
             if (hotbar   != null && hotbar.getInventory().canAddItemStack(stack)) {
                 hotbar.getInventory().addItemStack(stack);
