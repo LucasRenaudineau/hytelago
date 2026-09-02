@@ -59,7 +59,7 @@
           {
             "Type": "Simple",
             "Effects": {
-              "WorldSoundEventId": "SFX_Plushie_Build"
+              "WorldSoundEventId": "SFX_Default_Build"
             }
           }
         ]
