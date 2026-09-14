@@ -124,8 +124,13 @@
           "State": {
             "Definitions": {
               "CraftCompleted": {
-                "CustomModelAnimation": "Blocks/Benches/Workbench2_Crafting.blockyanim"
-              }
+                "CustomModelAnimation": "Blocks/Benches/Workbench2_Crafting.blockyanim",
+                "Looping": true,
+                "State": {
+                  "Definitions": {}
+                }
+              },
+              "Tier2": "*Bench_WorkBench_State_Definitions_Tier2"
             }
           }
         },
@@ -141,8 +146,13 @@
           "State": {
             "Definitions": {
               "CraftCompleted": {
-                "CustomModelAnimation": "Blocks/Benches/Workbench3_Crafting.blockyanim"
-              }
+                "CustomModelAnimation": "Blocks/Benches/Workbench3_Crafting.blockyanim",
+                "Looping": true,
+                "State": {
+                  "Definitions": {}
+                }
+              },
+              "Tier3": "*Bench_WorkBench_State_Definitions_Tier3"
             }
           }
         }
@@ -162,7 +172,9 @@
         }
       ]
     },
-    "BlockSoundSetId": "Wood"
+    "BlockSoundSetId": "Wood",
+    "PhysicalMaterialId": "Wood",
+    "TextureComputedColor": "#6C4C30"
   },
   "PlayerAnimationsId": "Block",
   "IconProperties": {

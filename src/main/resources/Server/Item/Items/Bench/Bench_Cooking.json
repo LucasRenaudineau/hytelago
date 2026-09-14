@@ -92,7 +92,9 @@
         }
       ]
     },
-    "BlockSoundSetId": "Stone"
+    "BlockSoundSetId": "Stone",
+    "PhysicalMaterialId": "Stone",
+    "TextureComputedColor": "#483C2A"
   },
   "PlayerAnimationsId": "Block",
   "IconProperties": {

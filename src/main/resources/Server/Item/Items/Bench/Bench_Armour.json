@@ -149,7 +149,9 @@
         }
       ]
     },
-    "BlockSoundSetId": "Wood"
+    "BlockSoundSetId": "Wood",
+    "PhysicalMaterialId": "Wood",
+    "TextureComputedColor": "#534539"
   },
   "PlayerAnimationsId": "Block",
   "IconProperties": {

@@ -86,7 +86,9 @@
           "FaceType": "Full"
         }
       ]
-    }
+    },
+    "PhysicalMaterialId": "Wool",
+    "TextureComputedColor": "#85402A"
   },
   "PlayerAnimationsId": "Block",
   "Model": "Blocks/Miscellaneous/Kweebec_Plush.blockymodel",

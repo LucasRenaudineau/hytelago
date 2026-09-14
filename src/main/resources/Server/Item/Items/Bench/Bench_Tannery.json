@@ -89,9 +89,11 @@
     },
     "ParticleColor": "#63422b",
     "BlockSoundSetId": "Wood",
+    "PhysicalMaterialId": "Wood",
     "Interactions": {
       "Use": "Open_Processing_Bench"
-    }
+    },
+    "TextureComputedColor": "#543B26"
   },
   "PlayerAnimationsId": "Block",
   "IconProperties": {

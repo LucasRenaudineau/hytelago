@@ -224,9 +224,11 @@
       ]
     },
     "BlockSoundSetId": "Stone",
+    "PhysicalMaterialId": "Stone",
     "Interactions": {
       "Use": "Open_Processing_Bench"
-    }
+    },
+    "TextureComputedColor": "#29281F"
   },
   "PlayerAnimationsId": "Block",
   "IconProperties": {

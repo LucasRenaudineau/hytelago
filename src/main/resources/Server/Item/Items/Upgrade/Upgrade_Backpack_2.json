@@ -49,22 +49,18 @@
     "Primary": {
       "Interactions": [
         {
-          "Type": "CheckUniqueItemUsage",
-          "Next": {
-            "Type": "IncreaseBackpackCapacity",
-            "Capacity": 9
-          }
+          "Type": "IncreaseBackpackCapacity",
+          "From": 9,
+          "Capacity": 18
         }
       ]
     },
     "Secondary": {
       "Interactions": [
         {
-          "Type": "CheckUniqueItemUsage",
-          "Next": {
-            "Type": "IncreaseBackpackCapacity",
-            "Capacity": 9
-          }
+          "Type": "IncreaseBackpackCapacity",
+          "From": 9,
+          "Capacity": 18
         }
       ]
     }
