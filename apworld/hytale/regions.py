@@ -8,10 +8,10 @@ if TYPE_CHECKING:
     from .world import HytaleWorld
 
 def create_regions(world: HytaleWorld) -> None:
-    # All locations live in a single "Hytale" region.
+    # All locations live in a single "hytale" region.
     # Access logic is handled entirely by per-location rules (rules.py), not by region topology.
     menu = Region("Menu", world.player, world.multiworld)
-    hytale = Region("Hytale", world.player, world.multiworld)
+    hytale = Region("hytale", world.player, world.multiworld)
 
     world.multiworld.regions += [menu, hytale]
 

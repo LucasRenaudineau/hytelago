@@ -14,7 +14,7 @@ class HytaleWorld(World):
     increasingly dangerous hunts and crafting achievements.
     """
 
-    game = "Hytale"
+    game = "hytale"
     web = HytaleWebWorld()
 
     options_dataclass = hytale_options.HytaleOptions
@@ -23,7 +23,7 @@ class HytaleWorld(World):
     location_name_to_id = locations.LOCATION_NAME_TO_ID
     item_name_to_id = items.ITEM_NAME_TO_ID
 
-    # All locations live in the "Hytale" region; the generator starts from "Menu".
+    # All locations live in the "hytale" region; the generator starts from "Menu".
     # origin_region_name defaults to "Menu".
 
     # Generation steps

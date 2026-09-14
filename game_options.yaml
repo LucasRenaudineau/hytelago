@@ -1,7 +1,7 @@
 name: player_name
-game: Hytale
+game: hytale
 description: Yaml option file for Hytelago.
-Hytale:
+hytale:
   progression_balancing: '50'
   accessibility: full
   # Hytelago options

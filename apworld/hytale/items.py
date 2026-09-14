@@ -208,7 +208,7 @@ REAL_ITEM_FILL_RATIO = 0.95
 
 
 class HytaleItem(Item):
-    game = "Hytale"
+    game = "hytale"
 
 # Helpers
 

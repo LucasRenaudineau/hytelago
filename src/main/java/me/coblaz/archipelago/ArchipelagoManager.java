@@ -516,7 +516,7 @@ public final class ArchipelagoManager {
         // loads the real value once the seed id is known.
         AtomicInteger lastProcessed = new AtomicInteger(-1);
         HytaleAPClient client = new HytaleAPClient(queue, slotName);
-        client.setGame("Hytale");
+        client.setGame("hytale");
         client.setName(slotName);
         client.setPassword(password);   // now comes from the player, defaults to "" if --password wasn't used
         // CRITICAL: tell the server to send us items

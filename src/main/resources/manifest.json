@@ -1,7 +1,7 @@
 {
   "Group": "me.coblaz",
   "Name": "hytelago",
-  "Version": "1.4.0",
+  "Version": "1.4.1",
   "Description": "A Hytale plugin for Archipelago",
   "Main": "me.coblaz.Main",
   "Website": "https://github.com/LucasRenaudineau/hytelago",

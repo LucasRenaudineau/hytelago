@@ -18,7 +18,7 @@ Hytelago is a Hytale mod developped for playing Archipelago, a multiworld random
 - hytelago.jar<br>
 [Here on CurseForge](https://www.curseforge.com/hytale/mods/hytelago)
 
-- Apworld (To generate it by yourself, take all files inside ./apworld, put them in a Hytale/ folder, zip the Hytale folder, rename the output Hytale.apworld) <br>
+- Apworld (To generate it by yourself, zip the ./apworld/hytale folder and rename the output hytale.apworld) <br>
 [Here in the github releases](https://github.com/LucasRenaudineau/hytelago/releases/tag/release)
 
 - .yaml (it is ./game_options.yaml)
@@ -44,11 +44,11 @@ Hytelago is a Hytale mod developped for playing Archipelago, a multiworld random
 
 # Set-up to play the mod
 
-Mod tested on Hytale version : 0.6.3
+Mod tested on Hytale version : 0.6.5
 
 Put the .jar of the last version in your Mods folder. Some mods are recommended : betterMap and InfiniteTeleporters.<br>
 *Note : Hytelago overrides the assets of almost all workbenches and of the backpack upgrades to change their crafts and tier upgrades, so a lot of mods won't be compatible with it.*
-Send the Hytale.apworld to your archipelago server host.
+Send the hytale.apworld to your archipelago server host.
 In the .yaml, change the player name, and send it to the archipelago server host.
 *Note : If you don't know how to self host a Archipelago server, read [this guide](https://archipelago.gg/tutorial/Archipelago/setup_en).*<br>
 

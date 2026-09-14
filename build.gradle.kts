@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "me.coblaz"
-version = "0.6.3-1.4.0"
+version = "0.6.5-1.4.1"
 
 repositories {
     mavenCentral()
@@ -25,7 +25,7 @@ tasks.jar {
     })
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     archiveBaseName.set("hytelago")
-    archiveVersion.set("0.6.3-1.4.0")
+    archiveVersion.set("0.6.5-1.4.1")
     archiveClassifier.set("")
 }
 

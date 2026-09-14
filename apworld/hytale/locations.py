@@ -104,7 +104,7 @@ LOCATION_NAME_TO_ID: dict[str, int] = {
 }
 
 class HytaleLocation(Location):
-    game = "Hytale"
+    game = "hytale"
 
 # Active-location selection
 #
@@ -148,6 +148,6 @@ def get_active_location_names(world: HytaleWorld) -> list[str]:
 # Creation
 
 def create_all_locations(world: HytaleWorld) -> None:
-    hytale_region = world.get_region("Hytale")
+    hytale_region = world.get_region("hytale")
     active = {name: LOCATION_NAME_TO_ID[name] for name in get_active_location_names(world)}
     hytale_region.add_locations(active, HytaleLocation)
