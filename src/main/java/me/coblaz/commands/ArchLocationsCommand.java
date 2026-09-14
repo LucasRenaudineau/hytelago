@@ -85,6 +85,12 @@ public class ArchLocationsCommand extends AbstractPlayerCommand {
     }
 
     private void syncCurrentRegion(AchievementRegistry reg, PlayerRef playerRef, Player player) {
+        // Every region the player has ever entered, not just the one they are
+        // standing in right now — otherwise regions visited before the table was
+        // first opened would never be credited.
+        RegionsAchievements.syncDiscoveredRegions(
+                reg, playerRef, player.getPlayerConfigData().getDiscoveredZones());
+
         WorldMapTracker.ZoneDiscoveryInfo zone = player.getWorldMapTracker().getCurrentZone();
         if (zone == null) return;
         RegionsAchievements.incrementCurrentRegion(reg, playerRef, zone.regionName());

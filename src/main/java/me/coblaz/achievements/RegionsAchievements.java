@@ -4,6 +4,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -72,9 +73,9 @@ public final class RegionsAchievements {
     // ---------------------------------------------------------------
 
     /**
-     * Adds 1 to the count of the achievement matching the region the
-     * player is currently in. Does nothing if the region is not in the
-     * table (e.g. Zone1_Spawn, temples or other unmapped areas).
+     * Marks the achievement matching the region the player is currently in as
+     * reached. Does nothing if the region is not in the table (e.g. Zone1_Spawn,
+     * temples or other unmapped areas).
      *
      * @param reg        the locations registry (Registries.LOCATIONS)
      * @param playerRef  the player opening the achievements page
@@ -90,7 +91,36 @@ public final class RegionsAchievements {
 
         String achId = REGION_KEY_TO_ACH_ID.get(regionName.trim().toLowerCase());
         if (achId != null) {
-            reg.incrementCount(playerRef, achId, 1);
+            reg.setCount(playerRef, achId, 1);
+        }
+    }
+
+    /**
+     * Marks every region the player has already discovered as reached.
+     *
+     * The game persists discovered regions per player
+     * (PlayerConfigData.getDiscoveredZones(), filled by the WorldMapTracker the
+     * first time the player enters a zone), so this credits regions visited
+     * before the table was ever opened instead of only the one the player
+     * happens to be standing in.
+     *
+     * @param reg            the locations registry (Registries.LOCATIONS)
+     * @param playerRef      the player opening the achievements page
+     * @param discoveredZones raw region keys the player has discovered
+     */
+    public static void syncDiscoveredRegions(
+            @Nonnull AchievementRegistry reg,
+            @Nonnull PlayerRef playerRef,
+            @Nullable Collection<String> discoveredZones
+    ) {
+        if (discoveredZones == null) return;
+
+        for (String zone : discoveredZones) {
+            if (zone == null) continue;
+            String achId = REGION_KEY_TO_ACH_ID.get(zone.trim().toLowerCase());
+            if (achId != null) {
+                reg.setCount(playerRef, achId, 1);
+            }
         }
     }
 

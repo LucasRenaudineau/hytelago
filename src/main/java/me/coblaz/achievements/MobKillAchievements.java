@@ -38,7 +38,7 @@ public final class MobKillAchievements {
             new Entry("toad_rhino_magma", "kill_toad_rhino_magma", "Did not like my kiss ?", 1),
             new Entry("snake_marsh", "kill_snake_marsh", "Sliding in the desert", 5),
             new Entry("yeti", "kill_yeti", "It really exists", 1),
-            new Entry("frost_dragon", "kill_frost_dragon", "Already finished (/", 1),
+            new Entry("Dragon_Frost", "kill_frost_dragon", "Already finished (/", 1),
             new Entry("bear_grizzly", "kill_bear_grizzly", "Not afraid of a big bear", 1),
             new Entry("skeleton_fighter", "kill_skeleton_fighter", "A simple fight", 1),
             new Entry("wolf_black", "kill_wolf_black", "WooooooOOO !", 3),
@@ -52,6 +52,18 @@ public final class MobKillAchievements {
                     e -> e.roleId().toLowerCase(),
                     Entry::achievementId
             ));
+
+    /**
+     * Extra NPC roles that are the same creature as one of the entries above but
+     * ship under a different role asset, so killing them counts all the same.
+     * Key and value are both lowercase role names.
+     */
+    private static final Map<String, String> ROLE_ALIASES = Map.of(
+            // The Tier-3 Scarak hive spawns the dungeon variant of the boss
+            // (Server/NPC/Spawn/Markers/Dungeon_Scarak_Broodmother.json), while
+            // the other hives use the Scarak_Boss marker -> Scarak_Broodmother.
+            "dungeon_scarak_broodmother", "scarak_broodmother"
+    );
 
     // API
 
@@ -70,7 +82,15 @@ public final class MobKillAchievements {
      */
     @Nullable
     public static String achievementIdForRole(@Nonnull String roleName) {
-        return ROLE_TO_ACH_ID.get(roleName.toLowerCase());
+        String key = roleName.toLowerCase();
+
+        String achId = ROLE_TO_ACH_ID.get(key);
+        if (achId != null) return achId;
+
+        String alias = ROLE_ALIASES.get(key);
+        if (alias != null) return ROLE_TO_ACH_ID.get(alias);
+
+        return null;
     }
 
     private MobKillAchievements() {}
