@@ -56,13 +56,12 @@ ITEM_NAME_TO_ID: dict[str, int] = {
     "Weapon_Arrow_Clearshot30":  3023,
     "Weapon_Deployable_Healing_Totem": 3024,
     "Repair_Kit2":               3025,
-    "Plant_Crop_Carrot_Item5":   3026,
-    "Plant_Seeds_Corn":          3027,
-    "Plant_Cactus_1":            3028,
-    "Ingredient_Charcoal10":     3029,
-    "Furniture_Village_Chest_Small2": 3030,
-    "Plant_Crop_Wheat_Block3":   3031,
-    "Food_Bread5":               3032,
+    "Plant_Seeds_Corn":          3026,
+    "Plant_Cactus_1":            3027,
+    "Ingredient_Charcoal10":     3028,
+    "Furniture_Village_Chest_Small2": 3029,
+    "Plant_Crop_Wheat_Block3":   3030,
+    "Food_Bread5":               3031,
 }
 
 DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
@@ -120,7 +119,6 @@ DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
     "Weapon_Deployable_Healing_Totem": ItemClassification.useful,
     "Repair_Kit2":               ItemClassification.progression,
     # New loot – helpful but not gating any rule
-    "Plant_Crop_Carrot_Item5":   ItemClassification.useful,
     "Plant_Seeds_Corn":          ItemClassification.useful,
     "Plant_Cactus_1":            ItemClassification.useful,
     "Ingredient_Charcoal10":     ItemClassification.useful,
@@ -181,7 +179,6 @@ ITEM_POOL_QUANTITIES: dict[str, int] = {
     "Weapon_Arrow_Clearshot30":   10,
     "Weapon_Deployable_Healing_Totem": 2,
     "Repair_Kit2":                10,
-    "Plant_Crop_Carrot_Item5":    2,
     "Plant_Seeds_Corn":           2,
     "Plant_Cactus_1":             2,
     "Ingredient_Charcoal10":      10,

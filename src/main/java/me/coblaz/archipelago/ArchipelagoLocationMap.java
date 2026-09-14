@@ -48,6 +48,10 @@ public final class ArchipelagoLocationMap {
         ACH_TO_LOCATION_ID.put("kill_snake_marsh",              1020L);
         ACH_TO_LOCATION_ID.put("kill_yeti",                     1021L);
         ACH_TO_LOCATION_ID.put("kill_frost_dragon",             1022L);
+        ACH_TO_LOCATION_ID.put("kill_bear_grizzly",             1023L);
+        ACH_TO_LOCATION_ID.put("kill_skeleton_fighter",         1024L);
+        ACH_TO_LOCATION_ID.put("kill_wolf_black",               1025L);
+        ACH_TO_LOCATION_ID.put("kill_horse_skeleton",           1026L);
 
         // General kill milestones
         ACH_TO_LOCATION_ID.put("first_kill",    2000L);
@@ -60,8 +64,8 @@ public final class ArchipelagoLocationMap {
         // Death achievements
         ACH_TO_LOCATION_ID.put("death_fall",        3000L);
         ACH_TO_LOCATION_ID.put("death_drowning",    3001L);
-        ACH_TO_LOCATION_ID.put("death_fire",        3004L);
-        ACH_TO_LOCATION_ID.put("death_projectile",  3006L);
+        ACH_TO_LOCATION_ID.put("death_fire",        3002L);
+        ACH_TO_LOCATION_ID.put("death_projectile",  3003L);
 
         // Item-possession achievements
         ACH_TO_LOCATION_ID.put("collect_watering_can",           4000L);
@@ -77,29 +81,28 @@ public final class ArchipelagoLocationMap {
         ACH_TO_LOCATION_ID.put("collect_kweebec_plush",          4010L);
         ACH_TO_LOCATION_ID.put("collect_tankard",                4011L);
         ACH_TO_LOCATION_ID.put("collect_spike_trap_10",          4012L);
-        ACH_TO_LOCATION_ID.put("collect_carrot_20",              4013L);
-        ACH_TO_LOCATION_ID.put("collect_corn_5",                 4014L);
-        ACH_TO_LOCATION_ID.put("collect_cactus_5",               4015L);
-        ACH_TO_LOCATION_ID.put("collect_food_kebab_vegetable_20",4016L);
-        ACH_TO_LOCATION_ID.put("collect_furniture_crude_torch_10",4017L);
-        ACH_TO_LOCATION_ID.put("smelt_iron",                     4018L);
-        ACH_TO_LOCATION_ID.put("smelt_copper",                   4019L);
-        ACH_TO_LOCATION_ID.put("smelt_silver",                   4020L);
-        ACH_TO_LOCATION_ID.put("smelt_gold",                     4021L);
-        ACH_TO_LOCATION_ID.put("smelt_thorium",                  4022L);
-        ACH_TO_LOCATION_ID.put("smelt_cobalt",                   4023L);
-        ACH_TO_LOCATION_ID.put("collect_armor_copper_head",      4024L);
-        ACH_TO_LOCATION_ID.put("collect_armor_copper_hands",     4025L);
-        ACH_TO_LOCATION_ID.put("collect_armor_copper_chest",     4026L);
-        ACH_TO_LOCATION_ID.put("collect_armor_copper_legs",      4027L);
-        ACH_TO_LOCATION_ID.put("collect_weapon_mace_copper",     4028L);
-        ACH_TO_LOCATION_ID.put("collect_weapon_longsword_copper",4029L);
-        ACH_TO_LOCATION_ID.put("collect_armor_iron_head",        4030L);
-        ACH_TO_LOCATION_ID.put("collect_armor_iron_hands",       4031L);
-        ACH_TO_LOCATION_ID.put("collect_armor_iron_chest",       4032L);
-        ACH_TO_LOCATION_ID.put("collect_armor_iron_legs",        4033L);
-        ACH_TO_LOCATION_ID.put("collect_weapon_mace_iron",       4034L);
-        ACH_TO_LOCATION_ID.put("collect_weapon_longsword_iron",  4035L);
+        ACH_TO_LOCATION_ID.put("collect_corn_5",                 4013L);
+        ACH_TO_LOCATION_ID.put("collect_cactus_5",               4014L);
+        ACH_TO_LOCATION_ID.put("collect_food_kebab_vegetable_20",4015L);
+        ACH_TO_LOCATION_ID.put("collect_furniture_crude_torch_10",4016L);
+        ACH_TO_LOCATION_ID.put("smelt_iron",                     4017L);
+        ACH_TO_LOCATION_ID.put("smelt_copper",                   4018L);
+        ACH_TO_LOCATION_ID.put("smelt_silver",                   4019L);
+        ACH_TO_LOCATION_ID.put("smelt_gold",                     4020L);
+        ACH_TO_LOCATION_ID.put("smelt_thorium",                  4021L);
+        ACH_TO_LOCATION_ID.put("smelt_cobalt",                   4022L);
+        ACH_TO_LOCATION_ID.put("collect_armor_copper_head",      4023L);
+        ACH_TO_LOCATION_ID.put("collect_armor_copper_hands",     4024L);
+        ACH_TO_LOCATION_ID.put("collect_armor_copper_chest",     4025L);
+        ACH_TO_LOCATION_ID.put("collect_armor_copper_legs",      4026L);
+        ACH_TO_LOCATION_ID.put("collect_weapon_mace_copper",     4027L);
+        ACH_TO_LOCATION_ID.put("collect_weapon_longsword_copper",4028L);
+        ACH_TO_LOCATION_ID.put("collect_armor_iron_head",        4029L);
+        ACH_TO_LOCATION_ID.put("collect_armor_iron_hands",       4030L);
+        ACH_TO_LOCATION_ID.put("collect_armor_iron_chest",       4031L);
+        ACH_TO_LOCATION_ID.put("collect_armor_iron_legs",        4032L);
+        ACH_TO_LOCATION_ID.put("collect_weapon_mace_iron",       4033L);
+        ACH_TO_LOCATION_ID.put("collect_weapon_longsword_iron",  4034L);
 
         // Memories achievements
         for (int i = 1; i <= 150; i++) {

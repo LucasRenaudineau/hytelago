@@ -7,8 +7,9 @@ from BaseClasses import Location
 if TYPE_CHECKING:
     from .world import HytaleWorld
 
-# If some numbers are missing, it is because some locations were removed because they did not work or did not please me.
-# For the moment and for any contributer, I would advise to continue get increasing numbers and let the holes.
+# IDs are contiguous within each range. If a location is ever removed, renumber the
+# rest of its range so no holes remain, and keep this table in sync with
+# ArchipelagoLocationMap.java and rules_apworld.md.
 LOCATION_NAME_TO_ID: dict[str, int] = {
     # Monster kill
     "kill_zombie":                   1000,
@@ -48,8 +49,8 @@ LOCATION_NAME_TO_ID: dict[str, int] = {
     # Death achievements
     "death_fall":        3000,
     "death_drowning":    3001,
-    "death_fire":        3004,
-    "death_projectile":  3006,
+    "death_fire":        3002,
+    "death_projectile":  3003,
     # Item possessed
     "collect_watering_can":           4000,
     "collect_voidheart":              4001,
@@ -64,29 +65,28 @@ LOCATION_NAME_TO_ID: dict[str, int] = {
     "collect_kweebec_plush":          4010,
     "collect_tankard":                4011,
     "collect_spike_trap_10":          4012,
-    "collect_carrot_20":              4013,
-    "collect_corn_5":                 4014,
-    "collect_cactus_5":               4015,
-    "collect_food_kebab_vegetable_20":4016,
-    "collect_furniture_crude_torch_10":4017,
-    "smelt_iron":                     4018,
-    "smelt_copper":                   4019,
-    "smelt_silver":                   4020,
-    "smelt_gold":                     4021,
-    "smelt_thorium":                  4022,
-    "smelt_cobalt":                   4023,
-    "collect_armor_copper_head":      4024,
-    "collect_armor_copper_hands":     4025,
-    "collect_armor_copper_chest":     4026,
-    "collect_armor_copper_legs":      4027,
-    "collect_weapon_mace_copper":     4028,
-    "collect_weapon_longsword_copper":4029,
-    "collect_armor_iron_head":        4030,
-    "collect_armor_iron_hands":       4031,
-    "collect_armor_iron_chest":       4032,
-    "collect_armor_iron_legs":        4033,
-    "collect_weapon_mace_iron":       4034,
-    "collect_weapon_longsword_iron":  4035,
+    "collect_corn_5":                 4013,
+    "collect_cactus_5":               4014,
+    "collect_food_kebab_vegetable_20":4015,
+    "collect_furniture_crude_torch_10":4016,
+    "smelt_iron":                     4017,
+    "smelt_copper":                   4018,
+    "smelt_silver":                   4019,
+    "smelt_gold":                     4020,
+    "smelt_thorium":                  4021,
+    "smelt_cobalt":                   4022,
+    "collect_armor_copper_head":      4023,
+    "collect_armor_copper_hands":     4024,
+    "collect_armor_copper_chest":     4025,
+    "collect_armor_copper_legs":      4026,
+    "collect_weapon_mace_copper":     4027,
+    "collect_weapon_longsword_copper":4028,
+    "collect_armor_iron_head":        4029,
+    "collect_armor_iron_hands":       4030,
+    "collect_armor_iron_chest":       4031,
+    "collect_armor_iron_legs":        4032,
+    "collect_weapon_mace_iron":       4033,
+    "collect_weapon_longsword_iron":  4034,
     **{f"memories_{i}": 5000 + i for i in range(1, 151)},
     # Regions explored
     "region_drifting_plains":    6000,

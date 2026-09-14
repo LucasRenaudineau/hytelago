@@ -50,3 +50,7 @@ Hytale.apworld
 hytale.apworld
 apworld/Hytale.apworld
 apworld/hytale.apworld
+
+# Python bytecode
+__pycache__/
+*.py[cod]

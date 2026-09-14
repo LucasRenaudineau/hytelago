@@ -53,13 +53,12 @@
 3023 : Weapon_Arrow_Clearshot30 (10)
 3024 : Weapon_Deployable_Healing_Totem (2)
 3025 : Repair_Kit2 (10)
-3026 : Plant_Crop_Carrot_Item5 (2)
-3027 : Plant_Seeds_Corn (2)
-3028 : Plant_Cactus_1 (2) // _1 does not stand for the fact it gives one. The location actually gives one, but Plant_Cactus_1 is the entire id of the item for Hytale
-3029 : Ingredient_Charcoal10 (10)
-3030 : Furniture_Village_Chest_Small2 (5)
-3031 : Plant_Crop_Wheat_Block3 (10)
-3032 : Food_Bread5 (10)
+3026 : Plant_Seeds_Corn (2)
+3027 : Plant_Cactus_1 (2) // _1 does not stand for the fact it gives one. The location actually gives one, but Plant_Cactus_1 is the entire id of the item for Hytale
+3028 : Ingredient_Charcoal10 (10)
+3029 : Furniture_Village_Chest_Small2 (5)
+3030 : Plant_Crop_Wheat_Block3 (10)
+3031 : Food_Bread5 (10)
 
 
 # Locations
@@ -92,6 +91,7 @@
 1023 : kill_bear_grizzly
 1024 : kill_skeleton_fighter
 1025 : kill_wolf_black
+1026 : kill_horse_skeleton
 
 ## General kills
 
@@ -99,15 +99,15 @@
 2001 : ten_kills
 2002 : thirty_kills
 2003 : fifty_kills
-2004 : seventy_fills
+2004 : seventy_kills
 2005 : hundred_kills
 
 ## Death achievements
 
 3000 : death_fall
 3001 : death_drowning
-3004 : death_fire
-3006 : death_projectile
+3002 : death_fire
+3003 : death_projectile
 
 ## Item possessed
 
@@ -124,29 +124,28 @@
 4010 : collect_kweebec_plush
 4011 : collect_tankard
 4012 : collect_spike_trap_10
-4013 : collect_carrot_20
-4014 : collect_corn_5
-4015 : collect_cactus_5
-4016 : collect_food_kebab_vegetable_20
-4017 : collect_furniture_crude_torch_10
-4018 : smelt_iron
-4019 : smelt_copper
-4020 : smelt_silver
-4021 : smelt_gold
-4022 : smelt_thorium
-4023 : smelt_cobalt
-4024 : collect_armor_copper_head
-4025 : collect_armor_copper_hands
-4026 : collect_armor_copper_chest
-4027 : collect_armor_copper_legs
-4028 : collect_weapon_mace_copper
-4029 : collect_weapon_longsword_copper
-4030 : collect_armor_iron_head
-4031 : collect_armor_iron_hands
-4032 : collect_armor_iron_chest
-4033 : collect_armor_iron_legs
-4034 : collect_weapon_mace_iron
-4035 : collect_weapon_longsword_iron
+4013 : collect_corn_5
+4014 : collect_cactus_5
+4015 : collect_food_kebab_vegetable_20
+4016 : collect_furniture_crude_torch_10
+4017 : smelt_iron
+4018 : smelt_copper
+4019 : smelt_silver
+4020 : smelt_gold
+4021 : smelt_thorium
+4022 : smelt_cobalt
+4023 : collect_armor_copper_head
+4024 : collect_armor_copper_hands
+4025 : collect_armor_copper_chest
+4026 : collect_armor_copper_legs
+4027 : collect_weapon_mace_copper
+4028 : collect_weapon_longsword_copper
+4029 : collect_armor_iron_head
+4030 : collect_armor_iron_hands
+4031 : collect_armor_iron_chest
+4032 : collect_armor_iron_legs
+4033 : collect_weapon_mace_iron
+4034 : collect_weapon_longsword_iron
 
 ## Memories collected
 
@@ -187,25 +186,25 @@ frost_dragon and all kill golem achievements except kill_golem_crystal_earth req
 All kill outlander, kill_horse_skeleton and kill_horse_skeleton_armored achievements require : 2 Progressive_Armorer, 2 Progressive_Backpack, 2 Progressive_Blacksmith, 2 Progressive_Furnace, 1 Progressive_Tanning, 2 Progressive_Workbench, Ore_Thorium10, Ore_Cobalt10, Ingredient_Hide_Soft10, Ingredient_Hide_Light10, Ingredient_Hide_Medium10, Ingredient_Hide_Heavy10, Ingredient_Chitin_Sturdy10, 1 Teleporter3
 kill_golem_crystal_earth requires : Ore_Copper10, 1 Progressive_Workbench, 1 Progressive_Armorer, 1 Progressive_Blacksmith, 1 Progressive_Furnace
 
-death_void, death_fire require : Progressive_Workbench, Progressive_Furnace, Progressive_Armorer, Teleporter3
+death_fire requires : Progressive_Workbench, Progressive_Furnace, Progressive_Armorer, Teleporter3
 
 collect_watering_can require : 1 Progressive_Farmer, 1 Progressive_Furnace, Ore_Iron10, 1 Progressive_Workbench
-collect_fire_essence_5 and collect_fire_essence_50 require : 2 Progressive_Armorer, 2 Progressive_Blacksmith, 2 Progressive_Furnace, 2 Progressive_Workbench, Ore_Copper10, Ore_Iron10, Ore_Cobbalt10, Ingredient_Hide_Soft10, Ingredient_Hide_Medium10, 2 Teleporter3
+collect_fire_essence_5 and collect_ice_essence_50 require : 2 Progressive_Armorer, 2 Progressive_Blacksmith, 2 Progressive_Furnace, 2 Progressive_Workbench, Ore_Copper10, Ore_Iron10, Ore_Cobalt10, Ingredient_Hide_Soft10, Ingredient_Hide_Medium10, 2 Teleporter3
 collect_life_essence_100 require : 1 Progressive_Armorer, 1 Progressive_Blacksmith, 1 Progressive_Furnace, 2 Progressive_Workbench, Ore_Copper10, Ingredient_Hide_Soft10, 1 Progressive_Farmer
 collect_life_essence_500 require : 1 Progressive_Armorer, 1 Progressive_Blacksmith, 1 Progressive_Furnace, 1 Progressive_Workbench, Ore_Copper10, Ingredient_Hide_Soft10, 2 Progressive_Farmer, Teleporter3
-collect_voidheart and collect_voide_essence_20 require : 2 Progressive_Armorer, 2 Progressive_Blacksmith, 2 Progressive_Furnace, 2 Progressive_Workbench, Ore_Copper10, Ore_Iron10, Ore_Cobalt10, Ingredient_Hide_Soft10, Ingredient_Hide_Medium10, 2 Teleporter3, Repair_Kit2
+collect_voidheart and collect_void_essence_20 require : 2 Progressive_Armorer, 2 Progressive_Blacksmith, 2 Progressive_Furnace, 2 Progressive_Workbench, Ore_Copper10, Ore_Iron10, Ore_Cobalt10, Ingredient_Hide_Soft10, Ingredient_Hide_Medium10, 2 Teleporter3, Repair_Kit2
 collect_wheat_100 requires : 1 Progressive_Armorer, 1 Progressive_Blacksmith, 1 Progressive_Furnace, 1 Progressive_Workbench, Ore_Copper10, Ore_Iron10, Ingredient_Hide_Soft10, Teleporter3, 2 Progressive_Farmer
 collect_bucket requires : 1 Progressive_Workbench, Ore_Iron10, 1 Progressive_Furnace, 1 Progressive_Farmer
 collect_fishing_trap requires : 2 Progressive_Workbench, Ore_Iron10, 2 Progressive_Farmer, 2 Progressive_Armorer, 1 Progressive_Furnace
 collect_kweebec_plush requires : 1 Progressive_Workbench, 1 Progressive_Farmer
 collect_tankard requires : 1 Progressive_Workbench, 1 Progressive_Farmer, Ore_Iron10, Progressive_Furnace
 collect_spike_trap_10 requires : 1 Progressive_Workbench
-collect_carrot_20 collect_corn_5 require : 1 Progressive_Workbench, 2 Progressive_Farmer, Chef_Stove, Campfire
+collect_corn_5 requires : 1 Progressive_Workbench, 2 Progressive_Farmer, Chef_Stove, Campfire
 collect_cactus_5 requires Teleporter3
-collect_food_kebab_vegetable_20 requires : 1 Farmer Workbench, Progressive Chef Stove
+collect_food_kebab_vegetable_20 requires : 1 Progressive_Farmer, 1 Progressive_Workbench, Chef_Stove
 collect_furniture_crude_torch_10 requires : Progressive_Workbench
-smelt_iron requires : OreIron10, Progressive_Furnace
-smelt_copper requires : OreCopper10, Progressive_Furnace
+smelt_iron requires : Ore_Iron10, Progressive_Furnace
+smelt_copper requires : Ore_Copper10, Progressive_Furnace
 smelt_silver requires : Ore_Silver10, Progressive_Furnace
 smelt_gold requires : Ore_Gold10, Progressive_Furnace
 smelt_thorium requires : Ore_Thorium10, Progressive_Furnace

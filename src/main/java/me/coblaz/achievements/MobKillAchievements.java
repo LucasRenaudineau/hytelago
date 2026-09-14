@@ -18,7 +18,6 @@ public final class MobKillAchievements {
     public static final List<Entry> ALL = List.of(
             new Entry("zombie",                   "kill_zombie",                   "Zombie Slayer",          2),
             new Entry("horse_skeleton_armored",   "kill_horse_skeleton_armored",   "Armored Bones",          3),
-            new Entry("skeleton_burnt_soldier",   "kill_skeleton_burnt_soldier",   "Burnt to the Bone",      5),
             new Entry("zombie_burnt",             "kill_zombie_burnt",             "Crispy Undead",          5),
             new Entry("golem_crystal_flame",      "kill_golem_crystal_flame",      "Flame Crystal Crusher",  1),
             new Entry("golem_crystal_earth",      "kill_golem_crystal_earth",      "Earth Crystal Crusher",  1),
@@ -29,7 +28,6 @@ public final class MobKillAchievements {
             new Entry("goblin_hermit",            "kill_goblin_hermit",            "Hermit Hunter",          5),
             new Entry("outlander_berserker",      "kill_outlander_berserker",      "Berserker Slayer",       5),
             new Entry("outlander_brute",          "kill_outlander_brute",          "Brute Force",            5),
-            new Entry("outlander_hunter",         "kill_outlander_hunter",         "Hunter Hunted",          5),
             new Entry("outlander_marauder",       "kill_outlander_marauder",       "Marauder's End",         5),
             new Entry("outlander_priest",         "kill_outlander_priest",         "Unholy Defeat",          5),
             new Entry("outlander_stalker",        "kill_outlander_stalker",        "Stalker Stopped",        5),

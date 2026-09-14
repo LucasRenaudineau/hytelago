@@ -348,8 +348,7 @@ def set_all_rules(world: HytaleWorld) -> None:
         "Chef_Stove",
         "Campfire",
     )
-    for loc in ("collect_carrot_20", "collect_corn_5"):
-        apply_rule(loc, _farm_cooking)
+    apply_rule("collect_corn_5", _farm_cooking)
 
     set_rule("collect_cactus_5", "Teleporter3")
 
