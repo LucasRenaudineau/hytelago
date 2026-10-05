@@ -5,8 +5,8 @@ hytale:
   progression_balancing: '50'
   accessibility: full
   # Hytelago options
-  death_link: false      # bounce deaths between worlds; also seeds one of each trap
-  traps: false           # fill monster-spawn traps up to their maximum
+  death_link: true       # if set to false, cannot be changed in-game; if set to true, can be changed in-game with command /arch-death-link <on|off>
+  traps: false           # fill monster-spawn traps
   death_locations: false # add the "die in a specific way" locations
   memories: true         # add the memories_N locations
   memories_max: 150      # highest memory milestone used (1-150)
