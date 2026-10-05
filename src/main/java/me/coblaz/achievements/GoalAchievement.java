@@ -16,7 +16,7 @@ public final class GoalAchievement {
     public static final String ID = "complete_x_percent";
 
     public static void register(@Nonnull AchievementRegistry reg) {
-        reg.registerAchievement(new AchievementDefinition(ID, "Collected Achievements", 1));
+        reg.registerAchievement(new AchievementDefinition(ID, "Collected Achievements", 1, Category.GOAL));
     }
 
     /** Sets the goal's count to the number of other seed locations that are COLLECTED. */

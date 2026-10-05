@@ -150,22 +150,63 @@ public final class AchievementRegistry {
 
         for (AchievementDefinition def : definitions) {
             if (visibleIds != null && !visibleIds.contains(def.getId())) continue;
-            PlayerAchievementData data   = getOrCreate(playerRef, def.getId());
-            AchievementStatus     status = data.getStatus();
-
-            if (status == AchievementStatus.DONE) {
-                data.setStatus(AchievementStatus.COLLECTED);
+            if (collect(playerRef, ref, store, def, alsoCollectAlreadyCollected)) {
                 justCollected.add(def);
-                fireListeners(playerRef, def);
-                giveRewardItems(ref, store, def);
-            } else if (status == AchievementStatus.COLLECTED && alsoCollectAlreadyCollected) {
-                justCollected.add(def);
-                giveRewardItems(ref, store, def);
             }
         }
 
         if (!justCollected.isEmpty()) savePlayer(playerRef);
         return justCollected;
+    }
+
+    /** True when the achievement can be collected right now (DONE, or COLLECTED and re-collectable). */
+    public boolean canCollect(@Nonnull PlayerRef playerRef,
+                              @Nonnull String    achievementId,
+                              boolean            alsoCollectAlreadyCollected) {
+        AchievementStatus status = getOrCreate(playerRef, achievementId).getStatus();
+        return status == AchievementStatus.DONE
+                || (status == AchievementStatus.COLLECTED && alsoCollectAlreadyCollected);
+    }
+
+    /**
+     * Collects a single achievement (the per-row Collect button).
+     * Returns false if the id is unknown or it cannot be collected right now.
+     */
+    public boolean collectOne(
+            @Nonnull PlayerRef          playerRef,
+            @Nonnull String             achievementId,
+            @Nonnull Ref<EntityStore>   ref,
+            @Nonnull Store<EntityStore> store,
+            boolean                     alsoCollectAlreadyCollected
+    ) {
+        AchievementDefinition def = findDefinition(achievementId);
+        if (def == null || !collect(playerRef, ref, store, def, alsoCollectAlreadyCollected)) return false;
+        savePlayer(playerRef);
+        return true;
+    }
+
+    /** Collects one achievement if possible, without saving. Returns true if it was collected. */
+    private boolean collect(
+            @Nonnull PlayerRef             playerRef,
+            @Nonnull Ref<EntityStore>      ref,
+            @Nonnull Store<EntityStore>    store,
+            @Nonnull AchievementDefinition def,
+            boolean                        alsoCollectAlreadyCollected
+    ) {
+        PlayerAchievementData data   = getOrCreate(playerRef, def.getId());
+        AchievementStatus     status = data.getStatus();
+
+        if (status == AchievementStatus.DONE) {
+            data.setStatus(AchievementStatus.COLLECTED);
+            fireListeners(playerRef, def);
+            giveRewardItems(ref, store, def);
+            return true;
+        }
+        if (status == AchievementStatus.COLLECTED && alsoCollectAlreadyCollected) {
+            giveRewardItems(ref, store, def);
+            return true;
+        }
+        return false;
     }
 
     /**

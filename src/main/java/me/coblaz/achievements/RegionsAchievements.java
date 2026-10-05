@@ -63,7 +63,8 @@ public final class RegionsAchievements {
             reg.registerAchievement(new AchievementDefinition(
                     entry.achievementId(),
                     "Explore " + entry.title(),
-                    1
+                    1,
+                    Category.REGIONS
             ));
         }
     }

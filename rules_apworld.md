@@ -115,6 +115,8 @@
 
 ## Item possessed
 
+### Agriculture
+
 4000 : collect_watering_can
 4001 : collect_voidheart
 4002 : collect_fire_essence_5
@@ -132,12 +134,18 @@
 4014 : collect_cactus_5
 4015 : collect_food_kebab_vegetable_20
 4016 : collect_furniture_crude_torch_10
+
+### Materials
+
 4017 : smelt_iron
 4018 : smelt_copper
 4019 : smelt_silver
 4020 : smelt_gold
 4021 : smelt_thorium
 4022 : smelt_cobalt
+
+### Combat equipment
+
 4023 : collect_armor_copper_head
 4024 : collect_armor_copper_hands
 4025 : collect_armor_copper_chest

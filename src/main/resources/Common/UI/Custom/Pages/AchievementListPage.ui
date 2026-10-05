@@ -1,5 +1,15 @@
+$C = "../Common.ui";
+
+// Style of the selected tab. Common.ui's SmallDefaultTextButtonStyle points to a
+// texture that does not exist (red cross), so use the Primary button textures.
+@ActiveTabStyle = TextButtonStyle(
+    Default: (Background: PatchStyle(TexturePath: "../Common/Buttons/Primary.png", Border: $C.@ButtonBorder), LabelStyle: $C.@SmallButtonLabelStyle),
+    Hovered: (Background: PatchStyle(TexturePath: "../Common/Buttons/Primary_Hovered.png", Border: $C.@ButtonBorder), LabelStyle: $C.@SmallButtonLabelStyle),
+    Pressed: (Background: PatchStyle(TexturePath: "../Common/Buttons/Primary_Pressed.png", Border: $C.@ButtonBorder), LabelStyle: $C.@SmallButtonLabelStyle)
+);
+
 Group {
-    Anchor: (Width: 540, Height: 480);
+    Anchor: (Width: 900, Height: 720);
     Background: #12121f(0.97);
     LayoutMode: Top;
     Padding: (Full: 18);
@@ -8,12 +18,46 @@ Group {
         Anchor: (Height: 44);
         Style: (FontSize: 26, TextColor: #e0e0ff, Alignment: Center, RenderBold: true);
     }
+
+    // Category tabs (locations table only). Order must match Category.LOCATION_TABS.
+    Group #TabBar {
+        LayoutMode: Top;
+        Anchor: (Height: 80);
+        Group {
+            LayoutMode: Left;
+            Anchor: (Height: 36);
+            $C.@SmallSecondaryTextButton #Tab0 { @Text = "All";              FlexWeight: 1; }
+            Group { Anchor: (Width: 4); }
+            $C.@SmallSecondaryTextButton #Tab1 { @Text = "Goal";             FlexWeight: 1; }
+            Group { Anchor: (Width: 4); }
+            $C.@SmallSecondaryTextButton #Tab2 { @Text = "Monster kill";     FlexWeight: 1; }
+            Group { Anchor: (Width: 4); }
+            $C.@SmallSecondaryTextButton #Tab3 { @Text = "General kills";    FlexWeight: 1; }
+            Group { Anchor: (Width: 4); }
+            $C.@SmallSecondaryTextButton #Tab4 { @Text = "Death";            FlexWeight: 1; }
+        }
+        Group { Anchor: (Height: 6); }
+        Group {
+            LayoutMode: Left;
+            Anchor: (Height: 36);
+            $C.@SmallSecondaryTextButton #Tab5 { @Text = "Agriculture";      FlexWeight: 1; }
+            Group { Anchor: (Width: 4); }
+            $C.@SmallSecondaryTextButton #Tab6 { @Text = "Materials";        FlexWeight: 1; }
+            Group { Anchor: (Width: 4); }
+            $C.@SmallSecondaryTextButton #Tab7 { @Text = "Combat equipment"; FlexWeight: 1; }
+            Group { Anchor: (Width: 4); }
+            $C.@SmallSecondaryTextButton #Tab8 { @Text = "Memories";         FlexWeight: 1; }
+            Group { Anchor: (Width: 4); }
+            $C.@SmallSecondaryTextButton #Tab9 { @Text = "Regions";          FlexWeight: 1; }
+        }
+    }
+
     Group {
-        Anchor: (Width: 504, Height: 2);
+        Anchor: (Width: 864, Height: 2);
         Background: #333355(1.0);
     }
     Group #AchievementList {
-        Anchor: (Width: 504, Height: 368);
+        Anchor: (Width: 864, Height: 510);
         Background: #0a1119(0.5);
         LayoutMode: TopScrolling;
         Padding: (Full: 6);

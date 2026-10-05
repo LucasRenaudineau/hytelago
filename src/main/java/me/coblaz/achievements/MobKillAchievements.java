@@ -70,7 +70,7 @@ public final class MobKillAchievements {
     public static void registerAll(@Nonnull AchievementRegistry reg) {
         for (Entry e : ALL) {
             reg.registerAchievement(new AchievementDefinition(
-                    e.achievementId(), e.title(), e.needed()
+                    e.achievementId(), e.title(), e.needed(), Category.MONSTER_KILL
             ));
         }
     }

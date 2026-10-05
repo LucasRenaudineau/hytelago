@@ -9,6 +9,7 @@ import com.hypixel.hytale.protocol.packets.interface_.CustomPageLifetime;
 import com.hypixel.hytale.protocol.packets.interface_.CustomUIEventBindingType;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.player.pages.InteractiveCustomUIPage;
+import com.hypixel.hytale.server.core.ui.Value;
 import com.hypixel.hytale.server.core.ui.builder.EventData;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
@@ -18,6 +19,7 @@ import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import me.coblaz.achievements.AchievementDefinition;
 import me.coblaz.achievements.AchievementRegistry;
 import me.coblaz.achievements.AchievementStatus;
+import me.coblaz.achievements.Category;
 import me.coblaz.achievements.PlayerAchievementData;
 import me.coblaz.achievements.Registries;
 import me.coblaz.archipelago.ArchipelagoManager;
@@ -34,6 +36,7 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
 
     public static class AchEventData {
         public String action;
+        public String value;   // tab category (Tab) or achievement id (CollectOne)
 
         public static final BuilderCodec<AchEventData> CODEC =
                 ((BuilderCodec.Builder<AchEventData>)
@@ -42,6 +45,12 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
                                         new KeyedCodec<>("Action", Codec.STRING),
                                         (AchEventData o, String v) -> o.action = v,
                                         (AchEventData o) -> o.action
+                                )
+                                .add()
+                                .append(
+                                        new KeyedCodec<>("Value", Codec.STRING),
+                                        (AchEventData o, String v) -> o.value = v,
+                                        (AchEventData o) -> o.value
                                 )
                                 .add())
                         .build();
@@ -58,6 +67,15 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
     // seed (built from the slot data). Null means "show every registered row".
     @Nullable private final Set<String> visibleIds;
 
+    // Category tabs are shown for the locations table, per-row Collect buttons
+    // for the items table.
+    private final boolean showTabs;
+    private final boolean showCollectOne;
+    @Nonnull private String activeTab = Category.ALL;
+
+    private static final Value<String> TAB_STYLE_ACTIVE   = Value.ref("Pages/AchievementListPage.ui", "ActiveTabStyle");
+    private static final Value<String> TAB_STYLE_INACTIVE = Value.ref("Common.ui", "SmallSecondaryTextButtonStyle");
+
     public AchievementListPage(@Nonnull PlayerRef playerRef,
                                @Nonnull AchievementRegistry registry,
                                boolean alsoCollectAlreadyCollected) {
@@ -73,6 +91,8 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
         this.registry  = registry;
         this.alsoCollectAlreadyCollected = alsoCollectAlreadyCollected;
         this.visibleIds = visibleIds;
+        this.showTabs       = registry == Registries.LOCATIONS;
+        this.showCollectOne = registry == Registries.ITEMS;
     }
 
     // Build
@@ -85,12 +105,40 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
             @Nonnull Store<EntityStore> store
     ) {
         cmd.append("Pages/AchievementListPage.ui");
+        cmd.set("#TabBar.Visible", showTabs);
+        buildPage(cmd, events);
+    }
+
+    /** Tab styles, list rows and every event binding (used by build() and refresh()). */
+    private void buildPage(
+            @Nonnull UICommandBuilder cmd,
+            @Nonnull UIEventBuilder   events
+    ) {
+        if (showTabs) {
+            for (int i = 0; i < Category.LOCATION_TABS.size(); i++) {
+                String category = Category.LOCATION_TABS.get(i);
+                cmd.set("#Tab" + i + ".Style", category.equals(activeTab) ? TAB_STYLE_ACTIVE : TAB_STYLE_INACTIVE);
+                events.addEventBinding(
+                        CustomUIEventBindingType.Activating,
+                        "#Tab" + i,
+                        new EventData().append("Action", "Tab").append("Value", category)
+                );
+            }
+        }
         buildAchievementList(cmd, events);
         events.addEventBinding(
                 CustomUIEventBindingType.Activating,
                 "#CollectButton",
                 new EventData().append("Action", "Collect")
         );
+    }
+
+    /** Rebuilds the page so rows, colors and tabs update immediately. */
+    private void refresh() {
+        UICommandBuilder cmd    = new UICommandBuilder();
+        UIEventBuilder   events = new UIEventBuilder();
+        buildPage(cmd, events);
+        sendUpdate(cmd, events, false);
     }
 
     // Event handling
@@ -103,6 +151,11 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
     ) {
         if ("Collect".equals(data.action)) {
             handleCollect(ref, store);
+        } else if ("CollectOne".equals(data.action) && data.value != null) {
+            handleCollectOne(ref, store, data.value);
+        } else if ("Tab".equals(data.action) && data.value != null) {
+            activeTab = data.value;
+            refresh();
         }
     }
 
@@ -147,16 +200,24 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
             );
         }
 
-        // Refresh the list so rows update color immediately
-        UICommandBuilder refresh = new UICommandBuilder();
-        UIEventBuilder   events  = new UIEventBuilder();
-        buildAchievementList(refresh, events);
-        events.addEventBinding(
-                CustomUIEventBindingType.Activating,
-                "#CollectButton",
-                new EventData().append("Action", "Collect")
+        refresh();
+    }
+
+    private void handleCollectOne(
+            @Nonnull Ref<EntityStore>   ref,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull String             achievementId
+    ) {
+        if (!registry.collectOne(playerRef, achievementId, ref, store, alsoCollectAlreadyCollected)) return;
+
+        AchievementDefinition def = registry.findDefinition(achievementId);
+        EventTitleUtil.showEventTitleToPlayer(
+                playerRef,
+                Message.raw("Achievement collected!"),
+                Message.raw(def != null ? def.getTitle() : achievementId),
+                true
         );
-        sendUpdate(refresh, events, false);
+        refresh();
     }
 
     // List builder (used by both build() and refresh)
@@ -167,14 +228,15 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
     ) {
         List<AchievementDefinition> defs = registry.getDefinitions();
 
-        // Restrict to the seed's locations when a filter is set.
-        if (visibleIds != null) {
-            List<AchievementDefinition> filtered = new ArrayList<>();
-            for (AchievementDefinition def : defs) {
-                if (visibleIds.contains(def.getId())) filtered.add(def);
-            }
-            defs = filtered;
+        // Restrict to the seed's locations when a filter is set, and to the
+        // active category tab.
+        List<AchievementDefinition> filtered = new ArrayList<>();
+        for (AchievementDefinition def : defs) {
+            if (visibleIds != null && !visibleIds.contains(def.getId())) continue;
+            if (showTabs && !Category.ALL.equals(activeTab) && !activeTab.equals(def.getCategory())) continue;
+            filtered.add(def);
         }
+        defs = filtered;
 
         cmd.clear("#AchievementList");
 
@@ -198,6 +260,15 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
             cmd.set(selector + " #AchTitle.Style.TextColor", colorFor(data.getStatus()));
             cmd.set(selector + " #AchId.Style.TextColor",    "#6e7da1");
             cmd.set(selector + " #AchCount.Style.TextColor", colorFor(data.getStatus()));
+
+            if (showCollectOne && registry.canCollect(playerRef, def.getId(), alsoCollectAlreadyCollected)) {
+                cmd.set(selector + " #CollectOne.Visible", true);
+                events.addEventBinding(
+                        CustomUIEventBindingType.Activating,
+                        selector + " #CollectOne",
+                        new EventData().append("Action", "CollectOne").append("Value", def.getId())
+                );
+            }
         }
     }
 

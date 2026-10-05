@@ -33,7 +33,8 @@ public final class MemoriesAchievements {
             list.add(new AchievementDefinition(
                     "memories_" + i,
                     i + (i == 1 ? " Memory" : " Memories"),
-                    i          // reachCount == i, so it unlocks exactly when the counter hits i
+                    i,         // reachCount == i, so it unlocks exactly when the counter hits i
+                    Category.MEMORIES
             ));
         }
         ALL = List.copyOf(list);

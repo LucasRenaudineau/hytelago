@@ -1,3 +1,5 @@
+$C = "../Common.ui";
+
 Group {
   LayoutMode: Left;
   Anchor: (Height: 62);                  // bumped from 52 to give room
@@ -6,23 +8,34 @@ Group {
 
   Group {                                // new wrapper for title + id
     LayoutMode: Top;
-    Anchor: (Width: 360, Height: 42);
+    Anchor: (Width: 560, Height: 42);
 
     Label #AchTitle {
       Text: "Achievement";
-      Anchor: (Width: 360, Height: 26);
+      Anchor: (Width: 560, Height: 26);
       Style: (FontSize: 16, TextColor: #ffffff, VerticalAlignment: Center);
     }
     Label #AchId {
       Text: "achievement_id";
-      Anchor: (Width: 360, Height: 16);
+      Anchor: (Width: 560, Height: 16);
       Style: (FontSize: 10, TextColor: #6e7da1, VerticalAlignment: Center);
     }
   }
 
   Label #AchCount {
     Text: "0/1";
-    Anchor: (Width: 136, Height: 42);    // matched to group height
+    Anchor: (Width: 140, Height: 42);    // matched to group height
     Style: (FontSize: 15, TextColor: #aaaacc, VerticalAlignment: Center);
+  }
+
+  // Per-row collect button (items table only, shown when collectable)
+  Group {
+    LayoutMode: Center;
+    Anchor: (Width: 120, Height: 42);
+    $C.@SmallSecondaryTextButton #CollectOne {
+      @Text = "Collect";
+      Anchor: (Width: 110, Height: 30);
+      Visible: false;
+    }
   }
 }

@@ -2,6 +2,7 @@ package me.coblaz.items;
 
 import me.coblaz.achievements.AchievementDefinition;
 import me.coblaz.achievements.AchievementRegistry;
+import me.coblaz.achievements.Category;
 import me.coblaz.items.ItemReward;
 
 import javax.annotation.Nonnull;
@@ -86,7 +87,7 @@ public final class ItemsAchievements {
                     e.needed(),
                     e.multipleCollects(),
                     e.rewardItems(),
-                    "items"
+                    Category.ITEMS
             ));
         }
     }

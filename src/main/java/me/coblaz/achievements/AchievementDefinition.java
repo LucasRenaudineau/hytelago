@@ -12,7 +12,7 @@ public final class AchievementDefinition {
     private final int             neededCount;
     private final boolean         multipleCollects;
     private final List<ItemReward> rewardItems;
-    private final String          group;
+    private final String          category;
 
     // Full constructor
     public AchievementDefinition(
@@ -21,23 +21,24 @@ public final class AchievementDefinition {
             int                       neededCount,
             boolean                   multipleCollects,
             @Nonnull List<ItemReward> rewardItems,
-            @Nonnull String           group
+            @Nonnull String           category
     ) {
         this.id               = id;
         this.title            = title;
         this.neededCount      = neededCount;
         this.multipleCollects = multipleCollects;
         this.rewardItems      = List.copyOf(rewardItems);
-        this.group            = group;
+        this.category         = category;
     }
 
-    // Backward-compatibility constructor
+    // Short constructor: no reward items
     public AchievementDefinition(
             @Nonnull String id,
             @Nonnull String title,
-            int neededCount
+            int neededCount,
+            @Nonnull String category
     ) {
-        this(id, title, neededCount, false, List.of(), "general");
+        this(id, title, neededCount, false, List.of(), category);
     }
 
     // Getters
@@ -46,5 +47,5 @@ public final class AchievementDefinition {
     public   int                     getNeededCount()     { return neededCount; }
     public   boolean                 isMultipleCollects() { return multipleCollects; }
     @Nonnull public List<ItemReward> getRewardItems()     { return rewardItems; }
-    @Nonnull public String           getGroup()           { return group; }
+    @Nonnull public String           getCategory()        { return category; }
 }
