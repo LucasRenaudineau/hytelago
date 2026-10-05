@@ -47,13 +47,13 @@ public final class LocationsPropertyAchievements {
             new Entry("Armor_Copper_Chest", "collect_armor_copper_chest", "Copper Chest", 1, false, List.of()),
             new Entry("Armor_Copper_Legs", "collect_armor_copper_legs", "Copper Legs", 1, false, List.of()),
             new Entry("Weapon_Mace_Copper", "collect_weapon_mace_copper", "Copper Mace", 1, false, List.of()),
-            new Entry("Weapon_Longsword_Copper", "collect_weapon_longsword_copper", "Copper Longsword", 1, false, List.of()),
+            new Entry("Weapon_Sword_Copper", "collect_weapon_sword_copper", "Copper Sword", 1, false, List.of()),
             new Entry("Armor_Iron_Head", "collect_armor_iron_head", "Iron Head", 1, false, List.of()),
             new Entry("Armor_Iron_Hands", "collect_armor_iron_hands", "Iron Hands", 1, false, List.of()),
             new Entry("Armor_Iron_Chest", "collect_armor_iron_chest", "Iron Chest", 1, false, List.of()),
             new Entry("Armor_Iron_Legs", "collect_armor_iron_legs", "Iron Legs", 1, false, List.of()),
             new Entry("Weapon_Mace_Iron", "collect_weapon_mace_iron", "Iron Mace", 1, false, List.of()),
-            new Entry("Weapon_Longsword_Iron", "collect_weapon_longsword_iron", "Iron Longsword", 1, false, List.of())
+            new Entry("Weapon_Sword_Iron", "collect_weapon_sword_iron", "Iron Sword", 1, false, List.of())
     );
 
     // Lookup: itemId (lowercase) -> list of achievementIds

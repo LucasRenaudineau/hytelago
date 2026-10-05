@@ -47,7 +47,7 @@
 3017 : Armor_Adamantite_Hands
 3018 : Weapon_Shield_Adamantite
 3019 : Weapon_Axe_Cobalt
-3020 : Weapon_Longsword_Copper
+3020 : Weapon_Sword_Copper
 3021 : Weapon_Shortbow_Combat
 3022 : Weapon_Daggers_Bone
 3023 : Weapon_Arrow_Clearshot30 (10)
@@ -139,13 +139,13 @@
 4025 : collect_armor_copper_chest
 4026 : collect_armor_copper_legs
 4027 : collect_weapon_mace_copper
-4028 : collect_weapon_longsword_copper
+4028 : collect_weapon_sword_copper
 4029 : collect_armor_iron_head
 4030 : collect_armor_iron_hands
 4031 : collect_armor_iron_chest
 4032 : collect_armor_iron_legs
 4033 : collect_weapon_mace_iron
-4034 : collect_weapon_longsword_iron
+4034 : collect_weapon_sword_iron
 
 ## Memories collected
 
@@ -209,8 +209,8 @@ smelt_silver requires : Ore_Silver10, Progressive_Furnace
 smelt_gold requires : Ore_Gold10, Progressive_Furnace
 smelt_thorium requires : Ore_Thorium10, Progressive_Furnace
 smelt_cobalt requires : Ore_Cobalt10, Progressive_Furnace
-collect_armor_copper_head collect_armor_copper_hands collect_armor_copper_chest collect_armor_copper_legs collect_weapon_mace_copper collect_weapon_longsword_copper require : Progressive_Workbench, Progressive_Armorer, Progressive_Blacksmith, Progressive_Furnace, Ore_Copper10, Salvager
-collect_armor_iron_head collect_armor_iron_hands collect_armor_iron_chest collect_armor_iron_legs collect_weapon_mace_iron collect_weapon_longsword_iron require : Progressive_Workbench, Progressive_Armorer, Progressive_Blacksmith, Progressive_Furnace, Ore_Iron10, Salvager
+collect_armor_copper_head collect_armor_copper_hands collect_armor_copper_chest collect_armor_copper_legs collect_weapon_mace_copper collect_weapon_sword_copper require : Progressive_Workbench, Progressive_Armorer, Progressive_Blacksmith, Progressive_Furnace, Ore_Copper10, Salvager
+collect_armor_iron_head collect_armor_iron_hands collect_armor_iron_chest collect_armor_iron_legs collect_weapon_mace_iron collect_weapon_sword_iron require : Progressive_Workbench, Progressive_Armorer, Progressive_Blacksmith, Progressive_Furnace, Ore_Iron10, Salvager
 
 memories_1 to memories_10 require : nothing
 memories_11 to memories_30 require : Progressive_Workbench and Progressive_Furnace

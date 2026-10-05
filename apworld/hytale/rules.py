@@ -387,7 +387,7 @@ def set_all_rules(world: HytaleWorld) -> None:
         "collect_armor_copper_chest",
         "collect_armor_copper_legs",
         "collect_weapon_mace_copper",
-        "collect_weapon_longsword_copper",
+        "collect_weapon_sword_copper",
     ):
         apply_rule(loc, _copper_gear)
 
@@ -408,7 +408,7 @@ def set_all_rules(world: HytaleWorld) -> None:
         "collect_armor_iron_chest",
         "collect_armor_iron_legs",
         "collect_weapon_mace_iron",
-        "collect_weapon_longsword_iron",
+        "collect_weapon_sword_iron",
     ):
         apply_rule(loc, _iron_gear)
 

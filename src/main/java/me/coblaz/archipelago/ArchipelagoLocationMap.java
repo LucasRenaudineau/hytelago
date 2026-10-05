@@ -96,13 +96,13 @@ public final class ArchipelagoLocationMap {
         ACH_TO_LOCATION_ID.put("collect_armor_copper_chest",     4025L);
         ACH_TO_LOCATION_ID.put("collect_armor_copper_legs",      4026L);
         ACH_TO_LOCATION_ID.put("collect_weapon_mace_copper",     4027L);
-        ACH_TO_LOCATION_ID.put("collect_weapon_longsword_copper",4028L);
+        ACH_TO_LOCATION_ID.put("collect_weapon_sword_copper",4028L);
         ACH_TO_LOCATION_ID.put("collect_armor_iron_head",        4029L);
         ACH_TO_LOCATION_ID.put("collect_armor_iron_hands",       4030L);
         ACH_TO_LOCATION_ID.put("collect_armor_iron_chest",       4031L);
         ACH_TO_LOCATION_ID.put("collect_armor_iron_legs",        4032L);
         ACH_TO_LOCATION_ID.put("collect_weapon_mace_iron",       4033L);
-        ACH_TO_LOCATION_ID.put("collect_weapon_longsword_iron",  4034L);
+        ACH_TO_LOCATION_ID.put("collect_weapon_sword_iron",  4034L);
 
         // Memories achievements
         for (int i = 1; i <= 150; i++) {

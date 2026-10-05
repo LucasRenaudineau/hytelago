@@ -425,7 +425,7 @@ public final class ArchipelagoManager {
         LOOT_TABLE.put(3017L, new ItemGrant("Armor_Adamantite_Hands",           1));
         LOOT_TABLE.put(3018L, new ItemGrant("Weapon_Shield_Adamantite",         1));
         LOOT_TABLE.put(3019L, new ItemGrant("Weapon_Axe_Cobalt",                1));
-        LOOT_TABLE.put(3020L, new ItemGrant("Weapon_Longsword_Copper",          1));
+        LOOT_TABLE.put(3020L, new ItemGrant("Weapon_Sword_Copper",          1));
         LOOT_TABLE.put(3021L, new ItemGrant("Weapon_Shortbow_Combat",           1));
         LOOT_TABLE.put(3022L, new ItemGrant("Weapon_Daggers_Bone",              1));
         LOOT_TABLE.put(3023L, new ItemGrant("Weapon_Arrow_Clearshot",          30));
