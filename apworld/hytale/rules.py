@@ -139,7 +139,7 @@ def set_all_rules(world: HytaleWorld) -> None:
     ):
         apply_rule(loc, _mid_kills)
 
-    # Monster kill for high tier golems and frost_dragon
+    # Monster kill for high tier golems, and the goal location
 
     _elite_kills = _make_rule(
         player,
@@ -164,7 +164,7 @@ def set_all_rules(world: HytaleWorld) -> None:
         "kill_golem_firesteel",
         "kill_golem_crystal_frost",
         "kill_golem_crystal_sand",
-        "kill_frost_dragon",
+        "complete_x_percent",
     ):
         apply_rule(loc, _elite_kills)
 
@@ -504,22 +504,6 @@ def set_all_rules(world: HytaleWorld) -> None:
 
 
     # Completion condition
-    # Goal: defeat the frost dragon
-    world.multiworld.completion_condition[player] = _make_rule(
-        player,
-        ("Progressive_Armorer", 2),
-        ("Progressive_Backpack", 2),
-        ("Progressive_Blacksmith", 2),
-        ("Progressive_Furnace", 2),
-        ("Progressive_Tanning", 2),
-        ("Progressive_Workbench", 3),
-        "Ore_Thorium10",
-        "Ore_Cobalt10",
-        "Ingredient_Hide_Soft10",
-        "Ingredient_Hide_Light10",
-        "Ingredient_Hide_Medium10",
-        "Ingredient_Hide_Heavy10",
-        "Ingredient_Chitin_Sturdy10",
-        ("Teleporter3", 2),
-        "Repair_Kit2",
-    )
+    # Goal: collect complete_x_percent (percent_goal % of the other locations
+    # done). It shares the elite rule above.
+    world.multiworld.completion_condition[player] = _elite_kills

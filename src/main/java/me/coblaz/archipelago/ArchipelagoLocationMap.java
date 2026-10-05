@@ -18,12 +18,16 @@ import java.util.Set;
  *   4xxx = item-possession achievements
  *   5xxx = memories collected
  *   6xxx = regions explored
+ *   7000 = goal (complete_x_percent)
  */
 public final class ArchipelagoLocationMap {
 
     private static final Map<String, Long> ACH_TO_LOCATION_ID = new HashMap<>();
 
     static {
+        // Goal
+        ACH_TO_LOCATION_ID.put("complete_x_percent",            7000L);
+
         // Monster kills
         ACH_TO_LOCATION_ID.put("kill_zombie",                   1000L);
         ACH_TO_LOCATION_ID.put("kill_horse_skeleton_armored",   1001L);
@@ -47,7 +51,6 @@ public final class ArchipelagoLocationMap {
         ACH_TO_LOCATION_ID.put("kill_toad_rhino_magma",         1019L);
         ACH_TO_LOCATION_ID.put("kill_snake_marsh",              1020L);
         ACH_TO_LOCATION_ID.put("kill_yeti",                     1021L);
-        ACH_TO_LOCATION_ID.put("kill_frost_dragon",             1022L);
         ACH_TO_LOCATION_ID.put("kill_bear_grizzly",             1023L);
         ACH_TO_LOCATION_ID.put("kill_skeleton_fighter",         1024L);
         ACH_TO_LOCATION_ID.put("kill_wolf_black",               1025L);
@@ -147,6 +150,7 @@ public final class ArchipelagoLocationMap {
      *   4000-4999  item-possession          (always)
      *   5000-5999  memories                 (memories / memories_max / memories_every)
      *   6000-6999  regions explored         (regions)
+     *   7000       goal                     (always)
      */
     @Nonnull
     public static Set<Long> buildActiveLocationIds(@Nonnull HytaleSlotData slot) {

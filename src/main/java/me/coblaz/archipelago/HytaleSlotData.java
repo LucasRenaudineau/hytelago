@@ -11,6 +11,9 @@ package me.coblaz.archipelago;
  */
 public final class HytaleSlotData {
 
+    /** Percentage of the other locations needed to complete the goal location. */
+    public int percent_goal = 80;
+
     /** Bounce deaths between worlds (and seed one of each trap in the pool). */
     public int death_link;
 

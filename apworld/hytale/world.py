@@ -52,6 +52,7 @@ class HytaleWorld(World):
         # Sent to the Hytale mod on connection so it can build its location and
         # item tables to match this seed's options (and toggle Death Link).
         return {
+            "percent_goal":    self.options.percent_goal.value,
             "death_link":      self.options.death_link.value,
             "traps":           self.options.traps.value,
             "death_locations": self.options.death_locations.value,

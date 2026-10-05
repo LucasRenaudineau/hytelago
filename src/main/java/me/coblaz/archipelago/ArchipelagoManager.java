@@ -31,6 +31,7 @@ import org.joml.Vector3d;
 
 import io.github.archipelagomw.bounce.DeathLinkHandler;
 import io.github.archipelagomw.Client;
+import io.github.archipelagomw.ClientStatus;
 import io.github.archipelagomw.events.ArchipelagoEventListener;
 import io.github.archipelagomw.events.ConnectionResultEvent;
 import io.github.archipelagomw.events.DeathLinkEvent;
@@ -482,8 +483,8 @@ public final class ArchipelagoManager {
         activeLocationsByPlayer.put(uuid, active);
         System.out.printf(
                 "[ArchipelagoMod] Built tables from slot data for %s: %d active locations "
-                        + "(death_link=%b traps=%b death_locations=%b memories=%b[max=%d every=%d] regions=%b)%n",
-                uuid, active.size(), slot.hasDeathLink(), slot.hasTraps(), slot.hasDeathLocations(),
+                        + "(percent_goal=%d death_link=%b traps=%b death_locations=%b memories=%b[max=%d every=%d] regions=%b)%n",
+                uuid, active.size(), slot.percent_goal, slot.hasDeathLink(), slot.hasTraps(), slot.hasDeathLocations(),
                 slot.hasMemories(), slot.memories_max, slot.memories_every, slot.hasRegions());
     }
 
@@ -622,6 +623,19 @@ public final class ArchipelagoManager {
     /** Convenience overload for callers holding a {@link PlayerRef}. */
     public boolean isLocationActive(@Nonnull PlayerRef playerRef, @Nonnull String achievementId) {
         return isLocationActive(playerRef.getUuid().toString(), achievementId);
+    }
+
+    /**
+     * Number of other locations needed to complete the goal location:
+     * percent_goal % of the seed's active locations (the goal excluded),
+     * rounded down. {@code null} when no slot data is known for the player.
+     */
+    @javax.annotation.Nullable
+    public Integer getGoalNeeded(@Nonnull String uuid) {
+        HytaleSlotData slot   = slotDataByPlayer.get(uuid);
+        Set<Long>      active = activeLocationsByPlayer.get(uuid);
+        if (slot == null || active == null) return null;
+        return (active.size() - 1) * slot.percent_goal / 100;
     }
 
     /**
@@ -814,6 +828,22 @@ public final class ArchipelagoManager {
         System.out.printf(
                 "[ArchipelagoMod] Location check sent successfully: '%s' (id=%d) for player %s%n",
                 achievementId, locationId, uuid);
+    }
+
+    /**
+     * Tells the AP server this player reached their goal (StatusUpdate with
+     * CLIENT_GOAL). Depending on the server's release setting, this releases
+     * the player's remaining items to the other worlds.
+     */
+    public void sendGoal(@Nonnull PlayerRef playerRef) {
+        String        uuid  = playerRef.getUuid().toString();
+        PlayerAPState state = playerStates.get(uuid);
+        if (state == null || !isSlotConnected(state)) {
+            System.out.printf("[ArchipelagoMod] sendGoal: player %s is not connected — goal NOT sent%n", uuid);
+            return;
+        }
+        state.client().setGameState(ClientStatus.CLIENT_GOAL);
+        System.out.printf("[ArchipelagoMod] Goal sent for player %s%n", uuid);
     }
 
     // DeathLink

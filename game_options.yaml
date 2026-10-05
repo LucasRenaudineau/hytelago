@@ -5,6 +5,7 @@ hytale:
   progression_balancing: '50'
   accessibility: full
   # Hytelago options
+  percent_goal: 80       # percentage of locations that must be completed to release the player
   death_link: true       # if set to false, cannot be changed in-game; if set to true, can be changed in-game with command /arch-death-link <on|off>
   traps: false           # fill monster-spawn traps
   death_locations: false # add the "die in a specific way" locations

@@ -3,6 +3,17 @@ from dataclasses import dataclass
 from Options import DeathLink, PerGameCommonOptions, Range, Toggle
 
 
+class PercentGoal(Range):
+    """
+    Percentage of the other locations that must be done to complete the goal
+    location (complete_x_percent), which releases the player.
+    """
+    display_name = "Percent Goal"
+    range_start = 1
+    range_end = 100
+    default = 80
+
+
 class Traps(Toggle):
     """
     Add monster-spawn trap items to the item pool.
@@ -66,6 +77,7 @@ class Regions(Toggle):
 
 @dataclass
 class HytaleOptions(PerGameCommonOptions):
+    percent_goal: PercentGoal
     death_link: DeathLink
     traps: Traps
     death_locations: DeathLocations

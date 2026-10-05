@@ -16,6 +16,7 @@ import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import me.coblaz.achievements.AchievementDefinition;
 import me.coblaz.achievements.AchievementRegistry;
+import me.coblaz.achievements.GoalAchievement;
 import me.coblaz.achievements.MemoriesAchievements;
 import me.coblaz.achievements.Registries;
 import me.coblaz.achievements.RegionsAchievements;
@@ -66,6 +67,7 @@ public class ArchLocationsCommand extends AbstractPlayerCommand {
         syncItemCounts(Registries.LOCATIONS, playerRef, ref, store);  // was defined but never called — bug fix
         syncMemoriesCount(Registries.LOCATIONS, playerRef);                  // new
         syncCurrentRegion(Registries.LOCATIONS, playerRef, player);
+        GoalAchievement.syncCount(Registries.LOCATIONS, playerRef, visibleIds);
         Registries.LOCATIONS.refreshStatuses(playerRef);
         player.getPageManager().openCustomPage(ref, store,
                 new AchievementListPage(playerRef, Registries.LOCATIONS, false, visibleIds));

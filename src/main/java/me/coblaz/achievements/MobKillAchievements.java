@@ -38,7 +38,6 @@ public final class MobKillAchievements {
             new Entry("toad_rhino_magma", "kill_toad_rhino_magma", "Did not like my kiss ?", 1),
             new Entry("snake_marsh", "kill_snake_marsh", "Sliding in the desert", 5),
             new Entry("yeti", "kill_yeti", "It really exists", 1),
-            new Entry("Dragon_Frost", "kill_frost_dragon", "Already finished (/", 1),
             new Entry("bear_grizzly", "kill_bear_grizzly", "Not afraid of a big bear", 1),
             new Entry("skeleton_fighter", "kill_skeleton_fighter", "A simple fight", 1),
             new Entry("wolf_black", "kill_wolf_black", "WooooooOOO !", 3),

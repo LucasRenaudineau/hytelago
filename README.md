@@ -39,12 +39,13 @@ Hytelago is a Hytale mod developped for playing Archipelago, a multiworld random
 /arch-collect <achievementId> : force-collect an achievement (either from the item table or from the location table)<br>
 /arch-set_count <count> <achievementId> : sets the count of an achievement to count<br>
 /arch-set_state <achievementId> <NOT_DONE|DONE|COLLECTED> : changes the state of an achievement<br>
+/arch-collect_first <n:int> : sets the first n locations of the table (goal excluded) to DONE, for testing<br>
 /arch-spawn <mobId> : spawns a mob on the player<br>
 /arch-death_link <on|off> : activate or deactivate death link<br>
 
 # Set-up to play the mod
 
-Mod tested on Hytale version : 0.6.5
+Mod tested on Hytale version : 0.6.8
 
 Put the .jar of the last version in your Mods folder. Some mods are recommended : betterMap and InfiniteTeleporters.<br>
 *Note : Hytelago overrides the assets of almost all workbenches and of the backpack upgrades to change their crafts and tier upgrades, so a lot of mods won't be compatible with it.*
@@ -56,19 +57,18 @@ Once in game, do /op self and then you can list the commands with /arch-help<br>
 Once the server is hosted, you can connect using the arch-connect command.<br>
 !!! Always connect to the server when you join the world, as it won't send new locations you would have discovered while disconnected. !!!<br>
 See your advancement with /arch-locations and collect lost Workbench upgrader items with /arch-items<br>
-!!! The only (intentional) non-working location is the kill_frost_dragon location which is also the one to release the player.<br>
-When you find the frost dragon, manually type /arch-set_count kill_frost_dragon 1 or more directly /arch-collect kill_frost_dragon
+The goal location complete_x_percent (top of /arch-locations) counts your done locations. Once percent_goal % of the other locations (set in the .yaml) are done, collect it to complete your goal and release.
 
-For the moment, don't stack your inventory, since items given to you won't be given if your inventory is full.
-You can safely quit the game, reconnect and the items other players sent you during this time will be sent.
+You can safely quit the game, reconnect and the items other players sent you during this time will be sent. You only need to reconnect to archipelago every time you reload your world.
 
-# Compiling the mod and contributing
+# Compiling the mod and contributing/contact
 
 To compile the mod, you'll need the HytaleServer.jar library in the ./libs folder at the root of the project.
-In case you would want to contribute, don't bother contact me on Discord as I may not be active on Github, my pseudo is Coblaz
+In case you would want to contribute, don't bother contact me on Discord as I may not be active on Github, my pseudo is Coblaz.
+The Archipelago discord server has a hytale post in future-game-design.
 
 # Items, locations, and rules logic
 
 All items, locations and their IDs are listed in the file rules_apworld.md
 In this file, you'll also find the rules soft logic, listed in human-readable english.
-The current goal is killing the frost_dragon.
+The goal is the complete_x_percent location: complete percent_goal % of the other locations (rounded down), then collect it.

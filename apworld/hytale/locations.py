@@ -11,6 +11,8 @@ if TYPE_CHECKING:
 # rest of its range so no holes remain, and keep this table in sync with
 # ArchipelagoLocationMap.java and rules_apworld.md.
 LOCATION_NAME_TO_ID: dict[str, int] = {
+    # Goal
+    "complete_x_percent":            7000,
     # Monster kill
     "kill_zombie":                   1000,
     "kill_horse_skeleton_armored":   1001,
@@ -34,7 +36,6 @@ LOCATION_NAME_TO_ID: dict[str, int] = {
     "kill_toad_rhino_magma":         1019,
     "kill_snake_marsh":              1020,
     "kill_yeti":                     1021,
-    "kill_frost_dragon":             1022,
     "kill_bear_grizzly": 1023,
     "kill_skeleton_fighter": 1024,
     "kill_wolf_black": 1025,
@@ -119,6 +120,7 @@ class HytaleLocation(Location):
 #   4000-4999  item-possession         (always)
 #   5000-5999  memories                (memories / memories_max / memories_every)
 #   6000-6999  regions explored        (regions)
+#   7000       goal: complete_x_percent (always)
 
 def get_active_location_names(world: HytaleWorld) -> list[str]:
     options = world.options

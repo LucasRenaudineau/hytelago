@@ -65,6 +65,19 @@ public final class AchievementRegistry {
                 .findFirst().orElse(null);
     }
 
+    /**
+     * The needed count of an achievement for this player. Equal to the
+     * definition's, except for the goal whose count depends on the seed.
+     */
+    public int getNeededCount(@Nonnull PlayerRef playerRef,
+                              @Nonnull AchievementDefinition def) {
+        if (GoalAchievement.ID.equals(def.getId())) {
+            Integer needed = ArchipelagoManager.INSTANCE.getGoalNeeded(playerKey(playerRef));
+            if (needed != null) return needed;
+        }
+        return def.getNeededCount();
+    }
+
     // Game logic
 
     /**
@@ -97,7 +110,7 @@ public final class AchievementRegistry {
         for (AchievementDefinition def : definitions) {
             PlayerAchievementData data = getOrCreate(playerRef, def.getId());
             if (data.getStatus() == AchievementStatus.NOT_DONE
-                    && data.getCount() >= def.getNeededCount()) {
+                    && data.getCount() >= getNeededCount(playerRef, def)) {
                 data.setStatus(AchievementStatus.DONE);
             }
         }
@@ -170,7 +183,7 @@ public final class AchievementRegistry {
 
         PlayerAchievementData data = getOrCreate(playerRef, achievementId);
 
-        data.setCount(def.getNeededCount());
+        data.setCount(getNeededCount(playerRef, def));
         data.setStatus(AchievementStatus.COLLECTED);
         fireListeners(playerRef, def);
         giveRewardItems(ref, store, def);
