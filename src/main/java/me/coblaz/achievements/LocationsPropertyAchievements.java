@@ -33,7 +33,7 @@ public final class LocationsPropertyAchievements {
             new Entry("Deco_Tankard",             "collect_tankard",            "Cheers!",              1,  false, List.of()),
             new Entry("Survival_Trap_Spike_Wood", "collect_spike_trap_10",      "Spike Layer",          10, false, List.of()),
             new Entry("Plant_Crop_Corn_Item",     "collect_corn_5",             "Corn Harvest",         5,  false, List.of()),
-            new Entry("Plant_Cactus_Flower",      "collect_cactus_5",           "Desert Bloom",         5,  false, List.of()),
+            new Entry("Plant_Cactus_1",      "collect_cactus_5",           "Bottom Cactus",         5,  false, List.of()),
             new Entry("Food_Kebab_Vegetable",     "collect_food_kebab_vegetable_20", "Vegetable Lover", 20, false, List.of()),
             new Entry("Furniture_Crude_Torch",    "collect_furniture_crude_torch_10","Need light !",    10, false, List.of()),
             new Entry("Ingredient_Bar_Iron",      "smelt_iron",                 "Iron Smith",           5,  false, List.of()),
