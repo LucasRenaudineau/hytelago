@@ -428,7 +428,7 @@ public final class ArchipelagoManager {
         LOOT_TABLE.put(3020L, new ItemGrant("Weapon_Sword_Copper",          1));
         LOOT_TABLE.put(3021L, new ItemGrant("Weapon_Shortbow_Combat",           1));
         LOOT_TABLE.put(3022L, new ItemGrant("Weapon_Daggers_Bone",              1));
-        LOOT_TABLE.put(3023L, new ItemGrant("Weapon_Arrow_Clearshot",          30));
+        LOOT_TABLE.put(3023L, new ItemGrant("Weapon_Arrow_Crude",          30));
         LOOT_TABLE.put(3024L, new ItemGrant("Weapon_Deployable_Healing_Totem",  1));
         LOOT_TABLE.put(3025L, new ItemGrant("Tool_Repair_Kit_Iron",             2));
         LOOT_TABLE.put(3026L, new ItemGrant("Plant_Seeds_Corn",                 1));

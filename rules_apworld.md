@@ -50,7 +50,7 @@
 3020 : Weapon_Sword_Copper
 3021 : Weapon_Shortbow_Combat
 3022 : Weapon_Daggers_Bone
-3023 : Weapon_Arrow_Clearshot30 (10)
+3023 : Weapon_Arrow_Crude30 (10)
 3024 : Weapon_Deployable_Healing_Totem (2)
 3025 : Repair_Kit2 (10)
 3026 : Plant_Seeds_Corn (2)
@@ -175,7 +175,7 @@ Mapping : Zone1_Tier1 to Zone1_Tier3 = Drifting Plains, Seedling Woods, The Fens
 
 # Soft logic
 
-thirty_kills requires 2 Progressive Workbench, Campfire, 2 Progressive Blacksmith, 1 Progressive_Furnace, 1 Progressive Tanning, Weapon_Daggers_Bone, Weapon_Shortbow_Combat, 1 Weapon_Arrow_Clearshot30, Ingredient_Hide_Soft10, Ore_Iron10
+thirty_kills requires 2 Progressive Workbench, Campfire, 2 Progressive Blacksmith, 1 Progressive_Furnace, 1 Progressive Tanning, Weapon_Daggers_Bone, Weapon_Shortbow_Combat, 1 Weapon_Arrow_Crude30, Ingredient_Hide_Soft10, Ore_Iron10
 fifty_kills requires 2 Progressive Workbench, 2 Progressive_Blacksmith, 1 Progressive_Furnace, 1 Progressive Tanning, Ore_Cobalt10, Ingredient_Hide_Light10, Weapon_Daggers_Bone, Ingredient_Hide_Medium10, Ingredient_Chitin_Sturdy10
 seventy_kills and hundred_kills require 3 Progressive Workbench, 2 Progressive Blacksmith, 1 Progressive Furnace, 1 Progressive Tanning, Ore_Thorium10, Ingredient_Hide_Medium10, Ingredient_Hide_Heavy10, Ingredient_Chitin_Sturdy10
 

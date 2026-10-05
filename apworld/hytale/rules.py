@@ -56,7 +56,7 @@ def set_all_rules(world: HytaleWorld) -> None:
         "Progressive_Tanning",
         "Weapon_Daggers_Bone",
         "Weapon_Shortbow_Combat",
-        "Weapon_Arrow_Clearshot30",
+        "Weapon_Arrow_Crude30",
         "Ingredient_Hide_Soft10",
         "Ore_Iron10",
     )

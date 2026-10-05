@@ -53,7 +53,7 @@ ITEM_NAME_TO_ID: dict[str, int] = {
     "Weapon_Sword_Copper":   3020,
     "Weapon_Shortbow_Combat":    3021,
     "Weapon_Daggers_Bone":       3022,
-    "Weapon_Arrow_Clearshot30":  3023,
+    "Weapon_Arrow_Crude30":  3023,
     "Weapon_Deployable_Healing_Totem": 3024,
     "Repair_Kit2":               3025,
     "Plant_Seeds_Corn":          3026,
@@ -115,7 +115,7 @@ DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
     # Weapons required by kill rules
     "Weapon_Shortbow_Combat":    ItemClassification.progression,
     "Weapon_Daggers_Bone":       ItemClassification.progression,
-    "Weapon_Arrow_Clearshot30":  ItemClassification.progression,
+    "Weapon_Arrow_Crude30":  ItemClassification.progression,
     "Weapon_Deployable_Healing_Totem": ItemClassification.useful,
     "Repair_Kit2":               ItemClassification.progression,
     # New loot – helpful but not gating any rule
@@ -176,7 +176,7 @@ ITEM_POOL_QUANTITIES: dict[str, int] = {
     "Weapon_Sword_Copper":    1,
     "Weapon_Shortbow_Combat":     1,
     "Weapon_Daggers_Bone":        1,
-    "Weapon_Arrow_Clearshot30":   10,
+    "Weapon_Arrow_Crude30":   10,
     "Weapon_Deployable_Healing_Totem": 2,
     "Repair_Kit2":                10,
     "Plant_Seeds_Corn":           2,
