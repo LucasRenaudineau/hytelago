@@ -394,6 +394,7 @@ public final class ArchipelagoManager {
         MOB_TABLE.put(1006L, new MobSpawn("Scarak_Broodmother",    1, 12.0D));
         MOB_TABLE.put(1007L, new MobSpawn("Scarak_Seeker",         1,  8.0D));
         MOB_TABLE.put(1008L, new MobSpawn("Yeti",                  1,  8.0D));
+        MOB_TABLE.put(1009L, new MobSpawn("Goblin_Duke",           1,  8.0D));
 
         TIER_TABLE.put(2000L, "Progressive_Armorer");
         TIER_TABLE.put(2001L, "Progressive_Backpack");
@@ -438,6 +439,7 @@ public final class ArchipelagoManager {
         LOOT_TABLE.put(3029L, new ItemGrant("Furniture_Village_Chest_Small",    2));
         LOOT_TABLE.put(3030L, new ItemGrant("Plant_Crop_Wheat_Block",           3));
         LOOT_TABLE.put(3031L, new ItemGrant("Food_Bread",                       5));
+        LOOT_TABLE.put(3032L, new ItemGrant("Glider",                           1));
     }
 
     // Per-player connection state

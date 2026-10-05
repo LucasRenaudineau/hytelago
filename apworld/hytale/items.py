@@ -18,6 +18,7 @@ ITEM_NAME_TO_ID: dict[str, int] = {
     "Scarak_Broodmother":  1006,
     "Scarak_Seeker":             1007,
     "Yeti":                      1008,
+    "Goblin_Duke":               1009,
     # Tier Upgraders
     "Progressive_Armorer":       2000,
     "Progressive_Backpack":      2001,
@@ -62,6 +63,7 @@ ITEM_NAME_TO_ID: dict[str, int] = {
     "Furniture_Village_Chest_Small2": 3029,
     "Plant_Crop_Wheat_Block3":   3030,
     "Food_Bread5":               3031,
+    "Glider":                    3032,
 }
 
 DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
@@ -75,6 +77,7 @@ DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
     "Scarak_Broodmother":  ItemClassification.trap,
     "Scarak_Seeker":             ItemClassification.trap,
     "Yeti":                      ItemClassification.trap,
+    "Goblin_Duke":               ItemClassification.trap,
     # Tier Upgraders – all required by some rule
     "Progressive_Armorer":       ItemClassification.progression,
     "Progressive_Backpack":      ItemClassification.progression,
@@ -125,6 +128,7 @@ DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
     "Furniture_Village_Chest_Small2": ItemClassification.useful,
     "Plant_Crop_Wheat_Block3":   ItemClassification.useful,
     "Food_Bread5":               ItemClassification.useful,
+    "Glider":                    ItemClassification.useful,
 }
 
 # Item pool quantities (Ingredient_Poop is not included because it is the filler item)
@@ -142,6 +146,7 @@ ITEM_POOL_QUANTITIES: dict[str, int] = {
     "Scarak_Broodmother":   2,
     "Scarak_Seeker":              2,
     "Yeti":                       2,
+    "Goblin_Duke":                1,
     # Tier Upgraders
     "Progressive_Armorer":        2,
     "Progressive_Backpack":       3,
@@ -185,6 +190,7 @@ ITEM_POOL_QUANTITIES: dict[str, int] = {
     "Furniture_Village_Chest_Small2": 5,
     "Plant_Crop_Wheat_Block3":    10,
     "Food_Bread5":                10,
+    "Glider":                     1,
 }
 
 FILLER_ITEM_NAME = "Ingredient_Poop"
@@ -227,10 +233,10 @@ def create_all_items(world: HytaleWorld) -> None:
     # --- Guaranteed base ---------------------------------------------------
     # All tier upgraders at their maximum quantity.
     counts: dict[str, int] = {name: ITEM_POOL_QUANTITIES[name] for name in TIER_ITEMS}
-    # All random loot once (Teleporter3 always starts at 2).
+    # All random loot once (Teleporter3 always starts at 5, the most any rule needs).
     for name in LOOT_ITEMS:
         counts[name] = 1
-    counts["Teleporter3"] = 2
+    counts["Teleporter3"] = 5
     # Death Link seeds a single copy of every trap.
     if options.death_link:
         for name in TRAP_ITEMS:

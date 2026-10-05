@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  * The goal location: done once percent_goal % of the seed's other locations
- * are done. Its needed count depends on the seed, see
+ * are collected. Its needed count depends on the seed, see
  * {@link me.coblaz.archipelago.ArchipelagoManager#getGoalNeeded(String)}.
  * Collecting it sends the goal to the Archipelago server (releasing the player).
  */
@@ -19,20 +19,18 @@ public final class GoalAchievement {
         reg.registerAchievement(new AchievementDefinition(ID, "Collected Achievements", 1));
     }
 
-    /** Sets the goal's count to the number of other seed locations that are DONE or COLLECTED. */
+    /** Sets the goal's count to the number of other seed locations that are COLLECTED. */
     public static void syncCount(@Nonnull AchievementRegistry reg,
                                  @Nonnull PlayerRef playerRef,
                                  @Nonnull Set<String> visibleIds) {
-        int done = 0;
+        int collected = 0;
         for (AchievementDefinition def : reg.getDefinitions()) {
             if (ID.equals(def.getId()) || !visibleIds.contains(def.getId())) continue;
-            PlayerAchievementData data = reg.getData(playerRef, def.getId());
-            if (data.getStatus() != AchievementStatus.NOT_DONE
-                    || data.getCount() >= def.getNeededCount()) {
-                done++;
+            if (reg.getData(playerRef, def.getId()).getStatus() == AchievementStatus.COLLECTED) {
+                collected++;
             }
         }
-        reg.setCount(playerRef, ID, done);
+        reg.setCount(playerRef, ID, collected);
     }
 
     private GoalAchievement() {}

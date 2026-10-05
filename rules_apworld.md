@@ -11,6 +11,7 @@
 1006 : Scarak_Broodmother (2)
 1007 : Scarak_Seeker (2)
 1008 : Yeti (2)
+1009 : Goblin_Duke
 
 ## Tier Upgraders
 
@@ -59,12 +60,13 @@
 3029 : Furniture_Village_Chest_Small2 (5)
 3030 : Plant_Crop_Wheat_Block3 (10)
 3031 : Food_Bread5 (10)
+3032 : Glider
 
 
 # Locations
 
 ## Goal
-7000 : complete_x_percent // needs (percent_goal * number of other locations of the seed / 100) locations done, rounded down. Collecting it sends the goal to the server
+7000 : complete_x_percent // needs (percent_goal * number of other locations of the seed / 100) locations collected, rounded down. Collecting it sends the goal to the server
 
 ## Monster Kill
 
@@ -239,7 +241,7 @@ regions : true or false
 # How to determine the items pool
 
 There is always all tier upgraders and their max number.
-There is always 2 teleporter3
+There is always 5 teleporter3
 There is always all random loots but only one time (not max number).
 
 Once this is given, if the player put death_link on, it gives once every trap (not max number).

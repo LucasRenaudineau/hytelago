@@ -57,7 +57,7 @@ Once in game, do /op self and then you can list the commands with /arch-help<br>
 Once the server is hosted, you can connect using the arch-connect command.<br>
 !!! Always connect to the server when you join the world, as it won't send new locations you would have discovered while disconnected. !!!<br>
 See your advancement with /arch-locations and collect lost Workbench upgrader items with /arch-items<br>
-The goal location complete_x_percent (top of /arch-locations) counts your done locations. Once percent_goal % of the other locations (set in the .yaml) are done, collect it to complete your goal and release.
+The goal location complete_x_percent (top of /arch-locations) counts your collected locations. Once percent_goal % of the other locations (set in the .yaml) are collected, reopen /arch-locations and collect it to complete your goal and release.
 
 You can safely quit the game, reconnect and the items other players sent you during this time will be sent. You only need to reconnect to archipelago every time you reload your world.
 
@@ -71,4 +71,4 @@ The Archipelago discord server has a hytale post in future-game-design.
 
 All items, locations and their IDs are listed in the file rules_apworld.md
 In this file, you'll also find the rules soft logic, listed in human-readable english.
-The goal is the complete_x_percent location: complete percent_goal % of the other locations (rounded down), then collect it.
+The goal is the complete_x_percent location: collect percent_goal % of the other locations (rounded down), then collect it.
