@@ -114,7 +114,7 @@ def set_all_rules(world: HytaleWorld) -> None:
         "Progressive_Blacksmith",
         "Progressive_Furnace"
     )
-    for loc in ("kill_bear_grizzly", "kill_skeleton_fighter", "kill_wolf_black"):
+    for loc in ("kill_bear_grizzly", "kill_skeleton_fighter", "kill_wolf_black_2"):
         apply_rule(loc, _easy_kills)
 
     _mid_kills = _make_rule(
@@ -131,6 +131,10 @@ def set_all_rules(world: HytaleWorld) -> None:
         "Teleporter3",
     )
     for loc in (
+        "kill_spawn_void",
+        "kill_eye_void",
+        "kill_larva_void_5",
+        "kill_spectre_void",
         "kill_zombie_burnt",
         "kill_zombie_sand",
         "kill_scarak_broodmother",
@@ -170,8 +174,7 @@ def set_all_rules(world: HytaleWorld) -> None:
 
     # Monster kill for outlanders or rare horses from devastated lands
 
-    _outlander_kills = _make_rule(
-        player,
+    _outlander_reqs = (
         ("Progressive_Armorer", 2),
         ("Progressive_Backpack", 2),
         ("Progressive_Blacksmith", 2),
@@ -187,6 +190,7 @@ def set_all_rules(world: HytaleWorld) -> None:
         "Ingredient_Chitin_Sturdy10",
         "Teleporter3",
     )
+    _outlander_kills = _make_rule(player, *_outlander_reqs)
     for loc in (
         "kill_outlander_berserker",
         "kill_outlander_brute",
@@ -197,6 +201,46 @@ def set_all_rules(world: HytaleWorld) -> None:
         "kill_horse_skeleton"
     ):
         apply_rule(loc, _outlander_kills)
+
+    # Monster kill for rats and goblin dungeons: outlander requirements plus
+    # adamantite daggers and small health potions
+
+    _dungeon_reqs = (
+        *_outlander_reqs,
+        "Weapon_Daggers_Adamantite",
+        "Potion_Health_Small",
+    )
+    _dungeon_kills = _make_rule(player, *_dungeon_reqs)
+    for loc in (
+        "kill_rat_20",
+        "kill_dungeon_goblin_scrapper_10",
+        "kill_dungeon_goblin_mace_2",
+        "kill_dungeon_goblin_miner_4",
+        "kill_dungeon_goblin_burner",
+        "kill_dungeon_goblin_guardian",
+        "kill_dungeon_goblin_lobber",
+        "kill_dungeon_goblin_turret",
+        "kill_dungeon_feastmaster_boss",
+        "kill_dungeon_goblin_lobber_patrol",
+    ):
+        apply_rule(loc, _dungeon_kills)
+
+    # Gobliterator boss: dungeon requirements plus the full adamantite armor
+
+    _gobliterator_kills = _make_rule(
+        player,
+        *_dungeon_reqs,
+        "Armor_Adamantite_Head",
+        "Armor_Adamantite_Chest",
+        "Armor_Adamantite_Hands",
+        "Armor_Adamantite_Legs",
+    )
+    for loc in (
+        "kill_goblin_gobliterator_phase1",
+        "kill_goblin_gobliterator_phase2",
+        "kill_goblin_gobliterator_phase3",
+    ):
+        apply_rule(loc, _gobliterator_kills)
 
     # Monster kill for earth golem
 
@@ -209,7 +253,7 @@ def set_all_rules(world: HytaleWorld) -> None:
         "Progressive_Furnace",
     )
 
-    # kill_zombie, kill_goblin_hermit, kill_eye_void
+    # kill_zombie, kill_goblin_hermit
     # have no stated requirements – always accessible.
 
     # Death achievement

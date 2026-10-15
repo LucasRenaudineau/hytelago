@@ -12,6 +12,7 @@
 1007 : Scarak_Seeker (2)
 1008 : Yeti (2)
 1009 : Goblin_Duke
+1010 : Crawler_Void (4)
 
 ## Tier Upgraders
 
@@ -28,6 +29,8 @@
 
 ## Random loot
 
+Loot marked "// items table" is not given directly : receiving it unlocks its row in the items table (/arch-items), where it can be collected as many times as the player needs.
+
 3000 : Ore_Copper10 (3)
 3001 : Ore_Iron10 (3)
 3002 : Ore_Cobalt10 (3)
@@ -42,11 +45,11 @@
 3011 : Ingredient_Poop // Filler item
 3012 : Flamethrower_Goblin
 3013 : Teleporter3 (10)
-3014 : Armor_Adamantite_Legs
-3015 : Armor_Adamantite_Chest
-3016 : Armor_Adamantite_Head
-3017 : Armor_Adamantite_Hands
-3018 : Weapon_Shield_Adamantite
+3014 : Armor_Adamantite_Legs // items table
+3015 : Armor_Adamantite_Chest // items table
+3016 : Armor_Adamantite_Head // items table
+3017 : Armor_Adamantite_Hands // items table
+3018 : Weapon_Shield_Adamantite // items table
 3019 : Weapon_Axe_Cobalt
 3020 : Weapon_Sword_Copper
 3021 : Weapon_Shortbow_Combat
@@ -61,11 +64,14 @@
 3030 : Plant_Crop_Wheat_Block3 (10)
 3031 : Food_Bread5 (10)
 3032 : Glider
+3033 : Weapon_Daggers_Adamantite // items table
+3034 : Potion_Health_Large (10)
+3035 : Potion_Health_Small // items table
 
 
 # Locations
 
-## Goal
+## Goal-only
 7000 : complete_x_percent // needs (percent_goal * number of other locations of the seed / 100) locations collected, rounded down. Collecting it sends the goal to the server
 
 ## Monster Kill
@@ -94,8 +100,24 @@
 1021 : kill_yeti
 1023 : kill_bear_grizzly
 1024 : kill_skeleton_fighter
-1025 : kill_wolf_black
+1025 : kill_wolf_black_2
 1026 : kill_horse_skeleton
+1027 : kill_spawn_void
+1028 : kill_larva_void_5
+1029 : kill_spectre_void
+1030 : kill_rat_20
+1031 : kill_dungeon_goblin_scrapper_10
+1032 : kill_dungeon_goblin_mace_2
+1033 : kill_dungeon_goblin_miner_4
+1034 : kill_dungeon_goblin_burner
+1035 : kill_dungeon_goblin_guardian
+1036 : kill_dungeon_goblin_lobber
+1037 : kill_dungeon_goblin_turret
+1038 : kill_dungeon_feastmaster_boss
+1039 : kill_dungeon_goblin_lobber_patrol
+1040 : kill_goblin_gobliterator_phase1
+1041 : kill_goblin_gobliterator_phase2
+1042 : kill_goblin_gobliterator_phase3
 
 ## General kills
 
@@ -186,16 +208,19 @@ In game, WorldMapTracker reports these regions as raw translation keys (map.regi
 Mapping : Zone1_Tier1 to Zone1_Tier3 = Drifting Plains, Seedling Woods, The Fens ; Zone2_Tier1 to Zone2_Tier3 = Golden Steppes, Badlands, Desolate Basin ; Oceans = Crystalline Depths ; Zone3_Tier1 to Zone3_Tier3 = Frostmarch Tundra, Boreal Reach, The Everfrost ; Zone4_Tier4 and Zone4_Tier5 = Cinder Wastes, Charred Woodlands
 
 # Soft logic
+// prefix_* means "every achievement in the form prefix_<something>", it does not mean "one of the achievement in the form prefix_<something>*"
 
 thirty_kills requires 2 Progressive Workbench, Campfire, 2 Progressive Blacksmith, 1 Progressive_Furnace, 1 Progressive Tanning, Weapon_Daggers_Bone, Weapon_Shortbow_Combat, 1 Weapon_Arrow_Crude30, Ingredient_Hide_Soft10, Ore_Iron10
 fifty_kills requires 2 Progressive Workbench, 2 Progressive_Blacksmith, 1 Progressive_Furnace, 1 Progressive Tanning, Ore_Cobalt10, Ingredient_Hide_Light10, Weapon_Daggers_Bone, Ingredient_Hide_Medium10, Ingredient_Chitin_Sturdy10
 seventy_kills and hundred_kills require 3 Progressive Workbench, 2 Progressive Blacksmith, 1 Progressive Furnace, 1 Progressive Tanning, Ore_Thorium10, Ingredient_Hide_Medium10, Ingredient_Hide_Heavy10, Ingredient_Chitin_Sturdy10
 
-kill_bear_grizzly, kill_skeleton_fighter and kill_wolf_black require : 1 Progressive Workbench, 1 Progressive Blacksmith, 1 Progressive Furnace
+kill_bear_grizzly, kill_skeleton_fighter and kill_wolf_black_2 require : 1 Progressive Workbench, 1 Progressive Blacksmith, 1 Progressive Furnace
 kill_zombie_frost, kill_skeleton_frost_archer, kill_yeti require : 2 Progressive Armorer, 2 Progressive Backpack, 2 Progressive Blacksmith, 2 Progressive Furnace, 2 Progressive Tanning, 2 Progressive Workbench, Ore_Cobalt10, Ingredient_Hide_Medium10, Ingredient_Hide_Light10, Teleporter3
-kill_zombie_burnt, kill_zombie_sand, kill_scarak_broodmother, kill_toad_rhino_magma, kill_snake_marsh require : 1 Progressive Armorer, 1 Progressive Backpack, 1 Progressive Blacksmith, 1 Progressive Furnace, 1 Progressive Tanning, 2 Progressive Workbench, Ore_Iron10, Ingredient_Hide_Light10, Ingredient_Chitin_Sturdy10, Teleporter3
+kill_spawn_void, kill_eye_void, kill_larva_void_5, kill_spectre_void, kill_zombie_burnt, kill_zombie_sand, kill_scarak_broodmother, kill_toad_rhino_magma, kill_snake_marsh require : 1 Progressive Armorer, 1 Progressive Backpack, 1 Progressive Blacksmith, 1 Progressive Furnace, 1 Progressive Tanning, 2 Progressive Workbench, Ore_Iron10, Ingredient_Hide_Light10, Ingredient_Chitin_Sturdy10, Teleporter3
 complete_x_percent and all kill golem achievements except kill_golem_crystal_earth require : 2 Progressive_Armorer, 2 Progressive_Backpack, 2 Progressive_Blacksmith, 2 Progressive_Furnace, 2 Progressive_Tanning, 3 Progressive_Workbench, Ore_Thorium10, Ore_Cobalt10, Ingredient_Hide_Soft10, Ingredient_Hide_Light10, Ingredient_Hide_Medium10, Ingredient_Hide_Heavy10, Ingredient_Chitin_Sturdy10, 2 Teleporter3, Repair_Kit2
 All kill outlander, kill_horse_skeleton and kill_horse_skeleton_armored achievements require : 2 Progressive_Armorer, 2 Progressive_Backpack, 2 Progressive_Blacksmith, 2 Progressive_Furnace, 1 Progressive_Tanning, 2 Progressive_Workbench, Ore_Thorium10, Ore_Cobalt10, Ingredient_Hide_Soft10, Ingredient_Hide_Light10, Ingredient_Hide_Medium10, Ingredient_Hide_Heavy10, Ingredient_Chitin_Sturdy10, 1 Teleporter3
+kill_rat_20, kill_dungeon_feastmaster_boss and all kill_dungeon_goblin_* require : 2 Progressive_Armorer, 2 Progressive_Backpack, 2 Progressive_Blacksmith, 2 Progressive_Furnace, 1 Progressive_Tanning, 2 Progressive_Workbench, Ore_Thorium10, Ore_Cobalt10, Ingredient_Hide_Soft10, Ingredient_Hide_Light10, Ingredient_Hide_Medium10, Ingredient_Hide_Heavy10, Ingredient_Chitin_Sturdy10, 1 Teleporter3, Weapon_Daggers_Adamantite, Potion_Health_Small
+kill_goblin_gobliterator_phase* require : 2 Progressive_Armorer, 2 Progressive_Backpack, 2 Progressive_Blacksmith, 2 Progressive_Furnace, 1 Progressive_Tanning, 2 Progressive_Workbench, Ore_Thorium10, Ore_Cobalt10, Ingredient_Hide_Soft10, Ingredient_Hide_Light10, Ingredient_Hide_Medium10, Ingredient_Hide_Heavy10, Ingredient_Chitin_Sturdy10, 1 Teleporter3, Weapon_Daggers_Adamantite, Potion_Health_Small, Armor_Adamantite_*
 kill_golem_crystal_earth requires : Ore_Copper10, 1 Progressive_Workbench, 1 Progressive_Armorer, 1 Progressive_Blacksmith, 1 Progressive_Furnace
 
 death_fire requires : Progressive_Workbench, Progressive_Furnace, Progressive_Armorer, Teleporter3

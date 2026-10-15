@@ -40,8 +40,24 @@ public final class MobKillAchievements {
             new Entry("yeti", "kill_yeti", "It really exists", 1),
             new Entry("bear_grizzly", "kill_bear_grizzly", "Not afraid of a big bear", 1),
             new Entry("skeleton_fighter", "kill_skeleton_fighter", "A simple fight", 1),
-            new Entry("wolf_black", "kill_wolf_black", "WooooooOOO !", 3),
-            new Entry("horse_skeleton", "kill_horse_skeleton", "Bone destroyer", 1)
+            new Entry("wolf_black", "kill_wolf_black_2", "WooooooOOO !", 2),
+            new Entry("horse_skeleton", "kill_horse_skeleton", "Bone destroyer", 1),
+            new Entry("spawn_void", "kill_spawn_void", "Spawn Camper", 1),
+            new Entry("larva_void", "kill_larva_void_5", "Pest Control", 5),
+            new Entry("spectre_void", "kill_spectre_void", "Ghostbuster", 1),
+            new Entry("rat", "kill_rat_20", "Rat Catcher", 20),
+            new Entry("dungeon_goblin_scrapper", "kill_dungeon_goblin_scrapper_10", "Scrap Collector", 10),
+            new Entry("dungeon_goblin_mace", "kill_dungeon_goblin_mace_2", "Mace Off", 2),
+            new Entry("dungeon_goblin_miner", "kill_dungeon_goblin_miner_4", "Strike the Miners", 4),
+            new Entry("dungeon_goblin_burner", "kill_dungeon_goblin_burner", "Fire Extinguisher", 1),
+            new Entry("dungeon_goblin_guardian", "kill_dungeon_goblin_guardian", "Guard Down", 1),
+            new Entry("dungeon_goblin_lobber", "kill_dungeon_goblin_lobber", "Lob Stopper", 1),
+            new Entry("dungeon_goblin_turret", "kill_dungeon_goblin_turret", "Turret Disarmed", 1),
+            new Entry("dungeon_feastmaster_boss", "kill_dungeon_feastmaster_boss", "The Feast is Over", 1),
+            new Entry("dungeon_goblin_lobber_patrol", "kill_dungeon_goblin_lobber_patrol", "Patrol Ambushed", 1),
+            new Entry("goblin_gobliterator_phase1", "kill_goblin_gobliterator_phase1", "Gobliterator: Phase 1", 1),
+            new Entry("goblin_gobliterator_phase2", "kill_goblin_gobliterator_phase2", "Gobliterator: Phase 2", 1),
+            new Entry("goblin_gobliterator_phase3", "kill_goblin_gobliterator_phase3", "Gobliterated", 1)
     );
 
     // Lookup map: roleName (lowercase) -> achievementId

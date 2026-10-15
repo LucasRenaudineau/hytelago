@@ -19,6 +19,7 @@ ITEM_NAME_TO_ID: dict[str, int] = {
     "Scarak_Seeker":             1007,
     "Yeti":                      1008,
     "Goblin_Duke":               1009,
+    "Crawler_Void":              1010,
     # Tier Upgraders
     "Progressive_Armorer":       2000,
     "Progressive_Backpack":      2001,
@@ -64,6 +65,9 @@ ITEM_NAME_TO_ID: dict[str, int] = {
     "Plant_Crop_Wheat_Block3":   3030,
     "Food_Bread5":               3031,
     "Glider":                    3032,
+    "Weapon_Daggers_Adamantite": 3033,
+    "Potion_Health_Large":       3034,
+    "Potion_Health_Small":       3035,
 }
 
 DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
@@ -78,6 +82,7 @@ DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
     "Scarak_Seeker":             ItemClassification.trap,
     "Yeti":                      ItemClassification.trap,
     "Goblin_Duke":               ItemClassification.trap,
+    "Crawler_Void":              ItemClassification.trap,
     # Tier Upgraders – all required by some rule
     "Progressive_Armorer":       ItemClassification.progression,
     "Progressive_Backpack":      ItemClassification.progression,
@@ -107,11 +112,12 @@ DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
     "Flamethrower_Goblin":       ItemClassification.useful,
     # Teleporters are required by hard-zone rules
     "Teleporter3":               ItemClassification.progression,
-    # Adamantite gear – nice but not required by any rule
-    "Armor_Adamantite_Legs":     ItemClassification.useful,
-    "Armor_Adamantite_Chest":    ItemClassification.useful,
-    "Armor_Adamantite_Head":     ItemClassification.useful,
-    "Armor_Adamantite_Hands":    ItemClassification.useful,
+    # Adamantite armor – required by the Gobliterator kill rules
+    "Armor_Adamantite_Legs":     ItemClassification.progression,
+    "Armor_Adamantite_Chest":    ItemClassification.progression,
+    "Armor_Adamantite_Head":     ItemClassification.progression,
+    "Armor_Adamantite_Hands":    ItemClassification.progression,
+    # Nice but not required by any rule
     "Weapon_Shield_Adamantite":  ItemClassification.useful,
     "Weapon_Axe_Cobalt":         ItemClassification.useful,
     "Weapon_Sword_Copper":   ItemClassification.useful,
@@ -129,6 +135,10 @@ DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
     "Plant_Crop_Wheat_Block3":   ItemClassification.useful,
     "Food_Bread5":               ItemClassification.useful,
     "Glider":                    ItemClassification.useful,
+    # Required by the goblin dungeon and Gobliterator kill rules
+    "Weapon_Daggers_Adamantite": ItemClassification.progression,
+    "Potion_Health_Large":       ItemClassification.useful,
+    "Potion_Health_Small":       ItemClassification.progression,
 }
 
 # Item pool quantities (Ingredient_Poop is not included because it is the filler item)
@@ -147,6 +157,7 @@ ITEM_POOL_QUANTITIES: dict[str, int] = {
     "Scarak_Seeker":              2,
     "Yeti":                       2,
     "Goblin_Duke":                1,
+    "Crawler_Void":               4,
     # Tier Upgraders
     "Progressive_Armorer":        2,
     "Progressive_Backpack":       3,
@@ -191,6 +202,9 @@ ITEM_POOL_QUANTITIES: dict[str, int] = {
     "Plant_Crop_Wheat_Block3":    10,
     "Food_Bread5":                10,
     "Glider":                     1,
+    "Weapon_Daggers_Adamantite":  1,
+    "Potion_Health_Large":        10,
+    "Potion_Health_Small":        1,
 }
 
 FILLER_ITEM_NAME = "Ingredient_Poop"

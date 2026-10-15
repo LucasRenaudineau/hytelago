@@ -70,7 +70,25 @@ public final class ItemsAchievements {
             new Entry("Progressive_Workbench", "progressive_workbench2", "Workbench Upgrader 2", 2, true,
                     List.of(new ItemReward("Workbench_Tier_Upgrader2", 1))),
             new Entry("Progressive_Workbench", "progressive_workbench3", "Workbench Upgrader 3", 3, true,
-                    List.of(new ItemReward("Workbench_Tier_Upgrader3", 1)))
+                    List.of(new ItemReward("Workbench_Tier_Upgrader3", 1))),
+
+            // Loot (3xxx) re-collectable from this table instead of being given once.
+            // itemId must equal the item name of its LOOT_TABLE entry in ArchipelagoManager.
+            new Entry("Armor_Adamantite_Head", "armor_adamantite_head", "Adamantite Helm", 1, true,
+                    List.of(new ItemReward("Armor_Adamantite_Head", 1))),
+            new Entry("Armor_Adamantite_Chest", "armor_adamantite_chest", "Adamantite Cuirass", 1, true,
+                    List.of(new ItemReward("Armor_Adamantite_Chest", 1))),
+            new Entry("Armor_Adamantite_Hands", "armor_adamantite_hands", "Adamantite Gauntlets", 1, true,
+                    List.of(new ItemReward("Armor_Adamantite_Hands", 1))),
+            new Entry("Armor_Adamantite_Legs", "armor_adamantite_legs", "Adamantite Greaves", 1, true,
+                    List.of(new ItemReward("Armor_Adamantite_Legs", 1))),
+            new Entry("Weapon_Shield_Adamantite", "weapon_shield_adamantite", "Adamantite Shield", 1, true,
+                    List.of(new ItemReward("Weapon_Shield_Adamantite", 1))),
+            new Entry("Weapon_Daggers_Adamantite", "weapon_daggers_adamantite", "Adamantite Daggers", 1, true,
+                    List.of(new ItemReward("Weapon_Daggers_Adamantite", 1))),
+
+            new Entry("Potion_Health_Small", "potion_health_small", "Small Health Potion", 1, true,
+                    List.of(new ItemReward("Potion_Health_Small", 1)))
     );
 
     private static final Map<String, List<String>> ITEM_TO_ACH_IDS =

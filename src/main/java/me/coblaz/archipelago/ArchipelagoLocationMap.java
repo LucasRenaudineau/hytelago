@@ -53,8 +53,24 @@ public final class ArchipelagoLocationMap {
         ACH_TO_LOCATION_ID.put("kill_yeti",                     1021L);
         ACH_TO_LOCATION_ID.put("kill_bear_grizzly",             1023L);
         ACH_TO_LOCATION_ID.put("kill_skeleton_fighter",         1024L);
-        ACH_TO_LOCATION_ID.put("kill_wolf_black",               1025L);
+        ACH_TO_LOCATION_ID.put("kill_wolf_black_2",             1025L);
         ACH_TO_LOCATION_ID.put("kill_horse_skeleton",           1026L);
+        ACH_TO_LOCATION_ID.put("kill_spawn_void",               1027L);
+        ACH_TO_LOCATION_ID.put("kill_larva_void_5",             1028L);
+        ACH_TO_LOCATION_ID.put("kill_spectre_void",             1029L);
+        ACH_TO_LOCATION_ID.put("kill_rat_20",                   1030L);
+        ACH_TO_LOCATION_ID.put("kill_dungeon_goblin_scrapper_10", 1031L);
+        ACH_TO_LOCATION_ID.put("kill_dungeon_goblin_mace_2",    1032L);
+        ACH_TO_LOCATION_ID.put("kill_dungeon_goblin_miner_4",   1033L);
+        ACH_TO_LOCATION_ID.put("kill_dungeon_goblin_burner",    1034L);
+        ACH_TO_LOCATION_ID.put("kill_dungeon_goblin_guardian",  1035L);
+        ACH_TO_LOCATION_ID.put("kill_dungeon_goblin_lobber",    1036L);
+        ACH_TO_LOCATION_ID.put("kill_dungeon_goblin_turret",    1037L);
+        ACH_TO_LOCATION_ID.put("kill_dungeon_feastmaster_boss", 1038L);
+        ACH_TO_LOCATION_ID.put("kill_dungeon_goblin_lobber_patrol", 1039L);
+        ACH_TO_LOCATION_ID.put("kill_goblin_gobliterator_phase1", 1040L);
+        ACH_TO_LOCATION_ID.put("kill_goblin_gobliterator_phase2", 1041L);
+        ACH_TO_LOCATION_ID.put("kill_goblin_gobliterator_phase3", 1042L);
 
         // General kill milestones
         ACH_TO_LOCATION_ID.put("first_kill",    2000L);

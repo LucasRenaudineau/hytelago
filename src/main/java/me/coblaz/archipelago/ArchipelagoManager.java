@@ -308,8 +308,17 @@ public final class ArchipelagoManager {
                 if (grant != null) {
                     String gItem = grant.itemName();
                     int    qty   = grant.quantity();
-                    System.out.printf("[ArchipelagoMod]  → Queuing LOOT grant: %dx '%s'%n", qty, gItem);
-                    queue.add((pr, r, s) -> INSTANCE.giveItem(r, s, gItem, qty));
+                    // Loot that has a row in the items table (/arch-items) is not
+                    // given directly: the row is unlocked instead, so the player
+                    // can collect it again as many times as needed.
+                    List<String> tableIds = ItemsAchievements.achievementIdsForItem(gItem);
+                    if (!tableIds.isEmpty()) {
+                        System.out.printf("[ArchipelagoMod]  → Queuing ITEMS TABLE unlock: '%s' %s%n", gItem, tableIds);
+                        queue.add((pr, r, s) -> INSTANCE.incrementItemsTable(pr, tableIds));
+                    } else {
+                        System.out.printf("[ArchipelagoMod]  → Queuing LOOT grant: %dx '%s'%n", qty, gItem);
+                        queue.add((pr, r, s) -> INSTANCE.giveItem(r, s, gItem, qty));
+                    }
                 } else {
                     System.err.printf("[ArchipelagoMod]  → UNKNOWN loot id: %d%n", itemId);
                 }
@@ -396,6 +405,7 @@ public final class ArchipelagoManager {
         MOB_TABLE.put(1007L, new MobSpawn("Scarak_Seeker",         1,  8.0D));
         MOB_TABLE.put(1008L, new MobSpawn("Yeti",                  1,  8.0D));
         MOB_TABLE.put(1009L, new MobSpawn("Goblin_Duke",           1,  8.0D));
+        MOB_TABLE.put(1010L, new MobSpawn("Crawler_Void",          1,  8.0D));
 
         TIER_TABLE.put(2000L, "Progressive_Armorer");
         TIER_TABLE.put(2001L, "Progressive_Backpack");
@@ -441,6 +451,9 @@ public final class ArchipelagoManager {
         LOOT_TABLE.put(3030L, new ItemGrant("Plant_Crop_Wheat_Block",           3));
         LOOT_TABLE.put(3031L, new ItemGrant("Food_Bread",                       5));
         LOOT_TABLE.put(3032L, new ItemGrant("Glider",                           1));
+        LOOT_TABLE.put(3033L, new ItemGrant("Weapon_Daggers_Adamantite",        1));
+        LOOT_TABLE.put(3034L, new ItemGrant("Potion_Health_Large",              1));
+        LOOT_TABLE.put(3035L, new ItemGrant("Potion_Health_Small",              1));
     }
 
     // Per-player connection state
@@ -756,9 +769,14 @@ public final class ArchipelagoManager {
             System.err.println("[ArchipelagoMod] No achievements for base '" + baseName + "'");
             return;
         }
+        incrementItemsTable(playerRef, achIds);
+        System.out.printf("[ArchipelagoMod] Incremented tier achievements for '%s': %s%n", baseName, achIds);
+    }
+
+    /** Adds one to each given items-table row, flipping the ones that reach their needed count to DONE. */
+    private void incrementItemsTable(@Nonnull PlayerRef playerRef, @Nonnull List<String> achIds) {
         for (String achId : achIds) Registries.ITEMS.incrementCount(playerRef, achId, 1);
         Registries.ITEMS.refreshStatuses(playerRef);
-        System.out.printf("[ArchipelagoMod] Incremented tier achievements for '%s': %s%n", baseName, achIds);
     }
 
     private void giveItem(
