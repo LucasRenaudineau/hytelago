@@ -204,6 +204,14 @@ Loot marked "// items table" is not given directly : receiving it unlocks its ro
 6010 : region_cinder_wastes
 6011 : region_charred_woodlands
 
+## Goblins repair
+
+8000 : repair_goblin_lab_generator_found
+8001 : repair_goblin_lab_power
+8002 : repair_goblin_lab_recipe_a
+8003 : repair_goblin_lab_recipe_b
+8004 : repair_goblin_lab_recipe_c
+
 ### Indication :
 
 In game, WorldMapTracker reports these regions as raw translation keys (map.region.* in server.lang), not display names.
@@ -261,6 +269,12 @@ memories_101 to memories_150 require : 2 Progressive_Workbench, Progressive_Furn
 6003 to 6006 require : Progressive_Workbench, Progressive_Furnace and Teleporter3
 6007 to 6009 require : 2 Progressive_Workbench, Progressive_Furnace, Campfire, Ore_Copper10, Ore_Iron10, 2 Progressive_Blacksmith, 2 Progressive_Armorer, 3 Teleporter3
 6010 and 6011 require : 2 Progressive_Workbench, Progressive_Furnace, Campfire, Ore_Copper10, Ore_Iron10, 2 Progressive_Blacksmith, 2 Progressive_Armorer, 5 Teleporter3, Ore_Iron10, Chef_Stove
+
+repair_goblin_lab_generator_found requires : nothing
+repair_goblin_lab_power requires : 2 Progressive Workbench, Campfire, 2 Progressive Blacksmith
+repair_goblin_lab_recipe_a requires : like memories_61
+repair_goblin_lab_recipe_b requires : like memories_101
+repair_goblin_lab_recipe_c requires : like kill_rat_20
 
 # .yaml options :
 

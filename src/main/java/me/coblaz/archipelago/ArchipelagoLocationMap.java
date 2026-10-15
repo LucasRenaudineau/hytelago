@@ -19,6 +19,7 @@ import java.util.Set;
  *   5xxx = memories collected
  *   6xxx = regions explored
  *   7000 = goal (complete_x_percent)
+ *   8xxx = goblin lab repairs
  */
 public final class ArchipelagoLocationMap {
 
@@ -141,6 +142,13 @@ public final class ArchipelagoLocationMap {
         ACH_TO_LOCATION_ID.put("region_the_everfrost",      6009L);
         ACH_TO_LOCATION_ID.put("region_cinder_wastes",      6010L);
         ACH_TO_LOCATION_ID.put("region_charred_woodlands",  6011L);
+
+        // Goblin lab repairs
+        ACH_TO_LOCATION_ID.put("repair_goblin_lab_generator_found", 8000L);
+        ACH_TO_LOCATION_ID.put("repair_goblin_lab_power",           8001L);
+        ACH_TO_LOCATION_ID.put("repair_goblin_lab_recipe_a",        8002L);
+        ACH_TO_LOCATION_ID.put("repair_goblin_lab_recipe_b",        8003L);
+        ACH_TO_LOCATION_ID.put("repair_goblin_lab_recipe_c",        8004L);
     }
 
     /**
@@ -167,6 +175,7 @@ public final class ArchipelagoLocationMap {
      *   5000-5999  memories                 (memories / memories_max / memories_every)
      *   6000-6999  regions explored         (regions)
      *   7000       goal                     (always)
+     *   8000-8999  goblin lab repairs       (always)
      */
     @Nonnull
     public static Set<Long> buildActiveLocationIds(@Nonnull HytaleSlotData slot) {

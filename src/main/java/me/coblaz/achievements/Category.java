@@ -15,12 +15,13 @@ public final class Category {
     public static final String COMBAT_EQUIPMENT = "Combat equipment";
     public static final String MEMORIES         = "Memories";
     public static final String REGIONS          = "Regions";
+    public static final String REPAIR           = "Repair";
     public static final String ITEMS            = "Items";
 
     /** Tabs of the locations table, in display order. Must match the #Tab buttons of AchievementListPage.ui. */
     public static final List<String> LOCATION_TABS = List.of(
             ALL, GOAL, MONSTER_KILL, GENERAL_KILLS, DEATH,
-            AGRICULTURE, MATERIALS, COMBAT_EQUIPMENT, MEMORIES, REGIONS
+            AGRICULTURE, MATERIALS, COMBAT_EQUIPMENT, MEMORIES, REGIONS, REPAIR
     );
 
     private Category() {}

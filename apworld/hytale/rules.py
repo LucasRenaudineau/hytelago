@@ -546,6 +546,23 @@ def set_all_rules(world: HytaleWorld) -> None:
     for loc in ("region_cinder_wastes", "region_charred_woodlands"):
         apply_rule(loc, _memories_t5)
 
+    # Goblin lab repairs
+
+    # repair_goblin_lab_generator_found: no requirements – always accessible.
+
+    set_rule(
+        "repair_goblin_lab_power",
+        ("Progressive_Workbench", 2),
+        "Campfire",
+        ("Progressive_Blacksmith", 2),
+    )
+
+    # Boiler, Engine and Compressor share the rules of memories_61,
+    # memories_101 and kill_rat_20
+    apply_rule("repair_goblin_lab_recipe_a", _memories_t4)
+    apply_rule("repair_goblin_lab_recipe_b", _memories_t5)
+    apply_rule("repair_goblin_lab_recipe_c", _dungeon_kills)
+
 
     # Completion condition
     # Goal: collect complete_x_percent (percent_goal % of the other locations

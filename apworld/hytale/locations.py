@@ -118,6 +118,12 @@ LOCATION_NAME_TO_ID: dict[str, int] = {
     "region_the_everfrost":      6009,
     "region_cinder_wastes":      6010,
     "region_charred_woodlands":  6011,
+    # Goblin lab repairs
+    "repair_goblin_lab_generator_found": 8000,
+    "repair_goblin_lab_power":           8001,
+    "repair_goblin_lab_recipe_a":        8002,
+    "repair_goblin_lab_recipe_b":        8003,
+    "repair_goblin_lab_recipe_c":        8004,
 }
 
 class HytaleLocation(Location):
@@ -137,6 +143,7 @@ class HytaleLocation(Location):
 #   5000-5999  memories                (memories / memories_max / memories_every)
 #   6000-6999  regions explored        (regions)
 #   7000       goal: complete_x_percent (always)
+#   8000-8999  goblin lab repairs     (always)
 
 def get_active_location_names(world: HytaleWorld) -> list[str]:
     options = world.options

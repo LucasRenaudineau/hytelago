@@ -35,13 +35,13 @@ Group {
             $C.@SmallSecondaryTextButton #Tab3 { @Text = "General kills";    FlexWeight: 1; }
             Group { Anchor: (Width: 4); }
             $C.@SmallSecondaryTextButton #Tab4 { @Text = "Death";            FlexWeight: 1; }
+            Group { Anchor: (Width: 4); }
+            $C.@SmallSecondaryTextButton #Tab5 { @Text = "Agriculture";      FlexWeight: 1; }
         }
         Group { Anchor: (Height: 6); }
         Group {
             LayoutMode: Left;
             Anchor: (Height: 36);
-            $C.@SmallSecondaryTextButton #Tab5 { @Text = "Agriculture";      FlexWeight: 1; }
-            Group { Anchor: (Width: 4); }
             $C.@SmallSecondaryTextButton #Tab6 { @Text = "Materials";        FlexWeight: 1; }
             Group { Anchor: (Width: 4); }
             $C.@SmallSecondaryTextButton #Tab7 { @Text = "Combat equipment"; FlexWeight: 1; }
@@ -49,6 +49,8 @@ Group {
             $C.@SmallSecondaryTextButton #Tab8 { @Text = "Memories";         FlexWeight: 1; }
             Group { Anchor: (Width: 4); }
             $C.@SmallSecondaryTextButton #Tab9 { @Text = "Regions";          FlexWeight: 1; }
+            Group { Anchor: (Width: 4); }
+            $C.@SmallSecondaryTextButton #Tab10 { @Text = "Repair";          FlexWeight: 1; }
         }
     }
 

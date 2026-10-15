@@ -21,6 +21,7 @@ import me.coblaz.achievements.GoalAchievement;
 import me.coblaz.achievements.MemoriesAchievements;
 import me.coblaz.achievements.Registries;
 import me.coblaz.achievements.RegionsAchievements;
+import me.coblaz.achievements.RepairAchievements;
 import me.coblaz.archipelago.ArchipelagoManager;
 import me.coblaz.ui.AchievementListPage;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
@@ -68,6 +69,7 @@ public class ArchLocationsCommand extends AbstractPlayerCommand {
         syncItemCounts(Registries.LOCATIONS, playerRef, ref, store);  // was defined but never called — bug fix
         syncMemoriesCount(Registries.LOCATIONS, playerRef);                  // new
         syncCurrentRegion(Registries.LOCATIONS, playerRef, player);
+        RepairAchievements.syncRepairFlags(Registries.LOCATIONS, playerRef);
         GoalAchievement.syncCount(Registries.LOCATIONS, playerRef, visibleIds);
         Registries.LOCATIONS.refreshStatuses(playerRef);
         player.getPageManager().openCustomPage(ref, store,
