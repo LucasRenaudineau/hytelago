@@ -64,10 +64,12 @@ ITEM_NAME_TO_ID: dict[str, int] = {
     "Furniture_Village_Chest_Small2": 3029,
     "Plant_Crop_Wheat_Block3":   3030,
     "Food_Bread5":               3031,
-    "Glider":                    3032,
+    "Glider_Scrap":              3032,
     "Weapon_Daggers_Adamantite": 3033,
     "Potion_Health_Large":       3034,
     "Potion_Health_Small":       3035,
+    "Ingredient_Powder_Boom":    3036,
+    "Ingredient_Scraps":         3037,
 }
 
 DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
@@ -134,11 +136,13 @@ DEFAULT_ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
     "Furniture_Village_Chest_Small2": ItemClassification.useful,
     "Plant_Crop_Wheat_Block3":   ItemClassification.useful,
     "Food_Bread5":               ItemClassification.useful,
-    "Glider":                    ItemClassification.useful,
+    "Glider_Scrap":              ItemClassification.useful,
     # Required by the goblin dungeon and Gobliterator kill rules
     "Weapon_Daggers_Adamantite": ItemClassification.progression,
     "Potion_Health_Large":       ItemClassification.useful,
     "Potion_Health_Small":       ItemClassification.progression,
+    "Ingredient_Powder_Boom":    ItemClassification.useful,
+    "Ingredient_Scraps":         ItemClassification.useful,
 }
 
 # Item pool quantities (Ingredient_Poop is not included because it is the filler item)
@@ -201,10 +205,12 @@ ITEM_POOL_QUANTITIES: dict[str, int] = {
     "Furniture_Village_Chest_Small2": 5,
     "Plant_Crop_Wheat_Block3":    10,
     "Food_Bread5":                10,
-    "Glider":                     1,
+    "Glider_Scrap":               1,
     "Weapon_Daggers_Adamantite":  1,
     "Potion_Health_Large":        10,
     "Potion_Health_Small":        1,
+    "Ingredient_Powder_Boom":     15,
+    "Ingredient_Scraps":          50,
 }
 
 FILLER_ITEM_NAME = "Ingredient_Poop"

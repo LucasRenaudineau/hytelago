@@ -63,10 +63,12 @@ Loot marked "// items table" is not given directly : receiving it unlocks its ro
 3029 : Furniture_Village_Chest_Small2 (5)
 3030 : Plant_Crop_Wheat_Block3 (10)
 3031 : Food_Bread5 (10)
-3032 : Glider
+3032 : Glider_Scrap
 3033 : Weapon_Daggers_Adamantite // items table
 3034 : Potion_Health_Large (10)
 3035 : Potion_Health_Small // items table
+3036 : Ingredient_Powder_Boom (15)
+3037 : Ingredient_Scraps (50)
 
 
 # Locations

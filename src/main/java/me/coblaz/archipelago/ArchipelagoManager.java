@@ -450,10 +450,12 @@ public final class ArchipelagoManager {
         LOOT_TABLE.put(3029L, new ItemGrant("Furniture_Village_Chest_Small",    2));
         LOOT_TABLE.put(3030L, new ItemGrant("Plant_Crop_Wheat_Block",           3));
         LOOT_TABLE.put(3031L, new ItemGrant("Food_Bread",                       5));
-        LOOT_TABLE.put(3032L, new ItemGrant("Glider",                           1));
+        LOOT_TABLE.put(3032L, new ItemGrant("Glider_Scrap",                     1));
         LOOT_TABLE.put(3033L, new ItemGrant("Weapon_Daggers_Adamantite",        1));
         LOOT_TABLE.put(3034L, new ItemGrant("Potion_Health_Large",              1));
         LOOT_TABLE.put(3035L, new ItemGrant("Potion_Health_Small",              1));
+        LOOT_TABLE.put(3036L, new ItemGrant("Ingredient_Powder_Boom",           1));
+        LOOT_TABLE.put(3037L, new ItemGrant("Ingredient_Scraps",                1));
     }
 
     // Per-player connection state
