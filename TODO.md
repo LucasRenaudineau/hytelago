@@ -4,6 +4,7 @@
 - Randomize kweebec sells.
 - Create a Hytale map that verifies all items and locations in a line to improve work when hytale changes of version.
 - Change the titles of the two tables into Items table and Locations table
+- Seems like bug about items given not spawning when full inventory came back with hytale 0.7
 
 # Radical changes ideas
 
