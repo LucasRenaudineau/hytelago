@@ -234,7 +234,7 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
         List<AchievementDefinition> filtered = new ArrayList<>();
         for (AchievementDefinition def : defs) {
             if (visibleIds != null && !visibleIds.contains(def.getId())) continue;
-            if (showTabs && !Category.ALL.equals(activeTab) && !activeTab.equals(def.getCategory())) continue;
+            if (showTabs && !Category.ALL.equals(activeTab) && !activeTab.equals(registry.getCategory(playerRef, def))) continue;
             filtered.add(def);
         }
         defs = filtered;

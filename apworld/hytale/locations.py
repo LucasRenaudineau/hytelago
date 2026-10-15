@@ -142,7 +142,7 @@ class HytaleLocation(Location):
 #   4000-4999  item-possession         (always)
 #   5000-5999  memories                (memories / memories_max / memories_every)
 #   6000-6999  regions explored        (regions)
-#   7000       goal: complete_x_percent (always)
+#   7000       goal: complete_x_percent (goal reach_x_percent)
 #   8000-8999  goblin lab repairs     (always)
 
 def get_active_location_names(world: HytaleWorld) -> list[str]:
@@ -150,7 +150,10 @@ def get_active_location_names(world: HytaleWorld) -> list[str]:
     active: list[str] = []
 
     for name, loc_id in LOCATION_NAME_TO_ID.items():
-        if 3000 <= loc_id <= 3999:
+        if loc_id == 7000:
+            if options.goal == "kill_gobliterator":
+                continue
+        elif 3000 <= loc_id <= 3999:
             if not options.death_locations:
                 continue
         elif 5000 < loc_id <= 5999:

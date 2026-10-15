@@ -78,6 +78,17 @@ public final class AchievementRegistry {
         return def.getNeededCount();
     }
 
+    /**
+     * The category (locations table tab) of an achievement for this player.
+     * Equal to the definition's, except for the seed's goal location, which is
+     * always in the Goal tab.
+     */
+    @Nonnull
+    public String getCategory(@Nonnull PlayerRef playerRef,
+                              @Nonnull AchievementDefinition def) {
+        return GoalAchievement.isGoal(playerRef, def.getId()) ? Category.GOAL : def.getCategory();
+    }
+
     // Game logic
 
     /**

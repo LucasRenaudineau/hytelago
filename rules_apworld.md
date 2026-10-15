@@ -74,7 +74,9 @@ Loot marked "// items table" is not given directly : receiving it unlocks its ro
 # Locations
 
 ## Goal-only
-7000 : complete_x_percent // needs (percent_goal * number of other locations of the seed / 100) locations collected, rounded down. Collecting it sends the goal to the server
+7000 : complete_x_percent // only exists if goal is reach_x_percent. Needs (percent_goal * number of other locations of the seed / 100) locations collected, rounded down. Collecting it sends the goal to the server
+
+If goal is kill_gobliterator, collecting kill_goblin_gobliterator_phase3 sends the goal to the server instead. In the locations table, the goal location is shown in the Goal tab.
 
 ## Monster Kill
 
@@ -278,7 +280,8 @@ repair_goblin_lab_recipe_c requires : like kill_rat_20
 
 # .yaml options :
 
-percent_goal : number between 1 and 100 //default : 80
+goal : reach_x_percent or kill_gobliterator (any other value is reach_x_percent) //default : reach_x_percent
+percent_goal : number between 1 and 100, only used if goal is reach_x_percent //default : 80
 death_link : true or false
 traps : true or false
 death_locations : true or false

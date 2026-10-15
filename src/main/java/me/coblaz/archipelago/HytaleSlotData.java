@@ -11,7 +11,10 @@ package me.coblaz.archipelago;
  */
 public final class HytaleSlotData {
 
-    /** Percentage of the other locations needed to complete the goal location. */
+    /** Goal of the seed: 0 = reach_x_percent, 1 = kill_gobliterator. */
+    public int goal;
+
+    /** Percentage of the other locations needed to complete the goal location (goal reach_x_percent only). */
     public int percent_goal = 80;
 
     /** Bounce deaths between worlds (and seed one of each trap in the pool). */
@@ -35,6 +38,7 @@ public final class HytaleSlotData {
     /** The region-exploration locations are part of the seed. */
     public int regions = 1;
 
+    public boolean isGobliteratorGoal() { return goal == 1; }
     public boolean hasDeathLink()      { return death_link != 0; }
     public boolean hasTraps()          { return traps != 0; }
     public boolean hasDeathLocations() { return death_locations != 0; }

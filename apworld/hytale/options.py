@@ -1,12 +1,35 @@
 from dataclasses import dataclass
 
-from Options import DeathLink, PerGameCommonOptions, Range, Toggle
+from Options import Choice, DeathLink, PerGameCommonOptions, Range, Toggle
+
+
+class Goal(Choice):
+    """
+    reach_x_percent: collect the complete_x_percent location, done once
+    percent_goal % of the other locations are collected.
+    kill_gobliterator: kill the third phase of the Gobliterator. The
+    complete_x_percent location is removed from the seed.
+
+    Any other value falls back to reach_x_percent.
+    """
+    display_name = "Goal"
+    option_reach_x_percent = 0
+    option_kill_gobliterator = 1
+    default = 0
+
+    @classmethod
+    def from_text(cls, text: str) -> "Goal":
+        try:
+            return super().from_text(text)
+        except KeyError:
+            return cls(cls.default)
 
 
 class PercentGoal(Range):
     """
     Percentage of the other locations that must be done to complete the goal
     location (complete_x_percent), which releases the player.
+    Only used when the goal is reach_x_percent.
     """
     display_name = "Percent Goal"
     range_start = 1
@@ -77,6 +100,7 @@ class Regions(Toggle):
 
 @dataclass
 class HytaleOptions(PerGameCommonOptions):
+    goal: Goal
     percent_goal: PercentGoal
     death_link: DeathLink
     traps: Traps

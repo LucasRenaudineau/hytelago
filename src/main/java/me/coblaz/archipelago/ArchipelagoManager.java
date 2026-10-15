@@ -501,8 +501,8 @@ public final class ArchipelagoManager {
         activeLocationsByPlayer.put(uuid, active);
         System.out.printf(
                 "[ArchipelagoMod] Built tables from slot data for %s: %d active locations "
-                        + "(percent_goal=%d death_link=%b traps=%b death_locations=%b memories=%b[max=%d every=%d] regions=%b)%n",
-                uuid, active.size(), slot.percent_goal, slot.hasDeathLink(), slot.hasTraps(), slot.hasDeathLocations(),
+                        + "(goal=%d percent_goal=%d death_link=%b traps=%b death_locations=%b memories=%b[max=%d every=%d] regions=%b)%n",
+                uuid, active.size(), slot.goal, slot.percent_goal, slot.hasDeathLink(), slot.hasTraps(), slot.hasDeathLocations(),
                 slot.hasMemories(), slot.memories_max, slot.memories_every, slot.hasRegions());
     }
 
@@ -641,6 +641,15 @@ public final class ArchipelagoManager {
     /** Convenience overload for callers holding a {@link PlayerRef}. */
     public boolean isLocationActive(@Nonnull PlayerRef playerRef, @Nonnull String achievementId) {
         return isLocationActive(playerRef.getUuid().toString(), achievementId);
+    }
+
+    /**
+     * True when this player's seed has the kill_gobliterator goal. False when
+     * no slot data is known, which falls back to the reach_x_percent goal.
+     */
+    public boolean isGobliteratorGoal(@Nonnull PlayerRef playerRef) {
+        HytaleSlotData slot = slotDataByPlayer.get(playerRef.getUuid().toString());
+        return slot != null && slot.isGobliteratorGoal();
     }
 
     /**

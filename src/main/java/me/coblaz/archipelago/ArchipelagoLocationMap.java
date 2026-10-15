@@ -18,7 +18,7 @@ import java.util.Set;
  *   4xxx = item-possession achievements
  *   5xxx = memories collected
  *   6xxx = regions explored
- *   7000 = goal (complete_x_percent)
+ *   7000 = goal (complete_x_percent, goal reach_x_percent only)
  *   8xxx = goblin lab repairs
  */
 public final class ArchipelagoLocationMap {
@@ -174,7 +174,7 @@ public final class ArchipelagoLocationMap {
      *   4000-4999  item-possession          (always)
      *   5000-5999  memories                 (memories / memories_max / memories_every)
      *   6000-6999  regions explored         (regions)
-     *   7000       goal                     (always)
+     *   7000       goal                     (goal reach_x_percent)
      *   8000-8999  goblin lab repairs       (always)
      */
     @Nonnull
@@ -183,7 +183,9 @@ public final class ArchipelagoLocationMap {
         Set<Long> active = new HashSet<>();
 
         for (long id : ACH_TO_LOCATION_ID.values()) {
-            if (id >= 3000 && id <= 3999) {
+            if (id == 7000) {
+                if (slot.isGobliteratorGoal()) continue;
+            } else if (id >= 3000 && id <= 3999) {
                 if (!slot.hasDeathLocations()) continue;
             } else if (id > 5000 && id <= 5999) {
                 if (!slot.hasMemories()) continue;

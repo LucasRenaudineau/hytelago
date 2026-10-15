@@ -565,6 +565,10 @@ def set_all_rules(world: HytaleWorld) -> None:
 
 
     # Completion condition
-    # Goal: collect complete_x_percent (percent_goal % of the other locations
-    # done). It shares the elite rule above.
-    world.multiworld.completion_condition[player] = _elite_kills
+    # reach_x_percent: collect complete_x_percent (percent_goal % of the other
+    # locations done), it shares the elite rule above.
+    # kill_gobliterator: kill the Gobliterator's phase 3.
+    if world.options.goal == "kill_gobliterator":
+        world.multiworld.completion_condition[player] = _gobliterator_kills
+    else:
+        world.multiworld.completion_condition[player] = _elite_kills

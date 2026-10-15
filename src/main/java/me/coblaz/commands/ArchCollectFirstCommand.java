@@ -55,7 +55,7 @@ public class ArchCollectFirstCommand extends AbstractPlayerCommand {
         for (AchievementDefinition def : Registries.LOCATIONS.getDefinitions()) {
             if (seen >= n) break;
             String id = def.getId();
-            if (GoalAchievement.ID.equals(id)
+            if (GoalAchievement.isGoal(playerRef, id)
                     || !ArchipelagoManager.INSTANCE.isLocationActive(playerRef, id)) continue;
 
             if (Registries.LOCATIONS.getData(playerRef, id).getStatus() == AchievementStatus.NOT_DONE) {

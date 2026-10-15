@@ -69,7 +69,7 @@ public class Main extends JavaPlugin {
             ArchipelagoManager.INSTANCE.sendLocationCheck(playerRef, def.getId());
 
             // Collecting the goal location completes the game (releases the player)
-            if (GoalAchievement.ID.equals(def.getId())) {
+            if (GoalAchievement.isGoal(playerRef, def.getId())) {
                 ArchipelagoManager.INSTANCE.sendGoal(playerRef);
             }
         });
