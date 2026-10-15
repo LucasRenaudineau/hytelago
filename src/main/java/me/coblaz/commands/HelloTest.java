@@ -7,6 +7,7 @@ import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayer
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.protocol.packets.interface_.EventTitleStyle;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 import com.hypixel.hytale.server.core.Message;
@@ -28,7 +29,7 @@ public class HelloTest extends AbstractPlayerCommand {
                 playerRef,
                 Message.raw("Hello world !"),
                 Message.raw("If this is on your screen, test is good !"),
-                true
+                EventTitleStyle.Major
         );
     }
 

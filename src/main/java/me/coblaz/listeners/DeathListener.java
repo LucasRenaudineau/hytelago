@@ -45,7 +45,7 @@ public class DeathListener extends DeathSystems.OnDeathSystem {
 
         // Resolve cause ID
 
-        String causeId = resolveCauseId(deathInfo);
+        String causeId = resolveCauseId(deathInfo, ref, store);
 
         // DeathLink: bounce this death to the AP server (no-op if DeathLink is off)
         ArchipelagoManager.INSTANCE.onLocalDeath(playerRef, causeId != null ? causeId : "unknown");
@@ -59,11 +59,19 @@ public class DeathListener extends DeathSystems.OnDeathSystem {
         }
     }
 
-    private String resolveCauseId(@Nonnull Damage deathInfo) {
-        // EnvironmentSource carries its own type string (lava, fire,...)
+    private String resolveCauseId(
+            @Nonnull Damage             deathInfo,
+            @Nonnull Ref<EntityStore>   ref,
+            @Nonnull Store<EntityStore> store
+    ) {
+        // EnvironmentSource no longer exposes a type string, only a death message
+        // translation key (e.g. "server.general.deathCause.explosion"): use its last segment.
         // Check this first since it's more specific than the DamageCause asset
         if (deathInfo.getSource() instanceof Damage.EnvironmentSource env) {
-            return env.getType().toLowerCase();
+            String key = env.getDeathMessage(deathInfo, ref, store).getMessageId();
+            if (key != null && !key.isEmpty()) {
+                return key.substring(key.lastIndexOf('.') + 1).toLowerCase();
+            }
         }
 
         // For all other sources, use the DamageCause asset ID (fall, drowning,...)

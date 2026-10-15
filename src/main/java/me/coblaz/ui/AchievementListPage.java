@@ -15,6 +15,7 @@ import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.protocol.packets.interface_.EventTitleStyle;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import me.coblaz.achievements.AchievementDefinition;
 import me.coblaz.achievements.AchievementRegistry;
@@ -173,7 +174,7 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
                     playerRef,
                     Message.raw("Not connected to Archipelago."),
                     Message.raw("Connect before collecting locations."),
-                    true
+                    EventTitleStyle.Major
             );
             return;
         }
@@ -186,7 +187,7 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
                     playerRef,
                     Message.raw("No achievements ready to collect."),
                     Message.raw(""),
-                    true
+                    EventTitleStyle.Major
             );
             return;
         }
@@ -196,7 +197,7 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
                     playerRef,
                     Message.raw("Achievement collected!"),
                     Message.raw(def.getTitle()),
-                    true
+                    EventTitleStyle.Major
             );
         }
 
@@ -215,7 +216,7 @@ public class AchievementListPage extends InteractiveCustomUIPage<AchievementList
                 playerRef,
                 Message.raw("Achievement collected!"),
                 Message.raw(def != null ? def.getTitle() : achievementId),
-                true
+                EventTitleStyle.Major
         );
         refresh();
     }

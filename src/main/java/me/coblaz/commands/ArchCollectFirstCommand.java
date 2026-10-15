@@ -10,6 +10,7 @@ import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayer
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.protocol.packets.interface_.EventTitleStyle;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import me.coblaz.achievements.AchievementDefinition;
 import me.coblaz.achievements.AchievementStatus;
@@ -70,7 +71,7 @@ public class ArchCollectFirstCommand extends AbstractPlayerCommand {
                        @Nonnull String title,
                        @Nonnull String subtitle) {
         EventTitleUtil.showEventTitleToPlayer(
-                playerRef, Message.raw(title), Message.raw(subtitle), true
+                playerRef, Message.raw(title), Message.raw(subtitle), EventTitleStyle.Major
         );
     }
 }

@@ -4,6 +4,7 @@ import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.protocol.packets.interface_.EventTitleStyle;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import me.coblaz.achievements.*;
 import me.coblaz.archipelago.ArchipelagoManager;
@@ -60,7 +61,7 @@ public class Main extends JavaPlugin {
                     playerRef,
                     Message.raw("Achievement collected!"),
                     Message.raw(def.getTitle()),
-                    true
+                    EventTitleStyle.Major
             );
 
             // Send the location check to the Archipelago server
@@ -76,7 +77,7 @@ public class Main extends JavaPlugin {
                                 playerRef,
                                 Message.raw("Item collected!"),
                                 Message.raw(def.getId()),
-                                true
+                                EventTitleStyle.Major
                         )
         );
 

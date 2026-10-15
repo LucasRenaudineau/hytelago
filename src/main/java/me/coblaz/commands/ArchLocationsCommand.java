@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.WorldMapTracker;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.protocol.packets.interface_.EventTitleStyle;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import me.coblaz.achievements.AchievementDefinition;
 import me.coblaz.achievements.AchievementRegistry;
@@ -56,7 +57,7 @@ public class ArchLocationsCommand extends AbstractPlayerCommand {
                     playerRef,
                     Message.raw("Not connected to Archipelago."),
                     Message.raw("Run /arch-connect first to load your locations."),
-                    true);
+                    EventTitleStyle.Major);
             return;
         }
 

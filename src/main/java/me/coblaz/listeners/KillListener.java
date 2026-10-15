@@ -11,6 +11,7 @@ import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathSystems;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.protocol.packets.interface_.EventTitleStyle;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import me.coblaz.achievements.AchievementRegistry;
@@ -68,7 +69,7 @@ public class KillListener extends DeathSystems.OnDeathSystem {
                 playerRef,
                 Message.raw("You killed " + entityName),
                 Message.raw(""),
-                true
+                EventTitleStyle.Major
         );
     }
 

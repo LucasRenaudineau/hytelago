@@ -10,6 +10,7 @@ import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayer
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.protocol.packets.interface_.EventTitleStyle;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import me.coblaz.archipelago.ArchipelagoManager;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
@@ -68,7 +69,7 @@ public class ArchDeathLinkCommand extends AbstractPlayerCommand {
                 playerRef,
                 Message.raw(title),
                 Message.raw(subtitle),
-                true
+                EventTitleStyle.Major
         );
     }
 }

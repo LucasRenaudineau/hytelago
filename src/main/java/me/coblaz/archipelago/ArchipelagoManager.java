@@ -16,6 +16,7 @@ import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.protocol.packets.interface_.EventTitleStyle;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import com.hypixel.hytale.server.flock.FlockPlugin;
 import com.hypixel.hytale.server.npc.asset.builder.Builder;
@@ -146,7 +147,7 @@ public final class ArchipelagoManager {
         private void showTitle(String title, String subtitle) {
             // Defer to the game thread via the per-player action queue.
             feedbackQueue.add((pr, r, s) -> EventTitleUtil.showEventTitleToPlayer(
-                    pr, Message.raw(title), Message.raw(subtitle), true));
+                    pr, Message.raw(title), Message.raw(subtitle), EventTitleStyle.Major));
         }
     }
 
@@ -235,7 +236,7 @@ public final class ArchipelagoManager {
 
         private void showTitle(String title, String subtitle) {
             feedbackQueue.add((pr, r, s) -> EventTitleUtil.showEventTitleToPlayer(
-                    pr, Message.raw(title), Message.raw(subtitle), true));
+                    pr, Message.raw(title), Message.raw(subtitle), EventTitleStyle.Major));
         }
 
         private static String describe(ConnectionResult result) {
