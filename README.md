@@ -45,7 +45,7 @@ Hytelago is a Hytale mod developped for playing Archipelago, a multiworld random
 
 # Set-up to play the mod
 
-Mod tested on Hytale version : 0.6.8
+Mod tested on Hytale version : 0.7.2
 
 Put the .jar of the last version in your Mods folder. Some mods are recommended : betterMap and InfiniteTeleporters.<br>
 *Note : Hytelago overrides the assets of almost all workbenches and of the backpack upgrades to change their crafts and tier upgrades, so a lot of mods won't be compatible with it.*
